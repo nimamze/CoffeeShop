@@ -7,7 +7,7 @@ class CustomUserManager(BaseUserManager):
     def create_user(self,phone,email,password,**kwargs):
 
         email = self.normalize_email(email)
-        user = self.model(phone = phone,**kwargs)
+        user = self.model(phone = phone,email=email,**kwargs)
         user.set_password(password)
         user.save()
         return user
@@ -24,12 +24,13 @@ class CustomUser(AbstractUser):
 
     username = None
     phone = models.CharField(unique=True,max_length=15)
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
     image = models.ImageField(null=True,blank=True)
     date = models.DateField(auto_now_add=True)
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     USERNAME_FIELD = 'phone'
+    REQUIRED_FIELDS = ['email']
     objects = CustomUserManager() # type: ignore
 
     def __str__(self) -> str:

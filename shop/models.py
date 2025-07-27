@@ -28,16 +28,17 @@ class Category(models.Model):
 
 class Favorite(models.Model):
 
-    customer = models.OneToOneField(CustomUser,on_delete=models.CASCADE,related_name='customer_favorite')
+    customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='favorites')
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='favorited_by',null=True, blank=True)
 
     def __str__(self) -> str:
         return f"{self.customer.first_name} {self.customer.last_name} favorite added"
 
 class Comment(models.Model):
 
-    score_choices = [('1','1'),('2','2'),('3','3'),('4','4'),('5','5')]
+    score_choices = [(1,'1'),(2,'2'),(3,'3'),(4,'4'),(5,'5')]
     text = models.TextField(max_length=50)
-    score = models.CharField(choices=score_choices)
+    score = models.IntegerField(choices=score_choices)
     product = models.ForeignKey('Product',on_delete=models.CASCADE,related_name='product_comment')
     customer = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name='customer_comment')
 
@@ -61,7 +62,6 @@ class Product(models.Model):
     category = models.ManyToManyField(Category,related_name='category_product')
     order = models.ManyToManyField(Order,related_name='order_product')
     ingredient = models.ManyToManyField(Ingredient,related_name='ingredient_product')
-    favorite = models.ForeignKey(Favorite,on_delete=models.CASCADE,related_name='favorite_product')
 
     def __str__(self) -> str:
         return f"product {self.name} added"

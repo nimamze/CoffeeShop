@@ -12,6 +12,8 @@
 <p><strong>Sign In At:</strong> {{ user_profile.date }}</p>
 </body>
 
-</html>
+<a href="{% url 'favorites' %}">
+    <button>Favorites</button>
+</a>
 
 {% endblock %}

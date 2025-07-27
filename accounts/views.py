@@ -1,6 +1,7 @@
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, UpdateView
+from django.views.generic import DetailView, UpdateView , ListView
 from .models import CustomUser
+from shop.models import Favorite
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class UserProfileView(LoginRequiredMixin, DetailView):
@@ -21,3 +22,12 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
 
     def get_object(self):
         return self.request.user
+
+class UserFavoritesView(LoginRequiredMixin,ListView):
+    
+    model =  Favorite
+    template_name = 'accounts/UserFavorites.html'
+    context_object_name = 'user_favorites'
+    
+    def get_queryset(self):
+        return Favorite.objects.filter(user=self.request.user)

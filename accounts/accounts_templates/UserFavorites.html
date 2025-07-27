@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% for favorite in user_favorites %}
+<a href="{% url 'shop.product_detail' favorite.product.pk %}">{{ favorite.product.name }}</a><br>
+{% empty %}
+<p>You have no favorite products</p>
+{% endfor %}
+
+{% endblock %}

@@ -59,9 +59,9 @@ class Product(models.Model):
     date = models.DateField(auto_now_add=True)
     availability = models.BooleanField(default=True)
     category = models.ManyToManyField(Category,related_name='category_product')
-    order = models.ManyToManyField(Order,related_name='order_product')
+    order = models.ManyToManyField(Order,related_name='order_product',blank=True)
     ingredient = models.ManyToManyField(Ingredient,related_name='ingredient_product')
-    favorite = models.ForeignKey(Favorite,on_delete=models.CASCADE,related_name='favorite_product')
+    favorite = models.ForeignKey(Favorite,on_delete=models.CASCADE,related_name='favorite_product',null=True, blank=True)
 
     def __str__(self) -> str:
         return f"product {self.name} added"

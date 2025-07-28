@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 
-class CustomUserManager(BaseUserManager):
+class CustomerManager(BaseUserManager):
 
     def create_user(self,phone,email,password,**kwargs):
 
@@ -20,7 +20,7 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(phone,email, password, **kwargs)  
 
     
-class CustomUser(AbstractUser):
+class Customer(AbstractUser):
 
     username = None
     phone = models.CharField(unique=True,max_length=15)
@@ -31,7 +31,7 @@ class CustomUser(AbstractUser):
     last_name = models.CharField(max_length=20)
     USERNAME_FIELD = 'phone'
     REQUIRED_FIELDS = ['email']
-    objects = CustomUserManager() # type: ignore
+    objects = CustomerManager() # type: ignore
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"

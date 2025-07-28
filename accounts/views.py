@@ -1,12 +1,12 @@
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, UpdateView , ListView
-from .models import CustomUser
+from .models import Customer
 from shop.models import Favorite
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class UserProfileView(LoginRequiredMixin, DetailView):
 
-    model = CustomUser
+    model = Customer
     template_name = 'accounts/UserProfile.html'
     context_object_name = 'user_profile'
 
@@ -15,7 +15,7 @@ class UserProfileView(LoginRequiredMixin, DetailView):
 
 class UpdateProfileView(LoginRequiredMixin, UpdateView):
 
-    model = CustomUser
+    model = Customer
     fields = ['first_name', 'last_name', 'email', 'image', 'phone']
     template_name = 'accounts/UserUpdateProfile.html'
     success_url = reverse_lazy('UserProfile')

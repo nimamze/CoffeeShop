@@ -1,11 +1,11 @@
 from django.db import models
-from accounts.models import CustomUser
+from accounts.models import Customer
 
 class Order(models.Model):
 
     date = models.DateField(auto_now_add=True)
     amount = models.IntegerField()
-    customer = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name='customer_order')
+    customer = models.ForeignKey(Customer,on_delete=models.CASCADE,related_name='customer_order')
     cart = models.ForeignKey('Cart',on_delete=models.CASCADE,related_name='cart_order')
 
     def __str__(self) -> str:
@@ -28,7 +28,7 @@ class Category(models.Model):
 
 class Favorite(models.Model):
 
-    customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='favorites')
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='favorites')
     product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='favorited_by',null=True, blank=True)
 
     def __str__(self) -> str:
@@ -40,7 +40,7 @@ class Comment(models.Model):
     text = models.TextField(max_length=50)
     score = models.IntegerField(choices=score_choices)
     product = models.ForeignKey('Product',on_delete=models.CASCADE,related_name='product_comment')
-    customer = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name='customer_comment')
+    customer = models.ForeignKey(Customer,on_delete=models.CASCADE,related_name='customer_comment')
 
     def __str__(self) -> str:
         return f"comment {self.text} for user {self.customer.first_name} {self.customer.last_name} added"

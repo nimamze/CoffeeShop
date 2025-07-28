@@ -21,7 +21,7 @@ class Cart(models.Model):
 class Category(models.Model):
     
     name = models.CharField(max_length=50)
-    image = models.ImageField()
+    image = models.ImageField(upload_to='category_image/')
 
     def __str__(self) -> str:
         return f"category {self.name} added"

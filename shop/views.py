@@ -20,4 +20,4 @@ class ProductListView(ListView):
 class ProductDetailView(DetailView):
     model = Product
     template_name ='products_details.html'
-    context_object_name = 'products'
+    context_object_name = 'product'

@@ -1,8 +1,49 @@
-<h1>products</h1>
-<ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Card with Image and Link</title>
+  <style>
+    .card {
+      width: 200px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      font-family: sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .card a {
+      display: block;
+      padding: 10px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .card a:hover {
+      color: #007BFF;
+    }
+  </style>
+</head>
+<body>
   {% for product in products %}
-    <li>
-      <a href="{% url 'product_details' product.pk %}">{{ products.name }}</a>
-    </li>
+    <div class="card">
+      {% for image in product.product_image.all %}
+        {% if image.is_main and not main_image_rendered %}
+          <img src="{{ image.image.url }}" alt="{{ product.name }}">
+        {% endif %}
+      {% endfor %}
+      <a href="{% url 'product_details' product.pk %}">{{ product.name }}</a>
+    </div>
   {% endfor %}
-</ul>
+</body>
+</html>

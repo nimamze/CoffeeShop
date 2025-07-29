@@ -43,6 +43,12 @@
         </option>
       {% endfor %}
     </select>
+    &nbsp;&nbsp;
+
+  <label for="date">Date:</label>
+  <input type="date" name="date" id="date" value="{{ selected_date }}">
+
+  <button type="submit">Filter</button>
   </form>
 
   {% for product in products %}

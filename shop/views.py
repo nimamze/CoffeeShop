@@ -19,14 +19,18 @@ class ProductListView(ListView):
     def get_queryset(self):
         queryset = Product.objects.all()
         category_id = self.request.GET.get('category')
+        date = self.request.GET.get('date')
         if category_id:
             queryset = queryset.filter(category__id=category_id)
+        if date:
+            queryset = queryset.filter(date=date)
         return queryset.distinct()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
         context['selected_category'] = self.request.GET.get('category')
+        context['selected_date'] = self.request.GET.get('date')
         return context
 
 class ProductDetailView(DetailView):

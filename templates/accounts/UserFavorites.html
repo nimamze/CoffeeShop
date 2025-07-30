@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}علاقه‌مندی‌ها{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>محصولات مورد علاقه</h2>
+    {% for favorite in user_favorites %}
+    <a href="{% url 'shop.product_detail' favorite.product.pk %}">{{ favorite.product.name }}</a><br>
+    {% empty %}
+    <p>محصولی در لیست علاقه‌مندی‌های شما نیست.</p>
+    {% endfor %}
+</div>
+<a href="{% url 'home' %}">Home</a>
+{% endblock %}

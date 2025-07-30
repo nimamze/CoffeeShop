@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}ویرایش محصول{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h2>ویرایش محصول: {{ product.name }}</h2>
+
+  <div class="link-text">
+    <a href="{% url 'product_image_delete' %}?product_id={{ object.id }}">حذف تصاویر</a>
+  </div>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">ذخیره تغییرات</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}پروفایل کاربر{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>پروفایل</h2>
+    <p><strong>نام:</strong> {{ user_profile.first_name }} {{ user_profile.last_name }}</p>
+    {% if user_profile.image %}
+    <p><strong>عکس:</strong><br><img src="{{ user_profile.image.url }}" alt="Profile Image" width="150"></p>
+    {% else %}
+    <p><strong>عکس:</strong> آپلود نشده</p>
+    {% endif %}
+    <p><strong>تلفن:</strong> {{ user_profile.phone }}</p>
+    <p><strong>ایمیل:</strong> {{ user_profile.email }}</p>
+    <p><strong>تاریخ ثبت:</strong> {{ user_profile.date }}</p>
+
+    <a href="{% url 'favorites' %}">
+        <button>محصولات مورد علاقه</button>
+    </a>
+    <a href="{% url 'home' %}">Home</a>
+</div>
+{% endblock %}

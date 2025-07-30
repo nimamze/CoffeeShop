@@ -10,7 +10,7 @@ def send_welcome_email(sender, instance, created, **kwargs):
     if created:
         send_mail(
             subject='Welcome to our website!',
-            message='Hi {}, thank you for registering on our site. be site ma khosh Amadid.'.format(instance.username),
+            message=f'Hi {instance.first_name}, thank you for registering on our site. be site ma khosh Amadid.',
             from_email=None,
             recipient_list=[instance.email],
             fail_silently=False,

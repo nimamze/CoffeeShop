@@ -36,8 +36,8 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True,verbose_name='ایمیل')
     image = models.ImageField(upload_to=user_image_upload_to,null=True,blank=True)
     date = models.DateField(auto_now_add=True)
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=20)
+    first_name = models.CharField(max_length=20,verbose_name='نام')
+    last_name = models.CharField(max_length=20,verbose_name='نام خانوادگی')
     USERNAME_FIELD = 'phone'
     REQUIRED_FIELDS = ['email','first_name','last_name']
     objects = CustomUserManager() # type: ignore

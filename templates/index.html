@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>صفحه اصلی</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Vazirmatn', sans-serif;
+      background: linear-gradient(to top left, #0f0c29, #302b63, #24243e);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+      width: 360px;
+      text-align: center;
+      backdrop-filter: blur(20px);
+    }
+
+    .card h1 {
+      margin-bottom: 15px;
+      font-size: 32px;
+    }
+
+    .card p {
+      font-size: 16px;
+      color: #ddd;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(to right, #a18cd1, #fbc2eb);
+      color: black;
+      font-weight: bold;
+      text-decoration: none;
+      margin: 5px;
+      transition: 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      opacity: 0.85;
+    }
+
+    form {
+      display: inline;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>به سایت ما خوش آمدید</h1>
+    <p>این یک صفحه‌ی اصلی ساده است با طراحی شفاف و زیبای فارسی</p>
+
+    {% if user.is_authenticated %}
+      <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn">خروج</button>
+        <a href="{% url 'menu' %}" class="btn">منو</a>
+        <a href="{% url 'profile' %}" class="btn">پروفایل من</a>
+    </form>
+    {% else %}
+    <a href="{% url 'login' %}" class="btn">ورود</a>
+    <a href="{% url 'signup' %}" class="btn">ثبت‌نام</a>
+    <a href="{% url 'menu' %}" class="btn">منو</a>
+    {% endif %}
+  </div>
+</body>
+</html>

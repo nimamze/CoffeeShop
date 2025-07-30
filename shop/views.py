@@ -4,7 +4,9 @@ from django.views.generic import ListView, DetailView, DeleteView
 from django.urls import reverse_lazy
 from .models import ProductImage, Product, Category
 from .forms import ProductImageForm
-
+from .models import Product
+from django.shortcuts import render
+from django.views.generic import ListView
 # Create your views here.
 class ProductImageView(CreateView):
     model = ProductImage
@@ -68,3 +70,6 @@ class DeleteImage(DeleteView):
         product_id = request.GET.get('product_id')
         ProductImage.objects.filter(id__in=image_ids).delete()
         return redirect('product_edit', pk=product_id)
+class MenuView(ListView) :
+    model = Product
+    template_name = 'menu.html'

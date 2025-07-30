@@ -24,7 +24,7 @@ class Category(models.Model):
     image = models.ImageField(upload_to='category_image/')
 
     def __str__(self) -> str:
-        return f"category {self.name} added"
+        return f"{self.name}"
 
 class Favorite(models.Model):
 
@@ -64,7 +64,7 @@ class Product(models.Model):
     favorite = models.ForeignKey(Favorite,on_delete=models.CASCADE,related_name='favorite_product',null=True, blank=True)
 
     def __str__(self) -> str:
-        return f"product {self.name} added"
+        return f"{self.name}"
     
 class ProductImage(models.Model):
 

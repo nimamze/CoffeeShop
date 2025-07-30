@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from django.contrib.auth.views import LoginView,LogoutView
+from django.contrib.auth.views import LoginView
 from django.views.generic.edit import CreateView
 from .forms import CustomUserCreationForm
 from django.views.generic import ListView

@@ -7,14 +7,16 @@ from .forms import ProductImageForm
 from .models import Product
 from django.shortcuts import render
 from django.views.generic import ListView
-# Create your views here.
+
 class ProductImageView(CreateView):
+
     model = ProductImage
     form_class = ProductImageForm
     template_name = 'product_image_form.html'
     success_url = reverse_lazy('home')
 
 class ProductListView(ListView):
+
     model = Product
     template_name = 'products_list.html'
     context_object_name = 'products'
@@ -29,6 +31,7 @@ class ProductListView(ListView):
         return queryset.distinct()
 
     def get_context_data(self, **kwargs):
+
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
         context['selected_category'] = self.request.GET.get('category')
@@ -36,11 +39,13 @@ class ProductListView(ListView):
         return context
 
 class ProductDetailView(DetailView):
+
     model = Product
     template_name ='products_details.html'
     context_object_name = 'product'
 
 class ProductUpdateView(UpdateView):
+
     model = Product
     fields = ['name', 'price', 'availability', 'category', 'ingredient']
     template_name = 'product_edit.html'
@@ -48,6 +53,7 @@ class ProductUpdateView(UpdateView):
     success_url = reverse_lazy('product_list') 
 
 class DeleteImage(DeleteView):
+
     template_name = 'image_delete.html'
 
     def get_queryset(self):
@@ -70,6 +76,7 @@ class DeleteImage(DeleteView):
         product_id = request.GET.get('product_id')
         ProductImage.objects.filter(id__in=image_ids).delete()
         return redirect('product_edit', pk=product_id)
+    
 class MenuView(ListView) :
     model = Product
     template_name = 'menu.html'

@@ -137,7 +137,6 @@ LOGOUT_REDIRECT_URL = '/'
 # wellcome Email
 from decouple import config
 
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587

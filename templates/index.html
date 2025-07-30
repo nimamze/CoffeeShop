@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
   <meta charset="UTF-8">
   <title>صفحه اصلی</title>
@@ -59,26 +60,27 @@
     form {
       display: inline;
     }
-
   </style>
 </head>
+
 <body>
   <div class="card">
     <h1>به سایت ما خوش آمدید</h1>
     <p>این یک صفحه‌ی اصلی ساده است با طراحی شفاف و زیبای فارسی</p>
 
     {% if user.is_authenticated %}
-      <form method="POST" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit" class="btn">خروج</button>
-        <a href="{% url 'menu' %}" class="btn">منو</a>
-        <a href="{% url 'profile' %}" class="btn">پروفایل من</a>
+    <form method="POST" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn">خروج</button>
+      <a href="{% url 'product_list' %}" class="btn">منو</a>
+      <a href="{% url 'profile' %}" class="btn">پروفایل من</a>
     </form>
     {% else %}
     <a href="{% url 'login' %}" class="btn">ورود</a>
     <a href="{% url 'signup' %}" class="btn">ثبت‌نام</a>
-    <a href="{% url 'menu' %}" class="btn">منو</a>
+    <a href="{% url 'product_list' %}" class="btn">منو</a>
     {% endif %}
   </div>
 </body>
+
 </html>

@@ -4,22 +4,21 @@ from django.views.generic import ListView, DetailView, DeleteView
 from django.urls import reverse_lazy
 from .models import ProductImage, Product, Category
 from .forms import ProductImageForm
-from .models import Product
-from django.shortcuts import render
-from django.views.generic import ListView
+# from django.views.generic import ListView
 
-class ProductImageView(CreateView):
+# class ProductImageView(CreateView):
 
-    model = ProductImage
-    form_class = ProductImageForm
-    template_name = 'product_image_form.html'
-    success_url = reverse_lazy('home')
+#     model = ProductImage
+#     form_class = ProductImageForm
+#     template_name = 'product_image_form.html'
+#     success_url = reverse_lazy('home')
 
 class ProductListView(ListView):
 
     model = Product
     template_name = 'products_list.html'
     context_object_name = 'products'
+    
     def get_queryset(self):
         queryset = Product.objects.all()
         category_id = self.request.GET.get('category')

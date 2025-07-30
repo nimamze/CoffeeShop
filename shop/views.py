@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, DeleteView
 from django.urls import reverse_lazy
 from .models import ProductImage, Product, Category
 from .forms import ProductImageForm
@@ -44,3 +44,27 @@ class ProductUpdateView(UpdateView):
     template_name = 'product_edit.html'
     context_object_name = 'product'
     success_url = reverse_lazy('product_list') 
+
+class DeleteImage(DeleteView):
+    template_name = 'image_delete.html'
+
+    def get_queryset(self):
+        queryset = ProductImage.objects.all()
+        product_id = self.request.GET.get('product_id')
+        print(product_id)
+        if product_id:
+            queryset = queryset.filter(product__id=product_id)
+            print(product_id)
+        
+        return queryset.distinct()
+    
+    def get(self, request):
+        images = self.get_queryset()
+        product_id = request.GET.get('product_id')
+        return render(request, self.template_name, {'images': images, 'product_id': product_id})
+    
+    def post(self, request):
+        image_ids = request.POST.getlist('delete_image')
+        product_id = request.GET.get('product_id')
+        ProductImage.objects.filter(id__in=image_ids).delete()
+        return redirect('product_edit', pk=product_id)

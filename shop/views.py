@@ -3,6 +3,7 @@ from django.views.generic.edit import UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.urls import reverse_lazy
 from .models import ProductImage, Product, Category
+from .forms import ProductForm
 
 
 class ProductListView(ListView):
@@ -44,6 +45,7 @@ class ProductDetailView(DetailView):
 class ProductUpdateView(UpdateView):
 
     model = Product
+    form_class = ProductForm
     fields = ['name', 'price', 'availability', 'category', 'ingredient']
     template_name = 'shop/product_edit.html'
     context_object_name = 'product'

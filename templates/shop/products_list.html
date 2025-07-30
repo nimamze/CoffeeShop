@@ -3,25 +3,17 @@
 
 {% block content %}
 <div class="card">
-  <form method="get" style="text-align: center; margin-bottom: 30px;">
-    <label for="category">دسته‌بندی:</label>
-    <select name="category" id="category" onchange="this.form.submit()">
-      <option value="">-- همه دسته‌ها --</option>
-      {% for cat in categories %}
-      {% if cat.id == selected_category|add:"0" %}
-      <option value="{{ cat.id }}" selected>{{ cat.name }}</option>
-      {% else %}
-      <option value="{{ cat.id }}">{{ cat.name }}</option>
-      {% endif %}
-      {% endfor %}
-    </select>
-
-    &nbsp;&nbsp;
-
-    <label for="date">تاریخ:</label>
-    <input type="date" name="date" id="date" value="{{ selected_date }}">
-    <button type="submit">فیلتر</button>
-  </form>
+  <div style="display: flex; gap: 20px; justify-content: center;">
+    {% for cat in categories %}
+    <form method="get" style="display: inline;">
+      <input type="hidden" name="category" value="{{ cat.id }}">
+      <button type="submit" style="border: none; background: none;">
+        <img src="{{ cat.image.url }}" alt="{{ cat.name }}">
+        {{ cat.name }}
+      </button>
+    </form>
+    {% endfor %}
+  </div>
 
   <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
     {% for product in products %}

@@ -2,7 +2,9 @@
 {% block title %}جزئیات {{ product.name }}{% endblock %}
 
 {% block content %}
+
 <div class="card">
+
   <h2>{{ product.name }}</h2>
   <p>قیمت: ${{ product.price }}</p>
   <p>{% if product.availability %}موجود{% else %}ناموجود{% endif %}</p>

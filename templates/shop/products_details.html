@@ -12,7 +12,7 @@
 
   <div class="product-images"
     style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 20px;">
-    {% for image in product.images.all %}
+    {% for image in product.product_image.all %}
     <img src="{{ image.image.url }}" alt="تصویر {{ forloop.counter }}"
       style="width: 300px; height: auto; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
     {% empty %}

@@ -23,7 +23,7 @@ class ProductListView(ListView):
         if date:
             parsed_date = parse_date(date)
             if parsed_date:
-                queryset = queryset.filter(date__date=parsed_date)
+                queryset = queryset.filter(date=parsed_date)
 
         return queryset.distinct()
 
@@ -32,9 +32,9 @@ class ProductListView(ListView):
         context['categories'] = Category.objects.all()
 
         category_id = self.request.GET.get('category')
-        context['selected_category'] = category_id if category_id and category_id.isdigit() else ""
+        context['selected_category'] = category_id 
 
-        context['selected_date'] = self.request.GET.get('date') or ""
+        context['selected_date'] = self.request.GET.get('date') 
 
         return context
 

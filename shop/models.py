@@ -51,11 +51,17 @@ class Product(models.Model):
 
 class ProductImage(models.Model):
 
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_image')
     image = models.ImageField(upload_to='product_images/')
-    def __str__(self):
-        return f"Image for {self.product.name}"
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    is_main = models.BooleanField(default=False)
 
+    # def delete(self, using = ..., keep_parents = ...):
+    #     self.image.delete()
+    #     return super().delete(using, keep_parents)
+
+    def __str__(self):
+        return f"product image for {self.product.name} added"
 
 class Favorite(models.Model):
 

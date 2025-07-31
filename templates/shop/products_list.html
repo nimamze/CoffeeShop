@@ -4,14 +4,28 @@
 {% block content %}
 <div class="card">
 
+  <form method="get" style="text-align: center; margin-bottom: 20px;">
+    <label>فیلتر بر اساس تاریخ:</label>
+    <input type="date" name="date" value="{{ selected_date }}">
+    {% if selected_category %}
+    <input type="hidden" name="category" value="{{ selected_category }}">
+    {% endif %}
+    <button type="submit">فیلتر</button>
+  </form>
+
   <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px;">
     {% for cat in categories %}
     <form method="get" style="display: inline;">
       <input type="hidden" name="category" value="{{ cat.id }}">
+      {% if selected_date %}
+      <input type="hidden" name="date" value="{{ selected_date }}">
+      {% endif %}
       <button type="submit" style="border: none; background: none; text-align: center;">
-        <img src="{{ cat.image.url }}" alt="{{ cat.name }}"
-          style="width: 100px; height: 100px; object-fit: cover; border-radius: 10px;">
-        <div style="margin-top: 5px;">{{ cat.name }}</div>
+        <img src="{{ cat.image.url }}" alt="{{ cat.name }}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 10px;
+                      {% if cat.id|stringformat:" s"==selected_category %}border: 3px solid red;{% endif %}">
+        <div style="margin-top: 5px; {% if cat.id|stringformat:" s"==selected_category %}font-weight: bold;{% endif %}">
+          {{ cat.name }}
+        </div>
       </button>
     </form>
     {% endfor %}
@@ -36,11 +50,13 @@
     </div>
     {% endfor %}
   </div>
+
+
   <div style="text-align: center; margin-top: 30px;">
     <a href="{% url 'home' %}">
-      <button> صفحه اصلی </button>
+      <button>صفحه اصلی</button>
     </a>
   </div>
 
 </div>
-{% endblock %} 
+{% endblock %}

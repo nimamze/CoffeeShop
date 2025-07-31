@@ -29,10 +29,13 @@
       <a href="{% url 'product_details' product.pk %}" style="display: block; margin-top: 10px; font-weight: bold;">
         {{ product.name }}
       </a>
+      <a href="{% url 'product_edit' product.pk %}" style="display: block; margin-top: 5px;">
+        ویرایش محصول
+      </a>
+      <a href="{% url 'add_to_favorites' product.pk %}">افزودن به علاقه‌مندی‌ها</a>
     </div>
     {% endfor %}
   </div>
-
   <div style="text-align: center; margin-top: 30px;">
     <a href="{% url 'home' %}">
       <button> صفحه اصلی </button>

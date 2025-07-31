@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
+from django.views import View
 from django.views.generic.edit import UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.urls import reverse_lazy
@@ -46,31 +47,26 @@ class ProductUpdateView(UpdateView):
 
     model = Product
     form_class = ProductForm
-    fields = ['name', 'price', 'availability', 'category', 'ingredient']
     template_name = 'shop/product_edit.html'
     context_object_name = 'product'
     success_url = reverse_lazy('product_list')
 
 
-class DeleteImage(DeleteView):
-    
+class DeleteImage(View):
     template_name = 'shop/image_delete.html'
-    def get_queryset(self):
-        queryset = ProductImage.objects.all()
-        product_id = self.request.GET.get('product_id')
-        if product_id:
-            queryset = queryset.filter(product__id=product_id)
-        return queryset.distinct()
 
-    def get(self, request, *args, **kwargs):
-        images = self.get_queryset()
-        product_id = request.GET.get('product_id')
-        return render(request, self.template_name, {'images': images, 'product_id': product_id})
+    def get(self, request, product_id, *args, **kwargs):
+        product = get_object_or_404(Product, id=product_id)
+        images = ProductImage.objects.filter(product=product)
+        return render(request, self.template_name, {
+            'images': images,
+            'product': product,
+        })
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, product_id, *args, **kwargs):
         image_ids = request.POST.getlist('delete_image')
-        product_id = request.GET.get('product_id')
         if image_ids:
-            ProductImage.objects.filter(id__in=image_ids).delete()
+            ProductImage.objects.filter(id__in=image_ids, product_id=product_id).delete()
         return redirect('product_edit', pk=product_id)
+
 

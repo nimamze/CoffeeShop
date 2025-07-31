@@ -1,10 +1,11 @@
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, UpdateView, ListView, CreateView
 from .forms import CustomUserCreationForm
 from .models import Customer
-from shop.models import Favorite
+from shop.models import Favorite, Product
 
 
 class CustomLoginView(LoginView):
@@ -42,9 +43,15 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
 
 
 class UserFavoritesView(LoginRequiredMixin, ListView):
-
     model = Favorite
     template_name = 'accounts/UserFavorites.html'
     context_object_name = 'user_favorites'
+
     def get_queryset(self):
         return Favorite.objects.filter(customer=self.request.user)
+
+
+def add_to_favorites(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    Favorite.objects.get_or_create(customer=request.user, product=product)
+    return redirect('favorites')

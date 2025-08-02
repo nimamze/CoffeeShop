@@ -61,6 +61,7 @@ class Migration(migrations.Migration):
             name='Product',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+<<<<<<< HEAD
                 ('name', models.CharField(max_length=50, verbose_name='نام محصول')),
                 ('description', models.TextField(blank=True, verbose_name='توضیحات')),
                 ('price', models.DecimalField(decimal_places=2, max_digits=10, verbose_name='قیمت')),
@@ -68,25 +69,46 @@ class Migration(migrations.Migration):
                 ('date_added', models.DateTimeField(auto_now_add=True)),
                 ('categories', models.ManyToManyField(related_name='products', to='shop.category', verbose_name='دسته\u200cها')),
                 ('ingredients', models.ManyToManyField(blank=True, related_name='products', to='shop.ingredient')),
+=======
+                ('name', models.CharField(max_length=50)),
+                ('price', models.PositiveIntegerField()),
+                ('date', models.DateField(auto_now_add=True)),
+                ('availability', models.BooleanField(default=True)),
+                ('category', models.ManyToManyField(related_name='category_products', to='shop.category')),
+                ('ingredient', models.ManyToManyField(related_name='ingredient_products', to='shop.ingredient')),
+                ('order', models.ManyToManyField(blank=True, related_name='products', to='shop.order')),
+>>>>>>> 745b159ab47724065e499e6cc04019071a565a35
             ],
         ),
         migrations.CreateModel(
             name='Favorite',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+<<<<<<< HEAD
                 ('customer', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='favorites', to=settings.AUTH_USER_MODEL)),
                 ('products', models.ManyToManyField(blank=True, related_name='favorited_by', to='shop.product')),
+=======
+                ('customer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='customer_favorites', to=settings.AUTH_USER_MODEL)),
+                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='product_favorited', to='shop.product')),
+>>>>>>> 745b159ab47724065e499e6cc04019071a565a35
             ],
         ),
         migrations.CreateModel(
             name='Comment',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+<<<<<<< HEAD
                 ('score', models.IntegerField(choices=[(1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')], verbose_name='امتیاز')),
                 ('text', models.TextField(max_length=500, verbose_name='متن نظر')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('customer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to=settings.AUTH_USER_MODEL)),
                 ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='shop.product')),
+=======
+                ('text', models.TextField(max_length=50)),
+                ('score', models.IntegerField(choices=[(1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')])),
+                ('customer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='customer_comments', to=settings.AUTH_USER_MODEL)),
+                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='product_comments', to='shop.product')),
+>>>>>>> 745b159ab47724065e499e6cc04019071a565a35
             ],
         ),
         migrations.CreateModel(
@@ -104,8 +126,13 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('image', models.ImageField(upload_to='product_images/')),
                 ('uploaded_at', models.DateTimeField(auto_now_add=True)),
+<<<<<<< HEAD
                 ('is_main', models.BooleanField(default=False, verbose_name='تصویر اصلی؟')),
                 ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='images', to='shop.product')),
+=======
+                ('is_main', models.BooleanField(default=False)),
+                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='product_image', to='shop.product')),
+>>>>>>> 745b159ab47724065e499e6cc04019071a565a35
             ],
         ),
     ]

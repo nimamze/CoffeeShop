@@ -2,18 +2,28 @@
 {% block title %}جزئیات {{ product.name }}{% endblock %}
 
 {% block content %}
-<div class="card">
-  <h2>{{ product.name }}</h2>
-  <p>قیمت: ${{ product.price }}</p>
-  <p>{% if product.availability %}موجود{% else %}ناموجود{% endif %}</p>
+<div class="card" style="padding: 20px; text-align: center;">
 
-  <div class="product-images" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
-    {% for image in product.images.all %}
+  <h2 style="margin-bottom: 10px;">{{ product.name }}</h2>
+  <p style="font-size: 18px; margin-bottom: 5px;">قیمت: ${{ product.price }}</p>
+  <p style="font-size: 16px; color: {% if product.availability %}green{% else %}red{% endif %};">
+    {% if product.availability %}موجود{% else %}ناموجود{% endif %}
+  </p>
+
+  <div class="product-images"
+    style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 20px;">
+    {% for image in product.product_image.all %}
     <img src="{{ image.image.url }}" alt="تصویر {{ forloop.counter }}"
-      style="width: 300px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+      style="width: 300px; height: auto; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
     {% empty %}
     <p>تصویری برای این محصول موجود نیست.</p>
     {% endfor %}
+  </div>
+
+  <div style="margin-top: 30px;">
+    <a href="{% url 'product_list' %}">
+      <button>بازگشت به منو</button>
+    </a>
   </div>
 
 </div>

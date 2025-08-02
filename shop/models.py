@@ -18,6 +18,7 @@ class Category(models.Model):
 class Ingredient(models.Model):
     name = models.CharField(max_length=50, verbose_name='نام ماده اولیه')
 
+    name = models.CharField(max_length=50)
     def __str__(self):
         return self.name
 
@@ -51,16 +52,21 @@ class ProductImage(models.Model):
         return f"Image of {self.product.name}"
 
 
+    def __str__(self):
+        return f"product image for {self.product.name} added"
 
 class Favorite(models.Model):
     customer = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='favorites')
     products = models.ManyToManyField(Product, related_name='favorited_by', blank=True)
 
+    customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='customer_favorites')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_favorited')
     def __str__(self):
         return f"Favorites of {self.customer.get_full_name()}"
 
 
 class Comment(models.Model):
+
     SCORE_CHOICES = [(i, str(i)) for i in range(1, 6)]
 
     customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='comments')

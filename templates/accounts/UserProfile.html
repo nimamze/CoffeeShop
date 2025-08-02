@@ -3,16 +3,32 @@
 
 {% block content %}
 <div class="card">
-    <h2>پروفایل</h2>
+    <h2>پروفایل کاربر</h2>
+
     <p><strong>نام:</strong> {{ user_profile.first_name }} {{ user_profile.last_name }}</p>
+
     {% if user_profile.image %}
-    <p><strong>عکس:</strong><br><img src="{{ user_profile.image.url }}" alt="Profile Image" width="150"></p>
+    <p><strong>عکس پروفایل:</strong></p>
+    <img src="{{ user_profile.image.url }}" alt="Profile Image" width="150" style="border-radius: 8px;">
     {% else %}
-    <p><strong>عکس:</strong> آپلود نشده</p>
+    <p><strong>عکس پروفایل:</strong> آپلود نشده</p>
     {% endif %}
+
     <p><strong>تلفن:</strong> {{ user_profile.phone }}</p>
     <p><strong>ایمیل:</strong> {{ user_profile.email }}</p>
-    <p><strong>تاریخ ثبت:</strong> {{ user_profile.date }}</p>
+    <p><strong>تاریخ ثبت‌نام:</strong> {{ user_profile.date }}</p>
+
+    <div style="margin-top: 20px;">
+        <a href="{% url 'user_update' %}" style="display: block; margin-bottom: 16px;">
+            <button>ویرایش پروفایل</button>
+        </a>
+        <a href="{% url 'favorites' %}" style="display: block; margin-bottom: 16px;">
+            <button>محصولات مورد علاقه</button>
+        </a>
+        <a href="{% url 'home' %}" style="display: block;">
+            <button>صفحه اصلی</button>
+        </a>
+    </div>
 
     <a href="{% url 'favorites' %}">
         <button>محصولات مورد علاقه</button>

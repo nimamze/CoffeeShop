@@ -8,6 +8,8 @@ from .views import (
     SignUpView
 )
 
+
+
 urlpatterns = [
     path('user-profile/', ProfileView.as_view(), name='profile'),
     path('user-profile-update/', UpdateProfileView.as_view(), name='user_update'),

@@ -1,23 +1,132 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block title %}صفحه اصلی{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
 
-{% block content %}
-<div class="card">
-  <h1>به سایت ما خوش آمدید</h1>
-  <p>این یک صفحه‌ی اصلی ساده است با طراحی شفاف و زیبای فارسی</p>
+    .product-card {
+      width: 260px;
+      border: 1px solid #dee2e6;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      margin: 10px;
+      padding: 15px;
+      background-color: white;
+      transition: transform 0.2s ease;
+    }
 
-  {% if user.is_authenticated %}
-  <form method="POST" action="{% url 'logout' %}" style="display: inline;">
-    {% csrf_token %}
-    <button type="submit">خروج</button>
-  </form>
-  <a href="{% url 'product_list' %}"><button>منو</button></a>
-  <a href="{% url 'profile' %}"><button>پروفایل من</button></a>
-  {% else %}
-  <a href="{% url 'login' %}"><button>ورود</button></a>
-  <a href="{% url 'signup' %}"><button>ثبت‌نام</button></a>
-  <a href="{% url 'product_list' %}"><button>منو</button></a>
-  {% endif %}
-</div>
-{% endblock %}
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-image {
+      width: 100%;
+      border-radius: 8px;
+      object-fit: cover;
+      max-height: 180px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 30px;
+      margin-bottom: 30px;
+      font-weight: 700;
+    }
+
+    .products-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="{% url 'product_list' %}">فروشگاه امیر</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="تغییر ناوبری">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'product_list' %}">خانه</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'product_list' %}">محصولات</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">ارتباط با ما</a>
+          </li>
+
+        {% if not request.user.is_authenticated %}
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">ورود</a>
+          </li>
+          <li class="nav-item">
+              
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'signup' %}">ثبت‌نام</a>
+                </li>
+                
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile' %}">ثبت‌نام</a>
+                  </li>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-link nav-link" style="padding: 0; margin: 0;">خروج</button>
+                </form>
+                </li>
+                {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+
+    <div class="btn-group">
+      <a href="{% url 'product_list' %}" class="btn btn-outline-danger">کتگوری</a>
+      <button type="button" class="btn btn-outline-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="visually-hidden">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu">
+        {% for category in categories %}
+        <li><a class="dropdown-item" href="{% url 'category_filter' category.name %}">{{ category.name }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <h1>محصولات</h1>
+
+    <div class="products-container">
+      {% for product in products %}
+      <div class="product-card">
+        <h5 class="mb-2">{{ product.name }}</h5>
+        <p class="text-muted">قیمت: {{ product.price }} تومان</p>
+        
+        {% if product.get_main_image %}
+        <img src="{{ product.get_main_image }}" alt="{{ product.name }}" class="product-image">
+        {% else %}
+        <div class="text-center text-secondary">تصویری موجود نیست</div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+</body>
+</html>

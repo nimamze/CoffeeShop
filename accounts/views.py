@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, UpdateView, ListView, CreateView
 
 from .forms import CustomUserCreationForm
-from .models import Customer
+from .models import CustomUser
 from shop.models import Favorite
 
 
@@ -23,7 +23,7 @@ class SignUpView(CreateView):
 
 
 class ProfileView(LoginRequiredMixin, DetailView):
-    model = Customer
+    model = CustomUser
     template_name = 'accounts/UserProfile.html'
     context_object_name = 'user_profile'
 
@@ -32,7 +32,7 @@ class ProfileView(LoginRequiredMixin, DetailView):
 
 
 class UpdateProfileView(LoginRequiredMixin, UpdateView):
-    model = Customer
+    model = CustomUser
     fields = ['first_name', 'last_name', 'email', 'image', 'phone']
     template_name = 'accounts/UserUpdateProfile.html'
     success_url = reverse_lazy('profile')

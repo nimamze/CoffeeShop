@@ -1,24 +1,63 @@
+/* بخش کلی صفحه */
 body {
-    background-color: #f8f9fa;
-    font-family: 'Vazirmatn', sans-serif;
     margin: 0;
+    font-family: 'Vazirmatn', sans-serif;
+    background: linear-gradient(to top left, #0f0c29, #302b63, #24243e);
+    color: white;
+    min-height: 100vh;
 }
 
-/* Navbar */
+/* نوار بالا */
 .navbar {
     background-color: #dc3545 !important;
+    padding: 15px;
 }
 
-/* Product Cards */
+/* عنوان بخش محصولات */
+.section-title {
+    text-align: center;
+    font-size: 30px;
+    margin: 30px 0;
+    font-weight: bold;
+}
+
+/* کانتینر صفحه */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* دسته‌بندی‌ها */
+.category-box {
+    background: linear-gradient(to right, #fbc2eb, #a18cd1);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    font-weight: bold;
+    width: 150px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* کارت محصول */
 .product-card {
     width: 260px;
-    border: 1px solid #dee2e6;
+    background: white;
+    color: black;
     border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 15px;
-    background-color: white;
     transition: transform 0.2s ease;
+    text-align: center;
 }
 
 .product-card:hover {
@@ -30,77 +69,28 @@ body {
     border-radius: 8px;
     object-fit: cover;
     max-height: 180px;
-}
-
-h1 {
-    text-align: center;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    font-weight: 700;
-}
-
-.products-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-/* Glassmorphism Card */
-.card {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(20px);
-}
-
-input,
-select,
-textarea {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-    font-size: 14px;
     margin-bottom: 10px;
-    box-sizing: border-box;
 }
 
-input:focus {
-    outline: none;
-    background-color: rgba(255, 255, 255, 0.2);
+.product-card .price {
+    font-size: 14px;
+    margin: 10px 0;
+    color: #555;
 }
 
-button {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 10px;
+.product-card .availability {
+    font-weight: bold;
+    color: #008000;
+}
+
+a.btn {
+    margin-top: 10px;
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 8px;
     background: linear-gradient(to right, #a18cd1, #fbc2eb);
     color: black;
     font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-button:hover {
-    opacity: 0.9;
-}
-
-a {
-    color: #7aa0ff;
     text-decoration: none;
+    font-size: 13px;
 }
-
-.link-text {
-    margin-top: 20px;
-    font-size: 14px;
-    text-align: center;
-}
-
-.no-underline {
-        text-decoration: none;
-        color: inherit; 
-    }

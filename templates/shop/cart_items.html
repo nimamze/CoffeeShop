@@ -1,79 +1,6 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>سبد خرید</title>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Vazirmatn', sans-serif;
-            background: linear-gradient(to top left, #0f0c29, #302b63, #24243e);
-            color: white;
-            min-height: 100vh;
-        }
+{% extends 'base.html' %}
 
-        .container {
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(20px);
-        }
-
-        h2 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: center;
-            font-size: 14px;
-        }
-
-        th {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        tr:nth-child(even) {
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        tfoot th {
-            background-color: rgba(255, 255, 255, 0.1);
-            font-size: 15px;
-        }
-
-        a.btn {
-            display: inline-block;
-            padding: 8px 14px;
-            border-radius: 8px;
-            background: linear-gradient(to right, #a18cd1, #fbc2eb);
-            color: black;
-            font-weight: bold;
-            text-decoration: none;
-            font-size: 13px;
-        }
-
-        a.btn:hover {
-            opacity: 0.9;
-        }
-    </style>
-</head>
-<body>
+{% block content %}
     <div class="container">
         <div class="card">
             <h2>سبد خرید من</h2>
@@ -122,5 +49,5 @@
     </a>
         </div>
     </div>
-</body>
-</html>
+
+{% endblock %}

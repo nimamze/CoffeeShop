@@ -1,0 +1,101 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Vazirmatn', sans-serif;
+    margin: 0;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #dc3545 !important;
+}
+
+/* Product Cards */
+.product-card {
+    width: 260px;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    margin: 10px;
+    padding: 15px;
+    background-color: white;
+    transition: transform 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-image {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+    max-height: 180px;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+.products-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Glassmorphism Card */
+.card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(20px);
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 14px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+input:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(to right, #a18cd1, #fbc2eb);
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+a {
+    color: #7aa0ff;
+    text-decoration: none;
+}
+
+.link-text {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+}

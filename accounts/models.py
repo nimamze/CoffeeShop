@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
+import os
+import uuid
 
 class CustomUserManager(BaseUserManager):
 
@@ -19,10 +21,6 @@ class CustomUserManager(BaseUserManager):
         kwargs.setdefault("is_active", True)
         return self.create_user(phone,email, password, **kwargs)  
 
-
-
-import os
-import uuid
 
 def user_image_upload_to(instance, filename):
     ext = filename.split('.')[-1]

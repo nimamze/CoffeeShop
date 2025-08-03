@@ -49,14 +49,10 @@ class UserFavoritesView(LoginRequiredMixin, ListView):
         return Favorite.objects.filter(customer=self.request.user)
 
 
-
-
-
 def add_to_favorites(request, pk):
     product = get_object_or_404(Product, pk=pk)
     Favorite.objects.get_or_create(customer=request.user, product=product)
     return redirect('favorites')
-
 
 
 class UserOrdersView(ListView):

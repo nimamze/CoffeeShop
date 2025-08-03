@@ -59,7 +59,9 @@
 
     <div class="products-container">
       {% for product in products %}
-      <div class="product-card">
+      <a href="{% url 'product_details' product.pk %}" class="no-underline">
+
+        <div class="product-card">
         <h5 class="mb-2">{{ product.name }}</h5>
         <p class="text-muted">قیمت: {{ product.price }} تومان</p>
         {% if product.get_main_image %}
@@ -72,6 +74,8 @@
         <a href="{% url 'add_to_favorites' product.pk %}">افزودن به علاقه‌مندی‌ها</a>
         {% endif %}
       </div>
+
+      </a>
       {% endfor %}
     </div>
   </div>

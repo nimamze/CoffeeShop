@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, UpdateView, ListView, CreateView
 from .forms import CustomUserCreationForm
 from .models import CustomUser
-from shop.models import Favorite,Product
+from shop.models import Favorite,Product,Order,OrderItem
 
 
 class CustomLoginView(LoginView):
@@ -49,7 +49,28 @@ class UserFavoritesView(LoginRequiredMixin, ListView):
         return Favorite.objects.filter(customer=self.request.user)
 
 
+
+
+
 def add_to_favorites(request, pk):
     product = get_object_or_404(Product, pk=pk)
     Favorite.objects.get_or_create(customer=request.user, product=product)
     return redirect('favorites')
+
+
+
+class UserOrdersView(ListView):
+    model = Order
+    template_name = 'accounts/user_orders.html'
+    context_object_name = 'user_orders'
+
+    def get_queryset(self):
+        return Order.objects.filter(customer=self.request.user)
+
+class UserOrderDetailView(ListView):
+    model = Order
+    template_name = 'accounts/user_order_detail.html'
+    context_object_name = 'user_order_details'
+
+    def get_queryset(self):
+        return Order.objects.filter(customer=self.request.user)

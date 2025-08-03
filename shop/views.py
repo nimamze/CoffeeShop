@@ -3,7 +3,7 @@ from django.views import View
 
 from .models import Product,Category
 
-# Create your views here.
+
 
 
 
@@ -16,3 +16,6 @@ class ProductList(View):
             category = Category.objects.get(name=name)
             products = Product.objects.filter(categories=category)
         return render(request,'index.html',{'products':products , 'categories':categories})
+
+
+

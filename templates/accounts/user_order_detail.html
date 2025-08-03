@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}ثبت‌نام{% endblock %}
+
+{% block content %}
+
+    {% for field in user_order_details %}
+    <li>{{ field.items }}</li>
+   
+    {% endfor %}
+    
+{% endblock %}

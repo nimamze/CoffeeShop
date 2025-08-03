@@ -4,7 +4,6 @@ from django.urls import reverse
 
 CustomUser = get_user_model()
 
-
 class Category(models.Model):
     name = models.CharField(max_length=50, verbose_name='نام دسته')
     image = models.ImageField(upload_to='category_images/', verbose_name='تصویر دسته‌بندی')
@@ -13,16 +12,12 @@ class Category(models.Model):
         return self.name
     
 
-
-
 class Ingredient(models.Model):
     name = models.CharField(max_length=50, verbose_name='نام ماده اولیه')
 
     name = models.CharField(max_length=50)
     def __str__(self):
         return self.name
-
-
 
 class Product(models.Model):
     name = models.CharField(max_length=50, verbose_name='نام محصول')
@@ -39,8 +34,6 @@ class Product(models.Model):
     def get_main_image(self):
         main_img = self.images.filter(is_main=True).first()
         return main_img.image.url if main_img else None
-
-
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
@@ -114,32 +107,3 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.quantity} x {self.product_name}"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

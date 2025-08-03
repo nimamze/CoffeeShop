@@ -7,7 +7,12 @@ from .models import (
     Favorite,
     Order,
     OrderItem,
+    Cart,
+    CartItem
 )
+
+admin.site.register(Cart)
+admin.site.register(CartItem)
 
 class ProductCategoryFilter(admin.SimpleListFilter):
     title = 'دسته‌بندی محصولات'

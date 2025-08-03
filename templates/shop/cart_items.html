@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>سبد خرید</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Vazirmatn', sans-serif;
+            background: linear-gradient(to top left, #0f0c29, #302b63, #24243e);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        tfoot th {
+            background-color: rgba(255, 255, 255, 0.1);
+            font-size: 15px;
+        }
+
+        a.btn {
+            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 8px;
+            background: linear-gradient(to right, #a18cd1, #fbc2eb);
+            color: black;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        a.btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h2>سبد خرید من</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>محصول</th>
+                        <th>تعداد</th>
+                        <th>قیمت کل آیتم</th>
+                        <th>جزئیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for item in cart.items.all %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.get_total_price }}</td>
+                        <td><a href="" class="btn">مشاهده محصول</a></td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4">سبد خرید شما خالی است.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+                {% if cart.items.all %}
+                <tfoot>
+                    <tr>
+                        <th colspan="2">جمع کل سبد خرید:</th>
+                        <th colspan="2">{{ cart.get_total_price }}</th>
+                    </tr>
+                </tfoot>
+                {% endif %}
+                <tfoot>
+                    <form action="{% url 'cart_checkout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn">پرداخت</button>
+</form>
+
+                </tfoot>
+            </table>
+            <a href="{% url 'orders' %}">
+        <button>سفارشات من</button>
+    </a>
+        </div>
+    </div>
+</body>
+</html>

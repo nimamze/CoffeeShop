@@ -28,6 +28,7 @@
           <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">ثبت‌نام</a></li>
           {% else %}
           <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">پروفایل</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'cart_items' %}">سبد خرید</a></li>
           <li class="nav-item">
             <form method="post" action="{% url 'logout' %}">
               {% csrf_token %}

@@ -5,10 +5,10 @@ from django.views import View
 from django.views.generic.edit import UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.urls import reverse_lazy
-from .models import ProductImage, Product, Category,Order,OrderItem
+from .models import ProductImage, Product, Category,Order,OrderItem,Comment
 from django.utils.dateparse import parse_date
 from .models import Product,Category,Cart,CartItem
-from .forms import CartAddForm
+from .forms import CartAddForm , CommentFrom
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
@@ -33,9 +33,23 @@ class ProductDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = CartAddForm()  
+        context['form'] = CartAddForm() 
+        context['comment_form'] = CommentFrom(prefix='comment') 
         return context
-
+    
+    def post(self, request, pk):
+        if not request.user.is_authenticated:
+            return redirect('login')
+        
+        comment_form = CommentFrom(request.POST, prefix='comment')
+        if comment_form.is_valid():
+            text = comment_form.cleaned_data['text']
+            score = comment_form.cleaned_data['score']
+            product_id = pk
+            customer_id = request.user.id
+            comment = Comment.objects.create(text= text, score = score, product_id = product_id, customer_id = customer_id)
+            comment.save()
+        return redirect('product_list')
 
 class CartAddView(LoginRequiredMixin, View):
     def post(self, request, product_id):

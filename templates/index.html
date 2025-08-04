@@ -1,14 +1,105 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
 
+    .product-card {
+      width: 260px;
+      border: 1px solid #dee2e6;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      margin: 10px;
+      padding: 15px;
+      background-color: white;
+      transition: transform 0.2s ease;
+    }
 
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
 
-  {% block content %}
-  
-  <div class="container mt-4">
-    {% for category in categories %}
-    <div class="btn-group">
-      <a href="{% url 'category_filter' category.name %}" class="btn btn-outline-danger">{{ category.name }}</a>
+    .product-image {
+      width: 100%;
+      border-radius: 8px;
+      object-fit: cover;
+      max-height: 180px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 30px;
+      margin-bottom: 30px;
+      font-weight: 700;
+    }
+
+    .products-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .no-underline {
+        text-decoration: none;
+        color: inherit; /* برای اینکه رنگ پیش‌فرض لینک هم عوض نشه */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <div class="container">
       
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="تغییر ناوبری">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'product_list' %}">خانه</a>
+          </li>
+          
+          
+
+        {% if not request.user.is_authenticated %}
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">ورود</a>
+          </li>
+          <li class="nav-item">
+              
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'signup' %}">ثبت‌نام</a>
+                </li>
+                
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile' %}">پروفایل</a>
+                  </li>
+                  <li class="nav-item"><a class="nav-link" href="{% url 'cart_items' %}">سبد خرید</a></li>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-link nav-link" style="padding: 0; margin: 0;">خروج</button>
+                </form>
+                </li>
+                {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+
+    <div class="btn-group">
+      {% for category in categories %}
+      <a href="{% url 'category_filter' category.name %}" class="btn btn-outline-danger">{{ category.name }}</a>
       {% endfor %}
       
     </div>
@@ -18,27 +109,23 @@
     <div class="products-container">
       {% for product in products %}
       <a href="{% url 'product_details' product.pk %}" class="no-underline">
-
-        <div class="product-card">
+        
+      <div class="product-card">
         <h5 class="mb-2">{{ product.name }}</h5>
         <p class="text-muted">قیمت: {{ product.price }} تومان</p>
+        
         {% if product.get_main_image %}
         <img src="{{ product.get_main_image }}" alt="{{ product.name }}" class="product-image">
         {% else %}
         <div class="text-center text-secondary">تصویری موجود نیست</div>
         {% endif %}
-        {% if product.availability %}<p>موجود</p>{% else %}<p>ناموجود</p>{% endif %}
-        {% if user.is_authenticated %}
-        <a href="{% url 'add_to_favorites' product.pk %}">افزودن به علاقه‌مندی‌ها</a>
-        {% endif %}
       </div>
-
       </a>
       {% endfor %}
     </div>
+
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-    crossorigin="anonymous"></script>
-  {% endblock %}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+</body>
+</html>

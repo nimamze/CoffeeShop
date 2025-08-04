@@ -1,11 +1,145 @@
-{% extends 'base.html' %}
-{% block title %}ثبت‌نام{% endblock %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>جزئیات سفارش</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-{% block content %}
+    body {
+      margin: 0;
+      font-family: 'Vazirmatn', sans-serif;
+      background: linear-gradient(to top left, #0f0c29, #302b63, #24243e);
+      color: white;
+      padding-top: 60px;
+      min-height: 100vh;
+    }
 
-    {% for field in user_order_details %}
-    <li>{{ field.items }}</li>
-   
-    {% endfor %}
-    
-{% endblock %}
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(20px);
+    }
+
+    ul {
+      padding-left: 1.2rem;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #dc3545;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      z-index: 1000;
+    }
+
+    .navbar .navbar-brand {
+      font-size: 20px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .navbar ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .navbar ul li {
+      display: inline-block;
+    }
+
+    .navbar a,
+    .navbar button {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    .navbar a:hover,
+    .navbar button:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    button.nav-link {
+      font-family: inherit;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <a class="navbar-brand" href="{% url 'product_list' %}">خانه</a>
+  <ul>
+    {% if not request.user.is_authenticated %}
+      <li><a href="{% url 'login' %}">ورود</a></li>
+      <li><a href="{% url 'signup' %}">ثبت‌نام</a></li>
+    {% else %}
+      <li><a href="{% url 'profile' %}">پروفایل</a></li>
+      <li><a href="{% url 'cart_items' %}">سبد خرید</a></li>
+      <li>
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="nav-link">خروج</button>
+        </form>
+      </li>
+    {% endif %}
+  </ul>
+</nav>
+
+<!-- Order Details Content -->
+<div class="container">
+  <div class="card">
+    <h2>جزئیات سفارش شماره {{ order.id }}</h2>
+    <p>مشتری: {{ order.customer.get_full_name }}</p>
+    <p>تاریخ ثبت: {{ order.created_at }}</p>
+    <p>قیمت کل: {{ order.total_price }} تومان</p>
+
+    <hr>
+
+    <h3>آیتم‌های سفارش:</h3>
+    <ul>
+      {% for item in order_items %}
+        <li>
+          {{ item.product_name }} - تعداد: {{ item.quantity }} - قیمت واحد هنگام خرید: {{ item.price_at_purchase }}
+        </li>
+      {% empty %}
+        <li>هیچ آیتمی وجود ندارد.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>

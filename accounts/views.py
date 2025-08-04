@@ -63,10 +63,21 @@ class UserOrdersView(ListView):
     def get_queryset(self):
         return Order.objects.filter(customer=self.request.user)
 
-class UserOrderDetailView(ListView):
+# class UserOrderDetailView(ListView):
+#     model = Order
+#     template_name = 'accounts/user_order_detail.html'
+#     context_object_name = 'user_order_details'
+
+#     def get_queryset(self):
+#         return Order.objects.filter(customer=self.request.user)
+
+
+class UserOrderDetailView(DetailView):
     model = Order
     template_name = 'accounts/user_order_detail.html'
-    context_object_name = 'user_order_details'
+    context_object_name = 'order'
 
-    def get_queryset(self):
-        return Order.objects.filter(customer=self.request.user)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['order_items'] = self.object.items.all()  # related_name='items'
+        return context

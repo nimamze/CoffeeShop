@@ -76,27 +76,31 @@ class CartItemsView(LoginRequiredMixin, ListView):
         return context
 
 
+
+
 @login_required
 @transaction.atomic
 def checkout(request):
-    cart = Cart.objects.filter(customer=request.user).order_by('-created_at').first()
-    if not cart or not cart.items.exists():
+    
+    cart = Cart.objects.filter(customer=request.user, order__isnull=True).order_by('-created_at').first()
+    
+    if not cart:
+        cart = Cart.objects.create(customer=request.user)
+    
+    if not cart.items.exists():
         messages.error(request, "سبد خرید شما خالی است.")
         return redirect('cart_items')
-
-    # بررسی وجود سفارش قبلی
-    existing_order = getattr(cart, 'order', None)
-    if existing_order:
-        messages.info(request, "شما قبلاً سفارش خود را ثبت کرده‌اید.")
-        return redirect('product_list')  # یا هر صفحه‌ای که مناسب است
-
-    # اگر سفارش قبلی نبود، سفارش جدید بسازید
+    
+    if hasattr(cart, 'order'):
+        messages.warning(request, "برای این سبد قبلاً سفارش ثبت شده است.")
+        return redirect('cart_items')
+    
     order = Order.objects.create(
         customer=request.user,
         cart=cart,
         total_price=cart.get_total_price()
     )
-
+    
     for item in cart.items.all():
         OrderItem.objects.create(
             order=order,
@@ -104,8 +108,11 @@ def checkout(request):
             quantity=item.quantity,
             price_at_purchase=item.product.price
         )
-
+    
     cart.items.all().delete()
 
+    
+    Cart.objects.create(customer=request.user)
+
     messages.success(request, "سفارش شما با موفقیت ثبت شد.")
-    return redirect('product_list')
+    return redirect('cart_items')

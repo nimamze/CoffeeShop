@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.urls import reverse
+from accounts.models import CustomUser
 
 CustomUser = get_user_model()
 
@@ -49,11 +49,8 @@ class ProductImage(models.Model):
         return f"product image for {self.product.name} added"
 
 class Favorite(models.Model):
-    customer = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='favorites')
-    products = models.ManyToManyField(Product, related_name='favorited_by', blank=True)
-
     customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='customer_favorites')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_favorited')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_favorites')
     def __str__(self):
         return f"Favorites of {self.customer.get_full_name()}"
 
@@ -111,3 +108,13 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.quantity} x {self.product_name}"
+    
+class Notification(models.Model):
+    
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Notification for {self.user.username}"

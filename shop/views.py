@@ -14,9 +14,6 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib import messages
 
-
-
-
 class ProductList(View):
     def get(self,request,name=None):
         products = Product.objects.all()
@@ -77,7 +74,6 @@ class CartItemsView(LoginRequiredMixin, ListView):
         cart = Cart.objects.filter(customer=self.request.user).order_by('-created_at').first()
         context['cart'] = cart
         return context
-
 
 
 @login_required

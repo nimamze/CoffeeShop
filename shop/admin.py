@@ -8,7 +8,8 @@ from .models import (
     Order,
     OrderItem,
     Cart,
-    CartItem
+    CartItem,
+    Notification
 )
 
 admin.site.register(Cart)
@@ -34,6 +35,19 @@ class ProductAdmin(admin.ModelAdmin):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_filter = ['created_at', ProductCategoryFilter]
+
+@admin.register(Notification)
+class NotificationAdmin(admin.ModelAdmin):
+    list_display = ('user', 'message', 'created_at', 'is_read')
+    list_filter = ('is_read',)
+    actions = ['mark_as_read']
+
+    @admin.action(description='علامت‌گذاری به‌عنوان خوانده‌شده')
+    def mark_as_read(self, request, queryset):
+        updated = queryset.update(is_read=True)
+        self.message_user(request, f"{updated} نوتیفیکیشن به‌عنوان خوانده‌شده علامت‌گذاری شد.")
+
+
 
 admin.site.register(Category)
 admin.site.register(ProductImage)

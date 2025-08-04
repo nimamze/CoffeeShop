@@ -42,3 +42,6 @@ class CustomUser(AbstractUser):
 
     def __str__(self) -> str:
         return f"{self.phone}" or f"{self.email}" or f"{self.first_name}" 
+    
+    def get_full_name(self):
+        return f"{self.first_name} {self.last_name}".strip()

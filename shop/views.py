@@ -76,8 +76,6 @@ class CartItemsView(LoginRequiredMixin, ListView):
         return context
 
 
-
-
 @login_required
 @transaction.atomic
 def checkout(request):

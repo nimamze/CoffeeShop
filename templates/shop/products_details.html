@@ -22,14 +22,12 @@
 
   <div class="link-text" style="background-color: rgb(9, 113, 113);">
     <a href="{% url 'product_list' %}"><button>بازگشت به منو</button></a>
-    
     <form action="{% url 'cart_add' product.id %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="افزودن به سبد خرید">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="افزودن به سبد خرید">
     </form>
-
-
+    <a href="{% url 'add_to_favorites' product.id%}">افزودن به علاقه مندی ها</a>
   </div>
 
 </div>

@@ -267,13 +267,14 @@
 
   <!-- فقط بخش navbar تغییر کرده است -->
   <nav class="navbar">
-    <a class="navbar-brand" href="{% url 'product_list' %}">خانه</a>
     <ul>
+      <a class="navbar-brand" href="{% url 'product_list' %}">خانه</a>
       {% if not request.user.is_authenticated %}
       <li><a href="{% url 'login' %}">ورود</a></li>
       <li><a href="{% url 'signup' %}">ثبت‌نام</a></li>
       {% else %}
       <li><a href="{% url 'profile' %}">پروفایل</a></li>
+      <li><a href="{% url 'user_update' %}">ویرایش پروفایل</a></li>
       <li><a href="{% url 'cart_items' %}">سبد خرید</a></li>
       <li><a href="{% url 'orders' %}">سفارشات</a></li>
       <li>
@@ -293,10 +294,9 @@
       <h2>مشتری عزیز</h2>
       <a href="{% url 'orders' %}"><i class="fas fa-box"></i> سفارشات من</a>
       <a href="{% url 'product_list' %}"><i class="fas fa-map-marker-alt"></i> خانه</a>
-      <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button class="logout-button" type="submit"><i class="fas fa-sign-out-alt"></i> خروج</button>
-      </form>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">خروج</a>
+      </li>
     </div>
 
     <div class="main-content">

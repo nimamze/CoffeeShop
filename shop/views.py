@@ -14,9 +14,6 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib import messages
 
-
-
-
 class ProductList(View):
     def get(self,request,name=None):
         products = Product.objects.all()

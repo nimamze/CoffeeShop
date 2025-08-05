@@ -120,3 +120,10 @@ def checkout(request):
 
     messages.success(request, "سفارش شما با موفقیت ثبت شد.")
     return redirect('cart_items')
+
+@login_required
+def delete_item(request,pk):
+    item = get_object_or_404(CartItem, pk=pk, cart__customer=request.user)
+    item.delete()
+    messages.success(request, "آیتم با موفقیت از سبد خرید حذف شد.")
+    return redirect('cart_items')  

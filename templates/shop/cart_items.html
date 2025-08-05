@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>سبد خرید من</title>
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet">
 
     <style>
@@ -70,7 +71,8 @@
             margin-top: 10px;
         }
 
-        th, td {
+        th,
+        td {
             padding: 12px;
             text-align: center;
             font-size: 14px;
@@ -84,7 +86,8 @@
             background-color: rgba(255, 255, 255, 0.05);
         }
 
-        a.btn, button.btn {
+        a.btn,
+        button.btn {
             display: inline-block;
             padding: 8px 14px;
             border-radius: 8px;
@@ -97,7 +100,8 @@
             cursor: pointer;
         }
 
-        a.btn:hover, button.btn:hover {
+        a.btn:hover,
+        button.btn:hover {
             opacity: 0.9;
         }
 
@@ -133,87 +137,88 @@
         tfoot {
             margin-top: 15px;
         }
+
+        .btn-danger {
+            background-color: #dc3545;
+        }
     </style>
 </head>
+
 <body>
 
-<!-- نوبار دستی -->
-<nav class="navbar">
-    <ul>
-        <li><a href="{% url 'product_list' %}">خانه</a></li>
-        
-        
-    </ul>
-    <ul>
-        {% if not request.user.is_authenticated %}
+    <!-- نوبار دستی -->
+    <nav class="navbar">
+        <a class="navbar-brand" href="{% url 'product_list' %}">خانه</a>
+        <ul>
+            {% if not request.user.is_authenticated %}
             <li><a href="{% url 'login' %}">ورود</a></li>
             <li><a href="{% url 'signup' %}">ثبت‌نام</a></li>
-        {% else %}
+            {% else %}
             <li><a href="{% url 'profile' %}">پروفایل</a></li>
             <li><a href="{% url 'cart_items' %}">سبد خرید</a></li>
             <li><a href="{% url 'orders' %}"> سفارشات</a></li>
-            <li>
-                <form method="post" action="{% url 'logout' %}" style="display: inline;">
-                    {% csrf_token %}
-                    <button type="submit" class="logout-button">خروج</button>
-                </form>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">خروج</a>
             </li>
-        {% endif %}
-    </ul>
-</nav>
-
-<!-- محتوای سبد خرید -->
-<div class="container">
-    <div class="card">
-        <h2>سبد خرید من</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>محصول</th>
-                    <th>تعداد</th>
-                    <th>قیمت کل آیتم</th>
-                    <th>جزئیات</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for item in cart.items.all %}
-                <tr>
-                    <td>{{ item.product.name }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>{{ item.get_total_price }}</td>
-                    <td><a href="{% url 'product_details' item.product.pk %}" class="btn">مشاهده محصول</a></td>
-                </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="4">سبد خرید شما خالی است.</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-
-            {% if cart.items.all %}
-            <tfoot>
-                <tr>
-                    <th colspan="2">جمع کل سبد خرید:</th>
-                    <th colspan="2">{{ cart.get_total_price }}</th>
-                </tr>
-            </tfoot>
             {% endif %}
-            <tfoot>
-                <tr>
-                    <td colspan="4">
-                        <form action="{% url 'cart_checkout' %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit" class="btn">پرداخت</button>
-                        </form>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
-        <a href="{% url 'orders' %}">
-            <button>سفارشات من</button>
-        </a>
+        </ul>
+    </nav>
+
+    <!-- محتوای سبد خرید -->
+    <div class="container">
+        <div class="card">
+            <h2>سبد خرید من</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>محصول</th>
+                        <th>تعداد</th>
+                        <th>قیمت کل آیتم</th>
+                        <th>جزئیات</th>
+                        <th>حذف</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart.items.all %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.get_total_price }}</td>
+                        <td><a href="{% url 'product_details' item.product.pk %}" class="btn">مشاهده محصول</a></td>
+                        <td><a href="{% url 'delete_item' item.pk %}"><button>حذف </button></a></td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">سبد خرید شما خالی است.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+                {% if cart.items.all %}
+                <tfoot>
+                    <tr>
+                        <th colspan="3">جمع کل سبد خرید:</th>
+                        <th colspan="2">{{ cart.get_total_price }}</th>
+                    </tr>
+                </tfoot>
+                {% endif %}
+                <tfoot>
+                    <tr>
+                        <td colspan="4">
+                            <form action="{% url 'cart_checkout' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn">پرداخت</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+            <a href="{% url 'orders' %}">
+                <button>سفارشات من</button>
+            </a>
+        </div>
     </div>
-</div>
 
 </body>
+
 </html>

@@ -1,5 +1,4 @@
 from django.urls import path
-from django.contrib.auth.views import LogoutView
 from django.conf import settings
 
 from .views import (
@@ -10,7 +9,8 @@ from .views import (
     SignUpView,
     UserOrdersView,
     UserOrderDetailView,
-    add_to_favorites
+    add_to_favorites,
+    logout_view,
 )
 
 urlpatterns = [
@@ -21,6 +21,6 @@ urlpatterns = [
     path('user-orders/', UserOrdersView.as_view(), name='orders'),
     path('user-orders/<int:pk>', UserOrderDetailView.as_view(), name='order_detail'),
     path('login/', CustomLoginView.as_view(), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    path('logout/', logout_view, name='logout'),
     path('signup/', SignUpView.as_view(), name='signup'),
 ]

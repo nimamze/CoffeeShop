@@ -6,7 +6,7 @@ from django.views.generic import DetailView, UpdateView, ListView, CreateView
 from .forms import CustomUserCreationForm
 from .models import CustomUser
 from shop.models import Favorite,Product,Order,OrderItem
-
+from django.contrib.auth import logout
 
 class CustomLoginView(LoginView):
 
@@ -14,6 +14,10 @@ class CustomLoginView(LoginView):
     redirect_authenticated_user = True
     def get_success_url(self):
         return reverse_lazy('profile')
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
 
 
 class SignUpView(CreateView):

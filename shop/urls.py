@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path
 from accounts.views import ProfileView,UpdateProfileView,UserFavoritesView,add_to_favorites,UserOrdersView,UserOrderDetailView
 from .views import ProductList,ProductDetailView,CartAddView,CartItemsView
-from .views import checkout
+from .views import checkout,delete_item
 
 
 urlpatterns = [
@@ -14,4 +14,5 @@ urlpatterns = [
     path('cart/add/<int:product_id>/', CartAddView.as_view(), name='cart_add'),
     path('cart/items/', CartItemsView.as_view(), name='cart_items'),
     path('cart/checkout/', checkout, name='cart_checkout'),
+    path('cart/delete/<int:pk>/',delete_item,name='delete_item')
 ]

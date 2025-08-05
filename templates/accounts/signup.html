@@ -101,17 +101,11 @@
   </style>
 </head>
 <body>
-
-
-
-
-
-
   
   <div class="card">
     <h2>ثبت‌نام</h2>
     <p>برای ایجاد حساب جدید فرم زیر را پر کنید</p>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
 
       {# اینجا هر فیلد فرم را جداگانه و با استایل می‌سازیم #}

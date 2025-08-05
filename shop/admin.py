@@ -9,7 +9,8 @@ from .models import (
     OrderItem,
     Cart,
     CartItem,
-    Notification
+    Notification,
+    Comment
 )
 
 admin.site.register(Cart)
@@ -54,3 +55,4 @@ admin.site.register(ProductImage)
 admin.site.register(Ingredient)
 admin.site.register(Favorite)
 admin.site.register(OrderItem)
+admin.site.register(Comment)

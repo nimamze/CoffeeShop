@@ -13,6 +13,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib import messages
+from django.db.models import Avg
 
 
 
@@ -35,6 +36,8 @@ class ProductDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['form'] = CartAddForm() 
         context['comment_form'] = CommentFrom(prefix='comment') 
+        context['comments'] = self.get_comment_queryset()
+        context['average_score'] = self.get_average_score()
         return context
     
     def post(self, request, pk):
@@ -45,11 +48,23 @@ class ProductDetailView(DetailView):
         if comment_form.is_valid():
             text = comment_form.cleaned_data['text']
             score = comment_form.cleaned_data['score']
-            product_id = pk
-            customer_id = request.user.id
-            comment = Comment.objects.create(text= text, score = score, product_id = product_id, customer_id = customer_id)
+            product = get_object_or_404(Product, id=pk)
+            customer = request.user
+            has_purchased = Cart.objects.filter(customer=customer,items__product=product).exists()
+
+            comment = Comment.objects.create(text= text, score = score, product=product, customer=customer, has_purchased=has_purchased)
             comment.save()
-        return redirect('product_list')
+        return redirect(request.path_info)
+    
+    def get_comment_queryset(self):
+        comments = Comment.objects.select_related('customer').filter(product=self.object, is_confirmed=True).order_by('-created_at')
+        return comments
+
+    def get_average_score(self):
+        comments = self.get_comment_queryset()
+        avg = comments.aggregate(avg_score=Avg('score'))['avg_score'] or 0
+        return avg
+
 
 class CartAddView(LoginRequiredMixin, View):
     def post(self, request, product_id):

@@ -112,6 +112,47 @@
       font-size: 14px;
       text-align: center;
     }
+    .comment {
+      background-color: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      line-height: 1.6;
+      position: relative;
+    }
+
+    .comment strong {
+      font-size: 16px;
+      color: #ffd700;
+    }
+
+    .comment span {
+      float: left;
+      font-size: 14px;
+      color: #00ff99;
+    }
+
+    .comment p {
+      margin: 8px 0;
+    }
+
+    .comment small {
+      display: block;
+      text-align: left;
+      font-size: 12px;
+      color: #ccc;
+      margin-top: 10px;
+    }
+
+    .comment::before {
+      content: "💬";
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      font-size: 24px;
+      opacity: 0.5;
+    }
   </style>
 </head>
 
@@ -131,7 +172,7 @@
           <p>تصویری برای این محصول موجود نیست.</p>
         {% endfor %}
       </div>
-
+      <p>میانگین امتیاز: {{ average_score|floatformat:1 }}</p>
       <div class="back-button">
         <a href="{% url 'product_list' %}">
           <button>بازگشت به منو</button>
@@ -143,12 +184,26 @@
         {{ form.as_p }}
         <input type="submit" value="افزودن به سبد خرید">
       </form>
-
+      
       <form action="" method="post">
         {% csrf_token %}
         {{ comment_form.as_p }}
         <input type="submit" value="افزودن نظر">
       </form>
+
+      <h3 style="text-align: center; margin-top: 40px;">نظرات کاربران</h3>
+      {% for comment in comments %}
+        <div class="comment">
+          <strong>{{ comment.customer.first_name }}</strong> 
+          <span>امتیاز: {{ comment.score }}</span>
+          <p>{{ comment.text }}</p>
+          <small>{% if comment.has_purchased %}خریداری شده{% endif %}</small>
+          <small>{{ comment.created_at|date:"Y/m/d H:i" }}</small>
+        </div>
+      {% empty %}
+        <p>نظری ثبت نشده است.</p>
+      {% endfor %}
+
     </div>
   </div>
 </body>

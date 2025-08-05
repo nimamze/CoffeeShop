@@ -67,6 +67,8 @@ class Comment(models.Model):
     score = models.IntegerField(choices=SCORE_CHOICES, verbose_name='امتیاز')
     text = models.TextField(max_length=500, verbose_name='متن نظر')
     created_at = models.DateTimeField(auto_now_add=True)
+    is_confirmed = models.BooleanField(default=False)
+    has_purchased = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Comment by {self.customer.get_full_name()} on {self.product.name}"

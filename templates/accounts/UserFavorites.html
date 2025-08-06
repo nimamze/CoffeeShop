@@ -1,16 +1,135 @@
-{% extends 'base.html' %}
-{% block title %}علاقه‌مندی‌ها{% endblock %}
+<!DOCTYPE html>
+<html >
 
-{% block content %}
-<div class="card">
-    <h2>محصولات مورد علاقه</h2>
-    {% for favorite in user_favorites %}
-    <a href="{% url 'product_details' favorite.product.pk %}">
-        {{ favorite.product.name }}
-    </a><br>
-    {% empty %}
-    <p>محصولی در لیست علاقه‌مندی‌های شما نیست.</p>
-    {% endfor %}
-</div>
-<a href="{% url 'product_list' %}">Home</a>
-{% endblock %}
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coffee Shop</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <style>
+    body {
+      background: linear-gradient(to top left, #0f0c29, #302b63, #24243e);
+      min-height: 100vh;
+      
+    }
+
+    h1 {
+      text-align: center;
+      margin: 30px 0;
+      font-weight: 700;
+      color: aliceblue;
+    }
+
+    .product-card {
+      width: 260px;
+      border: 1px solid #dee2e6;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      margin: 10px;
+      padding: 15px;
+      background-color: white;
+      transition: transform 0.2s ease;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-image {
+      width: 100%;
+      max-height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .products-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .no-underline {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .text-secondary {
+      color: #6c757d !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ✅ نوبار -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="تغییر ناوبری">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          {% if not request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">ورود</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'signup' %}">ثبت‌نام</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">خروج</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'cart_items' %}">سبد خرید</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' %}">پروفایل</a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'product_list' %}">خانه</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ✅ عنوان صفحه -->
+  <h1>محصولات مورد علاقه</h1>
+
+  <!-- ✅ کارت‌های محصولات -->
+  <div class="container mb-5">
+    <div class="products-container">
+      {% for favorite in user_favorites %}
+      <a href="{% url 'product_details' favorite.product.pk %}" class="no-underline">
+        <div class="product-card">
+          <h5 class="mb-2">{{ favorite.product.name }}</h5>
+          {% if favorite.product.price %}
+          <p class="text-muted">قیمت: {{ favorite.product.price }} تومان</p>
+          {% endif %}
+          {% if favorite.product.get_main_image %}
+          <img src="{{ favorite.product.get_main_image }}" alt="{{ favorite.product.name }}" class="product-image" />
+          {% else %}
+          <div class="text-secondary">تصویری موجود نیست</div>
+          {% endif %}
+        </div>
+      </a>
+      {% empty %}
+      <p class="text-center text-muted">محصولی در لیست علاقه‌مندی‌های شما نیست.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

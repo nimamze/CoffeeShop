@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.views import View
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic import ListView, DetailView
@@ -73,6 +74,8 @@ class ProductDetailView(DetailView):
         return avg
 
 
+
+
 class CartAddView(LoginRequiredMixin, View):
     def post(self, request, product_id):
         form = CartAddForm(request.POST)
@@ -81,7 +84,7 @@ class CartAddView(LoginRequiredMixin, View):
         if form.is_valid():
             quantity = form.cleaned_data["quantity"]
 
-            # گرفتن آخرین سبد خرید کاربر یا ساختن یکی جدید
+            
             cart = (
                 Cart.objects.filter(customer=request.user)
                 .order_by("-created_at")
@@ -90,15 +93,22 @@ class CartAddView(LoginRequiredMixin, View):
             if not cart:
                 cart = Cart.objects.create(customer=request.user)
 
-            # افزودن محصول به سبد
+            
             cart_item, created = CartItem.objects.get_or_create(
                 cart=cart, product=product, defaults={"quantity": quantity}
             )
-            if not created:
+            if created:
+                messages.success(request, " با موفقیت به سبد خرید اضافه شد.")
+            else:
                 cart_item.quantity += quantity
                 cart_item.save()
+                messages.success(request, " با موفقیت به سبد خرید اضافه شد.")
+                
 
-        return redirect("product_list")
+        else:
+            messages.error(request, "فرم نامعتبر است. لطفاً مجدداً تلاش کنید.")
+
+        return redirect(reverse('product_details', args=[product.id]))
 
 
 class CartItemsView(LoginRequiredMixin, ListView):

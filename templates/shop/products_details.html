@@ -1,28 +1,78 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{% block title %}صفحه کاربر{% endblock %}</title>
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet" />
 
   <style>
+    /* ✅ جلوگیری از اسکرول افقی */
+    html,
     body {
+      overflow-x: hidden;
       margin: 0;
+      padding: 0;
+    }
+
+    body {
       font-family: 'Vazirmatn', sans-serif;
       background: linear-gradient(to top left, #0f0c29, #302b63, #24243e);
       color: white;
       min-height: 100vh;
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 40px 20px;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 20px 40px;
+      box-sizing: border-box;
+    }
+
+    /* ✅ نوار ناوبری تمام‌عرض بدون اسکرول */
+    nav.navbar {
+      width: 100%;
+      background-color: #dc3545;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      padding: 10px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+      display: flex;
+      justify-content: start;
+      flex-wrap: wrap;
+    }
+
+    .navbar-nav {
+      display: flex;
+      gap: 15px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: #ffd700;
     }
 
     .container {
       max-width: 800px;
       width: 100%;
+      margin-top: 30px;
     }
 
     .card {
@@ -57,7 +107,8 @@
     }
 
     .product-images img {
-      width: 280px;
+      width: 100%;
+      max-width: 280px;
       border-radius: 10px;
       transition: transform 0.3s ease;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -161,10 +212,101 @@
       font-size: 24px;
       opacity: 0.5;
     }
+
+    .messages-container {
+      margin: 20px auto;
+      max-width: 600px;
+      padding: 0 15px;
+    }
+
+    .alert {
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      font-family: sans-serif;
+      position: relative;
+      color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      animation: slideIn 0.3s ease-in-out;
+    }
+
+    .alert.success {
+      background-color: #28a745;
+    }
+
+    .alert.error {
+      background-color: #dc3545;
+    }
+
+    .alert.info {
+      background-color: #17a2b8;
+    }
+
+    .alert.warning {
+      background-color: #ffc107;
+      color: #212529;
+    }
+
+    .close-btn {
+      position: absolute;
+      right: 15px;
+      top: 12px;
+      font-size: 20px;
+      cursor: pointer;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .alert.warning .close-btn {
+      color: #212529;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
 
 <body>
+
+  <!-- ✅ نوار ناوبری تمام‌عرض -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger" dir="rtl">
+    <div class="nav-inner">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="{% url 'product_list' %}">خانه</a></li>
+        {% if request.user.is_authenticated %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">پروفایل</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'cart_items' %}">سبد خرید</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">خروج</a></li>
+        {% else %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">ورود</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">ثبت‌نام</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ✅ پیام‌ها -->
+  {% if messages %}
+  <div class="messages-container">
+    {% for message in messages %}
+    <div class="alert {{ message.tags }}">
+      {{ message }}
+      <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- ✅ محتوای اصلی -->
   <div class="container">
     <div class="card">
       <h2>{{ product.name }}</h2>
@@ -180,11 +322,11 @@
         <p>تصویری برای این محصول موجود نیست.</p>
         {% endfor %}
       </div>
+
       <p>میانگین امتیاز: {{ average_score|floatformat:1 }}</p>
+
       <div class="back-button">
-        <a href="{% url 'product_list' %}">
-          <button>بازگشت به منو</button>
-        </a>
+        <a href="{% url 'product_list' %}"><button>بازگشت به منو</button></a>
       </div>
 
       <form action="{% url 'cart_add' product.id %}" method="post">
@@ -193,13 +335,17 @@
         <input type="submit" value="افزودن به سبد خرید">
       </form>
 
+      <form action="{% url 'add_to_favorites' product.id %}" method="get">
+        {% csrf_token %}
+        <input type="submit" value="افزودن به علاقه مندی ها">
+      </form>
+
       <form action="" method="post">
         {% csrf_token %}
         {{ comment_form.as_p }}
         <input type="submit" value="افزودن نظر">
       </form>
-      <a href="{% url 'product_list' %}"><button>بازگشت به منو</button></a>
-      <a href="{% url 'add_to_favorites' product.id%}">افزودن به علاقه مندی ها</a>
+
       <h3 style="text-align: center; margin-top: 40px;">نظرات کاربران</h3>
       {% for comment in comments %}
       <div class="comment">
@@ -212,9 +358,9 @@
       {% empty %}
       <p>نظری ثبت نشده است.</p>
       {% endfor %}
-
     </div>
   </div>
+
 </body>
 
 </html>

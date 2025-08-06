@@ -1,20 +1,126 @@
-{% extends 'base.html' %}
-{% block title %}ویرایش پروفایل{% endblock %}
+<!DOCTYPE html>
+<html >
 
-{% block content %}
-<div class="card">
-    <h2>ویرایش پروفایل</h2>
-    <form method="post" enctype="multipart/form-data" style="margin-top: 20px;">
-        {% csrf_token %}
-        {{ form.as_p }}
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coffee Shop</title>
 
-        <button type="submit" style="margin-top: 10px;">ذخیره</button>
-    </form>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 
-    <div style="margin-top: 20px;">
-        <a href="{% url 'profile' %}">
-            <button>بازگشت به پروفایل</button>
-        </a>
+  <style>
+    body {
+      background: linear-gradient(to top left, #0f0c29, #302b63, #24243e);
+      min-height: 100vh;
+      font-family: 'Tahoma', sans-serif;
+    }
+
+    h1,
+    h2 {
+      color: #fff;
+      text-align: center;
+    }
+
+    .edit-profile-card {
+      background-color: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      margin: 50px auto;
+    }
+
+    .edit-profile-card h2 {
+      color: #333;
+      margin-bottom: 25px;
+    }
+
+    .form-control {
+      border-radius: 8px;
+    }
+
+    .btn-danger {
+      border-radius: 8px;
+    }
+
+    .btn-back {
+      background-color: #6c757d;
+      color: white;
+    }
+
+    .btn-back:hover {
+      background-color: #5a6268;
+      color: white;
+    }
+  </style>
+</head>
+
+<body >
+
+  
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="تغییر ناوبری">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          {% if not request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">ورود</a>
+          </li>
+          <li class="nav-item">
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'signup' %}">ثبت‌نام</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">خروج</a>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'cart_items' %}">سبد خرید</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' %}">پروفایل</a>
+          </li>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'product_list' %}">خانه</a>
+          </li>
+        </ul>
+      </div>
     </div>
-</div>
-{% endblock %}
+  </nav>
+
+  <!-- دسته‌بندی‌ها -->
+  <div class="container mt-4 text-center">
+    <div class="btn-group">
+      {% for category in categories %}
+      <a href="{% url 'category_filter' category.name %}" class="btn btn-outline-light">{{ category.name }}</a>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- فرم ویرایش پروفایل -->
+  <div class="edit-profile-card" dir="rtl">
+    <h2>ویرایش پروفایل</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+
+      <div class="d-grid gap-2 mt-3">
+        <button type="submit" class="btn btn-danger">ذخیره</button>
+        <a href="{% url 'profile' %}" class="btn btn-back">بازگشت به پروفایل</a>
+      </div>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

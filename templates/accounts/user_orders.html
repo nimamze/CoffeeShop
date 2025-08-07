@@ -14,36 +14,8 @@
             font-family: 'Vazirmatn', sans-serif;
             background: linear-gradient(to top left, #0f0c29, #302b63, #24243e);
             color: white;
+            overflow-x: hidden;
             min-height: 100vh;
-        }
-
-        /* نوبار */
-        .navbar {
-            background-color: #dc3545;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .navbar ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-            margin: 0;
-            padding: 0;
-        }
-
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 15px;
-        }
-
-        .navbar a:hover {
-            text-decoration: underline;
         }
 
         .container {
@@ -137,19 +109,16 @@
             width: 100%;
             background-color: #dc3545;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
             padding: 12px 20px;
-            flex-wrap: wrap;
-            direction: rtl;
-            width: 100%;
         }
 
-        .navbar-brand {
+        .navbar .navbar-brand {
             font-size: 20px;
-            font-weight: bold;
-            text-decoration: none;
             color: white;
+            text-decoration: none;
+            font-weight: bold;
         }
 
         .navbar ul {
@@ -159,8 +128,8 @@
             display: flex;
             gap: 15px;
             align-items: center;
-            flex-direction: row;
         }
+
 
         .navbar li {
             display: inline-block;
@@ -177,20 +146,6 @@
             padding: 6px 12px;
             border-radius: 6px;
             transition: background-color 0.3s ease;
-        }
-
-        .navbar a:hover,
-        .navbar button:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .logout-button {
-            background: none;
-            border: none;
-            color: white;
-            font-weight: bold;
-            font-size: 14px;
-            cursor: pointer;
         }
     </style>
 </head>

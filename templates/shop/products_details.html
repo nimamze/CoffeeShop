@@ -8,27 +8,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet" />
 
   <style>
-    /* ✅ جلوگیری از اسکرول افقی */
-    html,
     body {
-      overflow-x: hidden;
       margin: 0;
-      padding: 0;
-    }
-
-    body {
       font-family: 'Vazirmatn', sans-serif;
       background: linear-gradient(to top left, #0f0c29, #302b63, #24243e);
       color: white;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 0 20px 40px;
-      box-sizing: border-box;
+      overflow-x: hidden;
     }
 
-    /* ✅ نوار ناوبری تمام‌عرض بدون اسکرول */
     nav.navbar {
       width: 100%;
       background-color: #dc3545;
@@ -72,8 +60,9 @@
     .container {
       max-width: 800px;
       width: 100%;
-      margin-top: 30px;
+      margin: 30px auto 0;
     }
+
 
     .card {
       background: rgba(255, 255, 255, 0.05);
@@ -277,18 +266,16 @@
       width: 100%;
       background-color: #dc3545;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
       padding: 12px 20px;
-      flex-wrap: wrap;
-      direction: rtl;
     }
 
-    .navbar-brand {
+    .navbar .navbar-brand {
       font-size: 20px;
-      font-weight: bold;
-      text-decoration: none;
       color: white;
+      text-decoration: none;
+      font-weight: bold;
     }
 
     .navbar ul {
@@ -298,8 +285,8 @@
       display: flex;
       gap: 15px;
       align-items: center;
-      flex-direction: row;
     }
+
 
     .navbar li {
       display: inline-block;
@@ -316,20 +303,6 @@
       padding: 6px 12px;
       border-radius: 6px;
       transition: background-color 0.3s ease;
-    }
-
-    .navbar a:hover,
-    .navbar button:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .logout-button {
-      background: none;
-      border: none;
-      color: white;
-      font-weight: bold;
-      font-size: 14px;
-      cursor: pointer;
     }
   </style>
 </head>
@@ -367,7 +340,6 @@
   </div>
   {% endif %}
 
-  <!-- ✅ محتوای اصلی -->
   <div class="container">
     <div class="card">
       <h2>{{ product.name }}</h2>

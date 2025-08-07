@@ -46,8 +46,8 @@ class ProductDetailView(DetailView):
             score = comment_form.cleaned_data["score"]
             product = get_object_or_404(Product, id=pk)
             customer = request.user
-            has_purchased = Cart.objects.filter(
-                customer=customer, items__product=product
+            has_purchased = Order.objects.filter(
+                customer=customer, items__product_name=product.name
             ).exists()
 
             Comment.objects.create(

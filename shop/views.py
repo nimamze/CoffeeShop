@@ -2,7 +2,7 @@ from django.urls import reverse
 from django.views import View
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic import ListView, DetailView
-from .models import Product, Category, Order, OrderItem, Comment,Cart, CartItem
+from .models import Product, Category, Order, OrderItem, Comment, Cart, CartItem
 from .forms import CartAddForm, CommentFrom
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -50,20 +50,26 @@ class ProductDetailView(DetailView):
                 customer=customer, items__product=product
             ).exists()
 
-            comment = Comment.objects.create(
+            Comment.objects.create(
                 text=text,
                 score=score,
                 product=product,
                 customer=customer,
                 has_purchased=has_purchased,
             )
-            comment.save()
+
+            messages.success(
+                request, "کامنت شما ثبت شد. پس از تأیید توسط ادمین نمایش داده خواهد شد."
+            )
+        else:
+            messages.error(request, "فرم کامنت نامعتبر است.")
+
         return redirect(request.path_info)
 
     def get_comment_queryset(self):
         comments = (
             Comment.objects.select_related("customer")
-            .filter(product=self.object, is_confirmed=True) # type: ignore
+            .filter(product=self.object, is_confirmed=True)  # type: ignore
             .order_by("-created_at")
         )
         return comments
@@ -74,8 +80,6 @@ class ProductDetailView(DetailView):
         return avg
 
 
-
-
 class CartAddView(LoginRequiredMixin, View):
     def post(self, request, product_id):
         form = CartAddForm(request.POST)
@@ -84,7 +88,6 @@ class CartAddView(LoginRequiredMixin, View):
         if form.is_valid():
             quantity = form.cleaned_data["quantity"]
 
-            
             cart = (
                 Cart.objects.filter(customer=request.user)
                 .order_by("-created_at")
@@ -93,7 +96,6 @@ class CartAddView(LoginRequiredMixin, View):
             if not cart:
                 cart = Cart.objects.create(customer=request.user)
 
-            
             cart_item, created = CartItem.objects.get_or_create(
                 cart=cart, product=product, defaults={"quantity": quantity}
             )
@@ -103,12 +105,11 @@ class CartAddView(LoginRequiredMixin, View):
                 cart_item.quantity += quantity
                 cart_item.save()
                 messages.success(request, " با موفقیت به سبد خرید اضافه شد.")
-                
 
         else:
             messages.error(request, "فرم نامعتبر است. لطفاً مجدداً تلاش کنید.")
 
-        return redirect(reverse('product_details', args=[product.id]))
+        return redirect(reverse("product_details", args=[product.id]))
 
 
 class CartItemsView(LoginRequiredMixin, ListView):
@@ -122,7 +123,7 @@ class CartItemsView(LoginRequiredMixin, ListView):
             .order_by("-created_at")
             .first()
         )
-        return cart.items.select_related("product") if cart else CartItem.objects.none() # type: ignore
+        return cart.items.select_related("product") if cart else CartItem.objects.none()  # type: ignore
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -147,7 +148,7 @@ def checkout(request):
     if not cart:
         cart = Cart.objects.create(customer=request.user)
 
-    if not cart.items.exists(): # type: ignore
+    if not cart.items.exists():  # type: ignore
         messages.error(request, "سبد خرید شما خالی است.")
         return redirect("cart_items")
 
@@ -159,7 +160,7 @@ def checkout(request):
         customer=request.user, cart=cart, total_price=cart.get_total_price()
     )
 
-    for item in cart.items.all(): # type: ignore
+    for item in cart.items.all():  # type: ignore
         OrderItem.objects.create(
             order=order,
             product_name=item.product.name,
@@ -167,7 +168,7 @@ def checkout(request):
             price_at_purchase=item.product.price,
         )
 
-    cart.items.all().delete() # type: ignore
+    cart.items.all().delete()  # type: ignore
 
     Cart.objects.create(customer=request.user)
 

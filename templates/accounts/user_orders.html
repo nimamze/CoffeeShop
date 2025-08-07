@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>سفارشات من</title>
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet">
 
     <style>
@@ -70,7 +71,8 @@
             margin-top: 10px;
         }
 
-        th, td {
+        th,
+        td {
             padding: 12px;
             text-align: center;
             font-size: 14px;
@@ -130,60 +132,120 @@
         .logout-button:hover {
             text-decoration: underline;
         }
+
+        .navbar {
+            width: 100%;
+            background-color: #dc3545;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            flex-wrap: wrap;
+            direction: rtl;
+            width: 100%;
+        }
+
+        .navbar-brand {
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-direction: row;
+        }
+
+        .navbar li {
+            display: inline-block;
+        }
+
+        .navbar a,
+        .navbar button {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar a:hover,
+        .navbar button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .logout-button {
+            background: none;
+            border: none;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+        }
     </style>
 </head>
+
 <body>
 
-<!-- نوبار دستی -->
-<nav class="navbar">
-    <ul>
-        <li><a href="{% url 'product_list' %}">خانه</a></li>
-        
-       
-    </ul>
-    <ul>
-        {% if not request.user.is_authenticated %}
+    <nav class="navbar">
+        <ul>
+            <a class="navbar-brand" href="{% url 'product_list' %}">خانه</a>
+            {% if not request.user.is_authenticated %}
             <li><a href="{% url 'login' %}">ورود</a></li>
             <li><a href="{% url 'signup' %}">ثبت‌نام</a></li>
-        {% else %}
+            {% else %}
             <li><a href="{% url 'profile' %}">پروفایل</a></li>
+            <li><a href="{% url 'user_update' %}">ویرایش پروفایل</a></li>
+            <li><a href="{% url 'favorites' %}">علاقه‌مندی‌ها</a></li>
             <li><a href="{% url 'cart_items' %}">سبد خرید</a></li>
+            <li><a href="{% url 'orders' %}">سفارشات</a></li>
             <li>
-                <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
                     <button type="submit" class="logout-button">خروج</button>
                 </form>
             </li>
-        {% endif %}
-    </ul>
-</nav>
+            {% endif %}
+        </ul>
+    </nav>
 
-<!-- محتوای سفارشات -->
-<div class="container">
-    <div class="card">
-        <h2>سفارشات من</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>شماره سفارش</th>
-                    <th>تاریخ</th>
-                    <th>مبلغ</th>
-                    <th>جزئیات</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for order in user_orders %}
-                <tr>
-                    <td>{{ order.id }}</td>
-                    <td>{{ order.created_at }}</td>
-                    <td>{{ order.total_price }}</td>
-                    <td><a href="{% url 'order_detail' order.id %}" class="btn">مشاهده</a></td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+    <!-- محتوای سفارشات -->
+    <div class="container">
+        <div class="card">
+            <h2>سفارشات من</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>شماره سفارش</th>
+                        <th>تاریخ</th>
+                        <th>مبلغ</th>
+                        <th>جزئیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in user_orders %}
+                    <tr>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.created_at }}</td>
+                        <td>{{ order.total_price }}</td>
+                        <td><a href="{% url 'order_detail' order.id %}" class="btn">مشاهده</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 
 </body>
+
 </html>

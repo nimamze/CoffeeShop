@@ -18,8 +18,8 @@
       background: #000;
       min-height: 100vh;
       display: flex;
-      overflow: hidden;
       flex-direction: column;
+      overflow-x: hidden;
     }
 
     body::before,
@@ -58,7 +58,6 @@
       }
     }
 
-    /* Navbar Style */
     .navbar {
       width: 100%;
       background-color: #dc3545;
@@ -66,21 +65,22 @@
       justify-content: space-between;
       align-items: center;
       padding: 12px 20px;
+      color: white;
     }
 
     .navbar .navbar-brand {
       font-size: 20px;
-      color: white;
-      text-decoration: none;
       font-weight: bold;
+      text-decoration: none;
+      color: white;
     }
 
     .navbar ul {
       list-style: none;
-      margin: 0;
-      padding: 0;
       display: flex;
       gap: 15px;
+      margin: 0;
+      padding: 0;
       align-items: center;
     }
 
@@ -106,45 +106,6 @@
       background-color: rgba(255, 255, 255, 0.2);
     }
 
-    .navbar form {
-      display: inline;
-    }
-
-    /* Sidebar */
-    .sidebar {
-      width: 250px;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(20px);
-      border-left: 1px solid rgba(255, 255, 255, 0.1);
-      color: white;
-      display: flex;
-      flex-direction: column;
-      padding: 2rem 1rem;
-    }
-
-    .sidebar h2 {
-      font-size: 1.4rem;
-      margin-bottom: 2rem;
-      text-align: center;
-      color: #fff;
-    }
-
-    .sidebar a {
-      color: rgba(255, 255, 255, 0.85);
-      text-decoration: none;
-      padding: 0.8rem 1rem;
-      border-radius: 12px;
-      transition: all 0.3s ease;
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-    }
-
-    .sidebar a:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
     .main-content {
       flex: 1;
       display: flex;
@@ -159,8 +120,8 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 20px;
       padding: 2rem;
-      width: 100%;
       max-width: 800px;
+      width: 100%;
       color: #fff;
       display: flex;
       gap: 2rem;
@@ -213,51 +174,14 @@
       font-size: 1.2rem;
     }
 
-    .logout-button {
-      background: linear-gradient(135deg, #7c7cff, #ff7cff);
-      border: none;
-      padding: 0.8rem 1.2rem;
-      border-radius: 12px;
-      font-size: 1rem;
-      font-weight: 600;
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 1rem;
-    }
-
-    .logout-button:hover {
-      box-shadow: 0 0 20px rgba(124, 124, 255, 0.4);
-      transform: translateY(-2px);
-    }
-
     @media (max-width: 768px) {
-      body {
+      .profile-card {
         flex-direction: column;
-      }
-
-      .sidebar {
-        width: 100%;
-        flex-direction: row;
-        overflow-x: auto;
-        padding: 1rem;
-      }
-
-      .sidebar a {
-        flex: 1;
-        justify-content: center;
+        text-align: center;
       }
 
       .main-content {
         padding: 1rem;
-      }
-
-      .profile-card {
-        flex-direction: column;
-        text-align: center;
       }
     }
   </style>
@@ -265,7 +189,6 @@
 
 <body>
 
-  <!-- فقط بخش navbar تغییر کرده است -->
   <nav class="navbar">
     <ul>
       <a class="navbar-brand" href="{% url 'product_list' %}">خانه</a>
@@ -275,47 +198,28 @@
       {% else %}
       <li><a href="{% url 'profile' %}">پروفایل</a></li>
       <li><a href="{% url 'user_update' %}">ویرایش پروفایل</a></li>
-      <li><a href="{% url 'favorites' %}">علاقه مندی ها</a></li>
+      <li><a href="{% url 'favorites' %}">علاقه‌مندی‌ها</a></li>
       <li><a href="{% url 'cart_items' %}">سبد خرید</a></li>
       <li><a href="{% url 'orders' %}">سفارشات</a></li>
-      <li>
-        <form method="post" action="{% url 'logout' %}">
-          {% csrf_token %}
-          <button type="submit">خروج</button>
-        </form>
-      </li>
+      <li><a href="{% url 'logout' %}">خروج</a></li>
       {% endif %}
     </ul>
   </nav>
 
-
-  <!-- Sidebar and Main Content -->
-  <div style="display: flex; flex: 1;">
-    <div class="sidebar">
-      <h2>مشتری عزیز</h2>
-      <a href="{% url 'orders' %}"><i class="fas fa-box"></i> سفارشات من</a>
-      <a href="{% url 'product_list' %}"><i class="fas fa-map-marker-alt"></i> خانه</a>
-      <a href="{% url 'logout' %}"><i class="fas fa-map-marker-alt"></i> خروج</a>
-      
-       
-      
-    </div>
-
-    <div class="main-content">
-      <div class="profile-card">
-        <div class="profile-image">
-          {% if request.user.image %}
-          <img src="{{ request.user.image.url }}" alt="تصویر پروفایل">
-          {% else %}
-          <img src="https://via.placeholder.com/200x200.png?text=No+Image" alt="بدون تصویر">
-          {% endif %}
+  <div class="main-content">
+    <div class="profile-card">
+      <div class="profile-image">
+        {% if request.user.image %}
+        <img src="{{ request.user.image.url }}" alt="تصویر پروفایل">
+        {% else %}
+        <img src="https://via.placeholder.com/200x200.png?text=No+Image" alt="بدون تصویر">
+        {% endif %}
+      </div>
+      <div class="profile-info">
+        <div class="info-row"><i class="fas fa-user"></i> {{ request.user.first_name }} {{ request.user.last_name }}
         </div>
-        <div class="profile-info">
-          <div class="info-row"><i class="fas fa-user"></i> {{ request.user.first_name }} {{ request.user.last_name }}
-          </div>
-          <div class="info-row"><i class="fas fa-envelope"></i> {{ request.user.email }}</div>
-          <div class="info-row"><i class="fas fa-phone"></i> {{ request.user.phone }}</div>
-        </div>
+        <div class="info-row"><i class="fas fa-envelope"></i> {{ request.user.email }}</div>
+        <div class="info-row"><i class="fas fa-phone"></i> {{ request.user.phone }}</div>
       </div>
     </div>
   </div>

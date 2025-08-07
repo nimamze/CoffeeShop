@@ -272,27 +272,88 @@
         transform: translateY(0);
       }
     }
+
+    .navbar {
+      width: 100%;
+      background-color: #dc3545;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      flex-wrap: wrap;
+      direction: rtl;
+    }
+
+    .navbar-brand {
+      font-size: 20px;
+      font-weight: bold;
+      text-decoration: none;
+      color: white;
+    }
+
+    .navbar ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      flex-direction: row;
+    }
+
+    .navbar li {
+      display: inline-block;
+    }
+
+    .navbar a,
+    .navbar button {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    .navbar a:hover,
+    .navbar button:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .logout-button {
+      background: none;
+      border: none;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- ✅ نوار ناوبری تمام‌عرض -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-danger" dir="rtl">
-    <div class="nav-inner">
-      <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link" href="{% url 'product_list' %}">خانه</a></li>
-        {% if request.user.is_authenticated %}
-        <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">پروفایل</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'cart_items' %}">سبد خرید</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">خروج</a></li>
-        {% else %}
-        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">ورود</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">ثبت‌نام</a></li>
-        {% endif %}
-      </ul>
-    </div>
+  <nav class="navbar">
+    <ul>
+      <a class="navbar-brand" href="{% url 'product_list' %}">خانه</a>
+      {% if not request.user.is_authenticated %}
+      <li><a href="{% url 'login' %}">ورود</a></li>
+      <li><a href="{% url 'signup' %}">ثبت‌نام</a></li>
+      {% else %}
+      <li><a href="{% url 'profile' %}">پروفایل</a></li>
+      <li><a href="{% url 'user_update' %}">ویرایش پروفایل</a></li>
+      <li><a href="{% url 'favorites' %}">علاقه‌مندی‌ها</a></li>
+      <li><a href="{% url 'cart_items' %}">سبد خرید</a></li>
+      <li><a href="{% url 'orders' %}">سفارشات</a></li>
+      <li><a href="{% url 'logout' %}">خروج</a></li>
+      {% endif %}
+    </ul>
   </nav>
+
+
 
   <!-- ✅ پیام‌ها -->
   {% if messages %}

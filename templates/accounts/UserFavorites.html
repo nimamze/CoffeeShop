@@ -87,7 +87,6 @@
       padding: 0;
       align-items: center;
       flex-direction: row-reverse;
-      /* مهم */
     }
 
     .navbar li {
@@ -132,11 +131,7 @@
       {% endif %}
     </ul>
   </nav>
-
-  <!-- ✅ عنوان صفحه -->
   <h1>محصولات مورد علاقه</h1>
-
-  <!-- ✅ کارت‌های محصولات -->
   <div class="container mb-5">
     <div class="products-container">
       {% for favorite in user_favorites %}
@@ -158,8 +153,6 @@
       {% endfor %}
     </div>
   </div>
-
-  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
     crossorigin="anonymous"></script>

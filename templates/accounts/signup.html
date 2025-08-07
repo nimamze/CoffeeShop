@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
   <meta charset="UTF-8" />
   <title>ثبت‌نام</title>
@@ -97,37 +98,33 @@
       text-decoration: none;
       font-weight: bold;
     }
-
   </style>
 </head>
+
 <body>
-  
+
   <div class="card">
     <h2>ثبت‌نام</h2>
     <p>برای ایجاد حساب جدید فرم زیر را پر کنید</p>
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
-
-      {# اینجا هر فیلد فرم را جداگانه و با استایل می‌سازیم #}
       {% for field in form %}
       <div class="form-group">
         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
         {{ field }}
-        {# نمایش خطاهای فیلد #}
         {% if field.errors %}
-          <div style="color: #ff6666; font-size: 13px; margin-top: 4px;">
-            {{ field.errors|striptags }}
-          </div>
+        <div style="color: #ff6666; font-size: 13px; margin-top: 4px;">
+          {{ field.errors|striptags }}
+        </div>
         {% endif %}
       </div>
       {% endfor %}
-
       <button type="submit" class="btn">ثبت‌نام</button>
     </form>
-
     <div class="login-link">
       قبلاً حساب دارید؟ <a href="{% url 'login' %}">وارد شوید</a>
     </div>
   </div>
 </body>
+
 </html>

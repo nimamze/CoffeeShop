@@ -109,16 +109,13 @@
     </ul>
   </nav>
 
-  <!-- Order Details Content -->
   <div class="container">
     <div class="card">
       <h2>جزئیات سفارش شماره {{ order.id }}</h2>
       <p>مشتری: {{ order.customer.get_full_name }}</p>
       <p>تاریخ ثبت: {{ order.created_at }}</p>
       <p>قیمت کل: {{ order.total_price }} تومان</p>
-
       <hr>
-
       <h3>آیتم‌های سفارش:</h3>
       <ul>
         {% for item in order_items %}
@@ -131,7 +128,6 @@
       </ul>
     </div>
   </div>
-
 </body>
 
 </html>

@@ -6,13 +6,12 @@ from django.conf import settings
 
 User = get_user_model()
 
+
 @receiver(post_save, sender=User)
 def send_welcome_email(sender, instance, created, **kwargs):
     if created and instance.email:
-        send_mail(
-            subject='Welcome to our website!',
-            message=f'Hi {instance.first_name}, Welcome to Coffee Shop',
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[instance.email],
-            fail_silently=False,
-        )
+        subject = "Welcome to our website!"
+        message = f"Hi {instance.first_name}, Welcome to Coffee Shop"
+        from_email = settings.DEFAULT_FROM_EMAIL
+        recipient_list = [instance.email]
+        send_mail(subject, message, from_email, recipient_list, fail_silently=False)

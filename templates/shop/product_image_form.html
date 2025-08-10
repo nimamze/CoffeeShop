@@ -2,13 +2,17 @@
 {% block title %}آپلود تصویر{% endblock %}
 
 {% block content %}
-<div class="card">
-    <h2>آپلود تصویر</h2>
+<div class="card" style="max-width: 500px; margin: 30px auto; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 12px; box-shadow: 0 0 15px rgba(0,0,0,0.3);">
+    <h2 style="text-align: center; margin-bottom: 20px;">آپلود تصویر</h2>
 
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">ثبت</button>
+        <div style="text-align: center; margin-top: 20px;">
+          <button type="submit" style="padding: 10px 25px; background: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer;">
+            ثبت
+          </button>
+        </div>
     </form>
 </div>
 {% endblock %}

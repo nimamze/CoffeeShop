@@ -2,17 +2,19 @@
 {% block title %}ویرایش محصول{% endblock %}
 
 {% block content %}
-<div class="card">
+<div class="card" style="padding:20px; max-width:600px; margin:auto;">
   <h2>ویرایش محصول: {{ object.name }}</h2>
 
-  <div class="link-text" style="margin-bottom: 10px;">
-    <a href="{% url 'product_image_delete' product.id %}">حذف تصاویر</a>
+  <div class="link-text" style="margin-bottom: 15px;">
+    <a href="{% url 'product_image_delete' object.id %}" style="color:#dc3545; font-weight:bold;">حذف تصاویر</a>
   </div>
 
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">ذخیره تغییرات</button>
+    <button type="submit" style="padding:10px 20px; border-radius:6px; background:#28a745; color:white; border:none; cursor:pointer;">
+      ذخیره تغییرات
+    </button>
   </form>
 </div>
 {% endblock %}

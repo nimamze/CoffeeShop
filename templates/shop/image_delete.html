@@ -2,7 +2,7 @@
 {% block title %}حذف تصاویر{% endblock %}
 
 {% block content %}
-<div class="card">
+<div class="card" style="padding:20px; max-width:600px; margin:auto;">
   <h2>انتخاب تصاویر برای حذف</h2>
 
   <form method="post">
@@ -11,19 +11,21 @@
 
     {% for image in images %}
     <div style="margin-bottom: 20px;">
-      <img src="{{ image.image.url }}" width="150">
-      <label>
+      <img src="{{ image.image.url }}" width="150" alt="تصویر محصول">
+      <label style="margin-right: 10px; cursor: pointer;">
         حذف
-        <input type="checkbox" name="delete_image" value="{{ image.id }}">
+        <input type="checkbox" name="delete_image[]" value="{{ image.id }}">
       </label>
     </div>
     {% endfor %}
 
-    <button type="submit">حذف موارد انتخاب‌شده</button>
+    <button type="submit" style="padding:10px 20px; border-radius:6px; background:#dc3545; color:white; border:none; cursor:pointer;">
+      حذف موارد انتخاب‌شده
+    </button>
   </form>
 
-  <div class="link-text">
-    <a href="{% url 'product_edit' product.id %}">بازگشت به ویرایش محصول</a>
+  <div class="link-text" style="margin-top: 15px;">
+    <a href="{% url 'product_edit' product_id %}">بازگشت به ویرایش محصول</a>
   </div>
 </div>
 {% endblock %}

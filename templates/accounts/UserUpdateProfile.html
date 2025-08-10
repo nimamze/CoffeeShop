@@ -29,10 +29,11 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
       max-width: 500px;
       margin: 50px auto;
+      color: white;
     }
 
     .edit-profile-card h2 {
-      color: #333;
+      color: #fff;
       margin-bottom: 25px;
     }
 
@@ -59,7 +60,6 @@
       background-color: #dc3545;
       display: flex;
       justify-content: flex-end;
-
       align-items: center;
       padding: 12px 20px;
       color: white;
@@ -110,17 +110,17 @@
 
   <nav class="navbar">
     <ul>
-      <a class="navbar-brand" href="{% url 'product_list' %}">خانه</a>
+      <a class="navbar-brand" href="{% url 'shop:product_list' %}">خانه</a>
       {% if not request.user.is_authenticated %}
-      <li><a href="{% url 'login' %}">ورود</a></li>
-      <li><a href="{% url 'signup' %}">ثبت‌نام</a></li>
+      <li><a href="{% url 'accounts:login' %}">ورود</a></li>
+      <li><a href="{% url 'accounts:signup' %}">ثبت‌نام</a></li>
       {% else %}
-      <li><a href="{% url 'profile' %}">پروفایل</a></li>
-      <li><a href="{% url 'user_update' %}">ویرایش پروفایل</a></li>
-      <li><a href="{% url 'favorites' %}">علاقه‌مندی‌ها</a></li>
-      <li><a href="{% url 'cart_items' %}">سبد خرید</a></li>
-      <li><a href="{% url 'orders' %}">سفارشات</a></li>
-      <li><a href="{% url 'logout' %}">خروج</a></li>
+      <li><a href="{% url 'accounts:profile' %}">پروفایل</a></li>
+      <li><a href="{% url 'accounts:user_update' %}">ویرایش پروفایل</a></li>
+      <li><a href="{% url 'accounts:favorites' %}">علاقه‌مندی‌ها</a></li>
+      <li><a href="{% url 'shop:cart_items' %}">سبد خرید</a></li>
+      <li><a href="{% url 'accounts:orders' %}">سفارشات</a></li>
+      <li><a href="{% url 'accounts:logout' %}">خروج</a></li>
       {% endif %}
     </ul>
   </nav>
@@ -128,7 +128,7 @@
   <div class="container mt-4 text-center">
     <div class="btn-group">
       {% for category in categories %}
-      <a href="{% url 'category_filter' category.name %}" class="btn btn-outline-light">{{ category.name }}</a>
+      <a href="{% url 'shop:category_filter' category.name %}" class="btn btn-outline-light">{{ category.name }}</a>
       {% endfor %}
     </div>
   </div>
@@ -141,7 +141,7 @@
 
       <div class="d-grid gap-2 mt-3">
         <button type="submit" class="btn btn-danger">ذخیره</button>
-        <a href="{% url 'profile' %}" class="btn btn-back">بازگشت به پروفایل</a>
+        <a href="{% url 'accounts:profile' %}" class="btn btn-back">بازگشت به پروفایل</a>
       </div>
     </form>
   </div>

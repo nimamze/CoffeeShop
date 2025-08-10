@@ -70,6 +70,7 @@
             font-size: 13px;
             border: none;
             cursor: pointer;
+            transition: opacity 0.3s ease;
         }
 
         a.btn:hover,
@@ -90,28 +91,27 @@
             text-decoration: underline;
         }
 
-        button {
-            margin-top: 20px;
-            padding: 8px 14px;
+        button.delete-btn {
+            margin-top: 0;
+            padding: 6px 12px;
             border-radius: 8px;
             border: none;
-            background: #ffc107;
-            color: black;
+            background: #dc3545;
+            color: white;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
-        button:hover {
-            opacity: 0.9;
+        button.delete-btn:hover {
+            background-color: #b02a37;
         }
 
-        tfoot {
-            margin-top: 15px;
-        }
-
-        .btn-danger {
-            background-color: #dc3545;
+        tfoot tr th,
+        tfoot tr td {
+            font-weight: bold;
+            font-size: 16px;
         }
 
         .navbar {
@@ -139,7 +139,6 @@
             align-items: center;
         }
 
-
         .navbar li {
             display: inline-block;
         }
@@ -156,6 +155,11 @@
             border-radius: 6px;
             transition: background-color 0.3s ease;
         }
+
+        .navbar a:hover,
+        .navbar button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
     </style>
 
 </head>
@@ -163,17 +167,17 @@
 <body>
     <nav class="navbar">
         <ul>
-            <a class="navbar-brand" href="{% url 'product_list' %}">خانه</a>
+            <a class="navbar-brand" href="{% url 'shop:product_list' %}">خانه</a>
             {% if not request.user.is_authenticated %}
-            <li><a href="{% url 'login' %}">ورود</a></li>
-            <li><a href="{% url 'signup' %}">ثبت‌نام</a></li>
+            <li><a href="{% url 'accounts:login' %}">ورود</a></li>
+            <li><a href="{% url 'accounts:signup' %}">ثبت‌نام</a></li>
             {% else %}
-            <li><a href="{% url 'profile' %}">پروفایل</a></li>
-            <li><a href="{% url 'user_update' %}">ویرایش پروفایل</a></li>
-            <li><a href="{% url 'favorites' %}">علاقه‌مندی‌ها</a></li>
-            <li><a href="{% url 'cart_items' %}">سبد خرید</a></li>
-            <li><a href="{% url 'orders' %}">سفارشات</a></li>
-            <li><a href="{% url 'logout' %}">خروج</a></li>
+            <li><a href="{% url 'accounts:profile' %}">پروفایل</a></li>
+            <li><a href="{% url 'accounts:user_update' %}">ویرایش پروفایل</a></li>
+            <li><a href="{% url 'accounts:favorites' %}">علاقه‌مندی‌ها</a></li>
+            <li><a href="{% url 'shop:cart_items' %}">سبد خرید</a></li>
+            <li><a href="{% url 'accounts:orders' %}">سفارشات</a></li>
+            <li><a href="{% url 'accounts:logout' %}">خروج</a></li>
             {% endif %}
         </ul>
     </nav>
@@ -191,22 +195,29 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for item in cart.items.all %}
+                    {% for item in cart.cart_items.all %}
+
                     <tr>
                         <td>{{ item.product.name }}</td>
                         <td>{{ item.quantity }}</td>
                         <td>{{ item.get_total_price }}</td>
-                        <td><a href="{% url 'product_details' item.product.pk %}" class="btn">مشاهده محصول</a></td>
-                        <td><a href="{% url 'delete_item' item.pk %}"><button>حذف </button></a></td>
+                        <td><a href="{% url 'shop:product_details' item.product.pk %}" class="btn">مشاهده محصول</a></td>
+                        <td>
+                            <form action="{% url 'shop:delete_item' item.pk %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="delete-btn">حذف</button>
+                            </form>
+                        </td>
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="4">سبد خرید شما خالی است.</td>
+                        <td colspan="5">سبد خرید شما خالی است.</td>
                     </tr>
                     {% endfor %}
                 </tbody>
 
-                {% if cart.items.all %}
+                {% if cart.cart_items.all %}
+
                 <tfoot>
                     <tr>
                         <th colspan="3">جمع کل سبد خرید:</th>
@@ -216,8 +227,8 @@
                 {% endif %}
                 <tfoot>
                     <tr>
-                        <td colspan="4">
-                            <form action="{% url 'cart_checkout' %}" method="post">
+                        <td colspan="5" style="text-align:center;">
+                            <form action="{% url 'shop:cart_checkout' %}" method="post">
                                 {% csrf_token %}
                                 <button type="submit" class="btn">پرداخت</button>
                             </form>
@@ -225,8 +236,8 @@
                     </tr>
                 </tfoot>
             </table>
-            <a href="{% url 'orders' %}">
-                <button>سفارشات من</button>
+            <a href="{% url 'accounts:orders' %}">
+                <button class="btn" style="margin-top: 20px;">سفارشات من</button>
             </a>
         </div>
     </div>

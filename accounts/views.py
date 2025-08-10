@@ -1,5 +1,6 @@
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, UpdateView, ListView, CreateView
@@ -14,18 +15,18 @@ class CustomLoginView(LoginView):
     redirect_authenticated_user = True
 
     def get_success_url(self):
-        return reverse_lazy("profile")
+        return reverse_lazy("accounts:profile")
 
 
 def logout_view(request):
     logout(request)
-    return redirect("login")
+    return redirect("accounts:login")
 
 
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
     template_name = "accounts/signup.html"
-    success_url = reverse_lazy("login")
+    success_url = reverse_lazy("accounts:login")
 
 
 class ProfileView(LoginRequiredMixin, DetailView):
@@ -41,7 +42,7 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
     model = CustomUser
     fields = ["first_name", "last_name", "email", "image", "phone"]
     template_name = "accounts/UserUpdateProfile.html"
-    success_url = reverse_lazy("profile")
+    success_url = reverse_lazy("accounts:profile")
 
     def get_object(self, queryset=None):
         return self.request.user
@@ -56,13 +57,14 @@ class UserFavoritesView(LoginRequiredMixin, ListView):
         return Favorite.objects.filter(customer=self.request.user)
 
 
+@login_required
 def add_to_favorites(request, pk):
     product = get_object_or_404(Product, pk=pk)
     Favorite.objects.get_or_create(customer=request.user, product=product)
-    return redirect("favorites")
+    return redirect("accounts:favorites")
 
 
-class UserOrdersView(ListView):
+class UserOrdersView(LoginRequiredMixin, ListView):
     model = Order
     template_name = "accounts/user_orders.html"
     context_object_name = "user_orders"
@@ -71,12 +73,15 @@ class UserOrdersView(ListView):
         return Order.objects.filter(customer=self.request.user)
 
 
-class UserOrderDetailView(DetailView):
+class UserOrderDetailView(LoginRequiredMixin, DetailView):
     model = Order
     template_name = "accounts/user_order_detail.html"
     context_object_name = "order"
 
+    def get_queryset(self):
+        return Order.objects.filter(customer=self.request.user)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["order_items"] = self.object.items.all()  # type: ignore # related_name='items'
+        context["order_items"] = self.object.order_items.all()  # type: ignore
         return context

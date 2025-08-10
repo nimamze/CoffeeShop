@@ -94,17 +94,17 @@
 
   <nav class="navbar">
     <ul>
-      <a class="navbar-brand" href="{% url 'product_list' %}">خانه</a>
+      <a class="navbar-brand" href="{% url 'shop:product_list' %}">خانه</a>
       {% if not request.user.is_authenticated %}
-      <li><a href="{% url 'login' %}">ورود</a></li>
-      <li><a href="{% url 'signup' %}">ثبت‌نام</a></li>
+      <li><a href="{% url 'accounts:login' %}">ورود</a></li>
+      <li><a href="{% url 'accounts:signup' %}">ثبت‌نام</a></li>
       {% else %}
-      <li><a href="{% url 'profile' %}">پروفایل</a></li>
-      <li><a href="{% url 'user_update' %}">ویرایش پروفایل</a></li>
-      <li><a href="{% url 'favorites' %}">علاقه‌مندی‌ها</a></li>
-      <li><a href="{% url 'cart_items' %}">سبد خرید</a></li>
-      <li><a href="{% url 'orders' %}">سفارشات</a></li>
-      <li><a href="{% url 'logout' %}">خروج</a></li>
+      <li><a href="{% url 'accounts:profile' %}">پروفایل</a></li>
+      <li><a href="{% url 'accounts:user_update' %}">ویرایش پروفایل</a></li>
+      <li><a href="{% url 'accounts:favorites' %}">علاقه‌مندی‌ها</a></li>
+      <li><a href="{% url 'shop:cart_items' %}">سبد خرید</a></li>
+      <li><a href="{% url 'accounts:orders' %}">سفارشات</a></li>
+      <li><a href="{% url 'accounts:logout' %}">خروج</a></li>
       {% endif %}
     </ul>
   </nav>

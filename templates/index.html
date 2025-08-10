@@ -15,6 +15,8 @@
 
     .product-card {
       width: 260px;
+      height: 340px;
+      /* ارتفاع ثابت برای کارت */
       border: 1px solid #dee2e6;
       border-radius: 12px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
@@ -22,6 +24,11 @@
       padding: 15px;
       background-color: white;
       transition: transform 0.2s ease;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      /* فاصله مساوی بین عنوان، قیمت و عکس */
     }
 
     .product-card:hover {
@@ -33,6 +40,7 @@
       border-radius: 8px;
       object-fit: cover;
       max-height: 180px;
+      flex-shrink: 0;
     }
 
     h1 {
@@ -80,7 +88,6 @@
       flex-direction: row-reverse;
     }
 
-
     .navbar li {
       display: inline-block;
     }
@@ -114,15 +121,15 @@
 <body>
   <nav class="navbar">
     <ul>
-      <a class="navbar-brand" href="{% url 'product_list' %}">خانه</a>
+      <a class="navbar-brand" href="{% url 'shop:product_list' %}">خانه</a>
       {% if not request.user.is_authenticated %}
-      <li><a href="{% url 'login' %}">ورود</a></li>
-      <li><a href="{% url 'signup' %}">ثبت‌نام</a></li>
+      <li><a href="{% url 'accounts:login' %}">ورود</a></li>
+      <li><a href="{% url 'accounts:signup' %}">ثبت‌نام</a></li>
       {% else %}
-      <li><a href="{% url 'profile' %}">پروفایل</a></li>
-      <li><a href="{% url 'cart_items' %}">سبد خرید</a></li>
+      <li><a href="{% url 'accounts:profile' %}">پروفایل</a></li>
+      <li><a href="{% url 'shop:cart_items' %}">سبد خرید</a></li>
       <li>
-        <form method="post" action="{% url 'logout' %}">
+        <form method="post" action="{% url 'accounts:logout' %}">
           {% csrf_token %}
           <button type="submit">خروج</button>
         </form>
@@ -135,15 +142,15 @@
 
     <div class="btn-group mb-4">
       {% for category in categories %}
-      <a href="{% url 'category_filter' category.name %}" class="btn btn-outline-danger">{{ category.name }}</a>
+      <a href="{% url 'shop:category_filter' category.name %}" class="btn btn-outline-danger">{{ category.name }}</a>
       {% endfor %}
     </div>
 
     <h1>محصولات</h1>
 
     <div class="products-container">
-      {% for product in products %}
-      <a href="{% url 'product_details' product.pk %}" class="no-underline">
+      {% for product in page_obj %}
+      <a href="{% url 'shop:product_details' product.pk %}" class="no-underline">
         <div class="product-card">
           <h5 class="mb-2">{{ product.name }}</h5>
           <p class="text-muted">قیمت: {{ product.price }} تومان</p>
@@ -156,6 +163,39 @@
       </a>
       {% endfor %}
     </div>
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <li class="page-item active">
+          <a class="page-link" href="#">{{ num }}</a>
+        </li>
+        {% else %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
 
   </div>
 

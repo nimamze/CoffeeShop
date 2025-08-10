@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
   <meta charset="UTF-8" />
   <title>ورود</title>
@@ -93,6 +94,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="card">
     <h2>ورود</h2>
@@ -103,9 +105,9 @@
         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
         {{ field }}
         {% if field.errors %}
-          <div style="color: #ff6666; font-size: 13px; margin-top: 4px;">
-            {{ field.errors|striptags }}
-          </div>
+        <div style="color: #ff6666; font-size: 13px; margin-top: 4px;">
+          {{ field.errors|striptags }}
+        </div>
         {% endif %}
       </div>
       {% endfor %}
@@ -114,8 +116,10 @@
     </form>
 
     <div class="signup-link">
-      حساب کاربری ندارید؟ <a href="{% url 'signup' %}">ثبت‌نام کنید</a>
+      حساب کاربری ندارید؟ <a href="{% url 'accounts:signup' %}">ثبت‌نام کنید</a>
+
     </div>
   </div>
 </body>
+
 </html>

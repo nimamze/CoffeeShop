@@ -7,7 +7,8 @@ from .models import Notification, Order
 def order_created_handler(sender, instance, created, **kwargs):
     if created:
         customer = instance.customer
+        full_name = customer.get_full_name() or customer.username
         Notification.objects.create(
             user=customer,
-            message=f"{customer.get_full_name()} ثبت سفارش کرد",
+            message=f"سفارش جدید توسط {full_name} ثبت شد.",
         )

@@ -2,24 +2,41 @@ from django.urls import reverse
 from django.views import View
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic import ListView, DetailView
-from .models import Product, Category, Order, OrderItem, Comment, Cart, CartItem
-from .forms import CartAddForm, CommentFrom
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.contrib import messages
 from django.db.models import Avg
+from .models import Product, Category, Order, OrderItem, Comment, Cart, CartItem
+from .forms import CartAddForm, CommentForm
+from django.core.paginator import Paginator
+
+
+from django.views import View
+from django.shortcuts import render, get_object_or_404
+from django.core.paginator import Paginator
+from .models import Product, Category
 
 
 class ProductList(View):
     def get(self, request, name=None):
-        products = Product.objects.all()
         categories = Category.objects.all()
-        if name is not None:
-            category = Category.objects.get(name=name)
+        if name:
+            category = get_object_or_404(Category, name=name)
             products = Product.objects.filter(categories=category)
+        else:
+            products = Product.objects.all()
+        paginator = Paginator(products, 4)
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+
         return render(
-            request, "index.html", {"products": products, "categories": categories}
+            request,
+            "index.html",
+            {
+                "page_obj": page_obj,
+                "categories": categories,
+            },
         )
 
 
@@ -30,24 +47,28 @@ class ProductDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        product = self.get_object()
+        product.refresh_from_db()
         context["form"] = CartAddForm()
-        context["comment_form"] = CommentFrom(prefix="comment")
+        context["comment_form"] = CommentForm(prefix="comment")
         context["comments"] = self.get_comment_queryset()
         context["average_score"] = self.get_average_score()
         return context
 
     def post(self, request, pk):
         if not request.user.is_authenticated:
-            return redirect("login")
+            return redirect("accounts:login")
 
-        comment_form = CommentFrom(request.POST, prefix="comment")
+        comment_form = CommentForm(request.POST, prefix="comment")
+        product = get_object_or_404(Product, id=pk)
+
         if comment_form.is_valid():
             text = comment_form.cleaned_data["text"]
             score = comment_form.cleaned_data["score"]
-            product = get_object_or_404(Product, id=pk)
             customer = request.user
+
             has_purchased = Order.objects.filter(
-                customer=customer, items__product_name=product.name
+                customer=customer, order_items__product_name=product.name
             ).exists()
 
             Comment.objects.create(
@@ -59,25 +80,26 @@ class ProductDetailView(DetailView):
             )
 
             messages.success(
-                request, "کامنت شما ثبت شد. پس از تأیید توسط ادمین نمایش داده خواهد شد."
+                request, "کامنت شما ثبت شد و پس از تایید نمایش داده خواهد شد."
             )
         else:
-            messages.error(request, "فرم کامنت نامعتبر است.")
+            messages.error(request, "فرم نظر نامعتبر است.")
 
         return redirect(request.path_info)
 
     def get_comment_queryset(self):
-        comments = (
+        return (
             Comment.objects.select_related("customer")
-            .filter(product=self.object, is_confirmed=True)  # type: ignore
+            .filter(
+                product=self.object,  # type: ignore
+                is_confirmed=True,
+            )
             .order_by("-created_at")
         )
-        return comments
 
     def get_average_score(self):
         comments = self.get_comment_queryset()
-        avg = comments.aggregate(avg_score=Avg("score"))["avg_score"] or 0
-        return avg
+        return comments.aggregate(avg_score=Avg("score"))["avg_score"] or 0
 
 
 class CartAddView(LoginRequiredMixin, View):
@@ -87,29 +109,32 @@ class CartAddView(LoginRequiredMixin, View):
 
         if form.is_valid():
             quantity = form.cleaned_data["quantity"]
-
-            cart = (
-                Cart.objects.filter(customer=request.user)
-                .order_by("-created_at")
-                .first()
+            cart, _ = Cart.objects.get_or_create(
+                customer=request.user, cart_order__isnull=True
             )
-            if not cart:
-                cart = Cart.objects.create(customer=request.user)
 
-            cart_item, created = CartItem.objects.get_or_create(
-                cart=cart, product=product, defaults={"quantity": quantity}
-            )
-            if created:
-                messages.success(request, " با موفقیت به سبد خرید اضافه شد.")
-            else:
-                cart_item.quantity += quantity
+            cart_item = CartItem.objects.filter(cart=cart, product=product).first()
+            current_quantity_in_cart = cart_item.quantity if cart_item else 0
+            total_quantity = current_quantity_in_cart + quantity
+
+            if total_quantity > product.stock:
+                messages.error(
+                    request,
+                    f"تعداد درخواستی بیشتر از موجودی محصول است. موجودی: {product.stock} عدد.",
+                )
+                return redirect(reverse("shop:product_details", args=[product.id]))  # type: ignore
+
+            if cart_item:
+                cart_item.quantity = total_quantity
                 cart_item.save()
-                messages.success(request, " با موفقیت به سبد خرید اضافه شد.")
+            else:
+                CartItem.objects.create(cart=cart, product=product, quantity=quantity)
 
+            messages.success(request, "محصول با موفقیت به سبد خرید اضافه شد.")
         else:
-            messages.error(request, "فرم نامعتبر است. لطفاً مجدداً تلاش کنید.")
+            messages.error(request, "فرم نامعتبر است. لطفاً دوباره تلاش کنید.")
 
-        return redirect(reverse("product_details", args=[product.id]))
+        return redirect(reverse("shop:product_details", args=[product.id]))  # type: ignore
 
 
 class CartItemsView(LoginRequiredMixin, ListView):
@@ -119,16 +144,20 @@ class CartItemsView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         cart = (
-            Cart.objects.filter(customer=self.request.user)
+            Cart.objects.filter(customer=self.request.user, cart_order__isnull=True)
             .order_by("-created_at")
             .first()
         )
-        return cart.items.select_related("product") if cart else CartItem.objects.none()  # type: ignore
+        return (
+            cart.cart_items.select_related("product")  # type: ignore
+            if cart
+            else CartItem.objects.none()
+        )  # type: ignore
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         cart = (
-            Cart.objects.filter(customer=self.request.user)
+            Cart.objects.filter(customer=self.request.user, cart_order__isnull=True)
             .order_by("-created_at")
             .first()
         )
@@ -140,45 +169,56 @@ class CartItemsView(LoginRequiredMixin, ListView):
 @transaction.atomic
 def checkout(request):
     cart = (
-        Cart.objects.filter(customer=request.user, order__isnull=True)
+        Cart.objects.filter(customer=request.user, cart_order__isnull=True)
         .order_by("-created_at")
         .first()
     )
 
-    if not cart:
-        cart = Cart.objects.create(customer=request.user)
-
-    if not cart.items.exists():  # type: ignore
+    if not cart or not cart.cart_items.exists():  # type: ignore
         messages.error(request, "سبد خرید شما خالی است.")
-        return redirect("cart_items")
+        return redirect("shop:cart_items")
 
-    if hasattr(cart, "order"):
+    # چک کردن موجودی کافی قبل از ثبت سفارش
+    for item in cart.cart_items.select_related("product").all():  # type: ignore
+        if item.quantity > item.product.stock:
+            messages.error(
+                request,
+                f"محصول '{item.product.name}' به اندازه کافی موجود نیست. موجودی فعلی: {item.product.stock} عدد.",
+            )
+            return redirect("shop:cart_items")
+
+    if hasattr(cart, "cart_order") and cart.cart_order:  # type: ignore
         messages.warning(request, "برای این سبد قبلاً سفارش ثبت شده است.")
-        return redirect("cart_items")
+        return redirect("shop:cart_items")
 
     order = Order.objects.create(
         customer=request.user, cart=cart, total_price=cart.get_total_price()
     )
+    cart.cart_order = order  # type: ignore
+    cart.save()
 
-    for item in cart.items.all():  # type: ignore
+    for item in cart.cart_items.all():  # type: ignore
         OrderItem.objects.create(
             order=order,
             product_name=item.product.name,
             quantity=item.quantity,
             price_at_purchase=item.product.price,
         )
+        # کم کردن موجودی محصول
+        product = item.product
+        product.stock -= item.quantity
+        product.save()
 
-    cart.items.all().delete()  # type: ignore
-
+    cart.cart_items.all().delete()  # type: ignore
     Cart.objects.create(customer=request.user)
 
     messages.success(request, "سفارش شما با موفقیت ثبت شد.")
-    return redirect("cart_items")
+    return redirect("shop:cart_items")
 
 
 @login_required
 def delete_item(request, pk):
     item = get_object_or_404(CartItem, pk=pk, cart__customer=request.user)
     item.delete()
-    messages.success(request, "آیتم با موفقیت از سبد خرید حذف شد.")
-    return redirect("cart_items")
+    messages.success(request, "محصول با موفقیت از سبد خرید حذف شد.")
+    return redirect("shop:cart_items")

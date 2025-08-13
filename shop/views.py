@@ -129,7 +129,9 @@ class CartAddView(LoginRequiredMixin, View):
                 cart_item.save()
             else:
                 CartItem.objects.create(cart=cart, product=product, quantity=quantity)
-
+            
+            product.stock = product.stock - total_quantity
+            product.save()
             messages.success(request, "محصول با موفقیت به سبد خرید اضافه شد.")
         else:
             messages.error(request, "فرم نامعتبر است. لطفاً دوباره تلاش کنید.")
@@ -204,10 +206,6 @@ def checkout(request):
             quantity=item.quantity,
             price_at_purchase=item.product.price,
         )
-        # کم کردن موجودی محصول
-        product = item.product
-        product.stock -= item.quantity
-        product.save()
 
     cart.cart_items.all().delete()  # type: ignore
     Cart.objects.create(customer=request.user)
@@ -219,6 +217,8 @@ def checkout(request):
 @login_required
 def delete_item(request, pk):
     item = get_object_or_404(CartItem, pk=pk, cart__customer=request.user)
+    item.product.stock = item.product.stock + item.quantity
+    item.product.save()
     item.delete()
     messages.success(request, "محصول با موفقیت از سبد خرید حذف شد.")
     return redirect("shop:cart_items")

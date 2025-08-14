@@ -10,8 +10,6 @@ from django.db.models import Avg
 from .models import Product, Category, Order, OrderItem, Comment, Cart, CartItem
 from .forms import CartAddForm, CommentForm
 from django.core.paginator import Paginator
-
-
 from django.views import View
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
@@ -129,7 +127,7 @@ class CartAddView(LoginRequiredMixin, View):
                 cart_item.save()
             else:
                 CartItem.objects.create(cart=cart, product=product, quantity=quantity)
-            
+
             product.stock = product.stock - total_quantity
             product.save()
             messages.success(request, "محصول با موفقیت به سبد خرید اضافه شد.")

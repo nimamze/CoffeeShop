@@ -374,7 +374,7 @@
       </p>
 
       <div class="product-images">
-        {% for image in product.images.all %}
+        {% for image in product.product_images.all %}
         <img src="{{ image.image.url }}" alt="تصویر {{ forloop.counter }}">
         {% empty %}
         <p>تصویری برای این محصول موجود نیست.</p>

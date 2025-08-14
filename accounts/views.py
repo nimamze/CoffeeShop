@@ -8,6 +8,7 @@ from .forms import CustomUserCreationForm
 from .models import CustomUser
 from shop.models import Favorite, Product, Order
 from django.contrib.auth import logout
+from django.contrib.auth import login
 
 
 class CustomLoginView(LoginView):
@@ -26,7 +27,14 @@ def logout_view(request):
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
     template_name = "accounts/signup.html"
-    success_url = reverse_lazy("accounts:login")
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect("shop:product_list")
+
+    def get_success_url(self):
+        return reverse_lazy("shop:product_list")
 
 
 class ProfileView(LoginRequiredMixin, DetailView):

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "accounts.apps.AccountsConfig",
     "shop.apps.ShopConfig",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -136,7 +137,7 @@ LOGOUT_REDIRECT_URL = "/"
 
 
 # wellcome Email
-from decouple import config
+from decouple import config  # type: ignore
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
@@ -149,3 +150,10 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [BASE_DIR / "static"]
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.TokenAuthentication",
+    ),
+}

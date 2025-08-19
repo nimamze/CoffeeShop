@@ -11,6 +11,7 @@ from .views import (
     add_to_favorites,
     logout_view,
 )
+from accounts.api_views import SignUpApi, SignUpConfirmApi
 
 app_name = "accounts"
 
@@ -24,4 +25,6 @@ urlpatterns = [
     path("login/", CustomLoginView.as_view(), name="login"),
     path("logout/", logout_view, name="logout"),
     path("signup/", SignUpView.as_view(), name="signup"),
+    path("api/sign-up/", SignUpApi.as_view(), name="sign_up"),
+    path("api/sign-up-confirm/", SignUpConfirmApi.as_view(), name="sign_up_confirm"),
 ]

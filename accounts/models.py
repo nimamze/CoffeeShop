@@ -45,10 +45,8 @@ class CustomUser(AbstractUser):
     date_joined = models.DateTimeField(auto_now_add=True)
     first_name = models.CharField(max_length=20, verbose_name="نام")
     last_name = models.CharField(max_length=20, verbose_name="نام خانوادگی")
-
     USERNAME_FIELD = "phone"
     REQUIRED_FIELDS = ["email"]
-
     objects = CustomUserManager()  # type: ignore
 
     def __str__(self):

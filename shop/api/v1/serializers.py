@@ -1,4 +1,4 @@
-from .models import Category, Product
+from ...models import Category, Product
 from rest_framework import serializers
 
 

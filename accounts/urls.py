@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 
 from .views import (
     UpdateProfileView,
@@ -10,15 +10,6 @@ from .views import (
     UserOrderDetailView,
     add_to_favorites,
     logout_view,
-)
-
-from accounts.api_views import SignUpApi, SignUpConfirmApi, ProfileApi
-
-
-
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
 )
 
 app_name = "accounts"
@@ -33,11 +24,5 @@ urlpatterns = [
     path("login/", CustomLoginView.as_view(), name="login"),
     path("logout/", logout_view, name="logout"),
     path("signup/", SignUpView.as_view(), name="signup"),
-    path("api/sign-up/", SignUpApi.as_view(), name="sign_up_api"),
-    path(
-        "api/sign-up-confirm/", SignUpConfirmApi.as_view(), name="sign_up_confirm_api"
-    ),
-    path("api/profile/", ProfileApi.as_view(), name="profile_api"),
-    path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair_api"),
-    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh_api"),
+    path("api/v1/", include("accounts.api.v1.urls")),
 ]

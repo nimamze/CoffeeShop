@@ -7,7 +7,7 @@ from .serializers import (
     SelectFavoriteSerializer,
 )
 from rest_framework import status
-from .models import CustomUser
+from ...models import CustomUser
 from rest_framework.views import APIView
 import random
 from django.contrib.auth.hashers import make_password

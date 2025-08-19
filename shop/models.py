@@ -166,3 +166,5 @@ class Notification(models.Model):
 
     def __str__(self):
         return f"پیام برای {self.user.username}"
+
+

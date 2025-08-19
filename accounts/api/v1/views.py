@@ -13,6 +13,7 @@ import random
 from django.contrib.auth.hashers import make_password
 from shop.models import Favorite, Order
 from rest_framework.permissions import IsAuthenticated
+from drf_yasg.utils import swagger_auto_schema
 
 
 class SignUpApi(APIView):
@@ -63,6 +64,7 @@ class SignUpConfirmApi(APIView):
 class ProfileApi(APIView):
     permission_classes = [IsAuthenticated]
 
+    @swagger_auto_schema(security=[{"Bearer": []}])
     def get(self, request):
         user = request.user
         content = {
@@ -72,6 +74,7 @@ class ProfileApi(APIView):
         }
         return Response(content, status=status.HTTP_200_OK)
 
+    @swagger_auto_schema(security=[{"Bearer": []}])
     def delete(self, request):
         serializer = SelectFavoriteSerializer(data=request.data)
         if serializer.is_valid():
@@ -82,6 +85,7 @@ class ProfileApi(APIView):
                 return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
+    @swagger_auto_schema(security=[{"Bearer": []}])
     def patch(self, request):
         serializer = ProfileChangeSerializer(
             instance=request.user, data=request.data, partial=True

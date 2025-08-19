@@ -5,6 +5,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
+
 urlpatterns = [
     path("sign-up/", SignUpApi.as_view(), name="sign_up_api"),
     path("sign-up-confirm/", SignUpConfirmApi.as_view(), name="sign_up_confirm_api"),

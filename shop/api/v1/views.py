@@ -5,8 +5,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from .serializers import CategorySerializer, ProductSerializer
+from .serializers import CategorySerializer, ProductSerializer, ProductDetailSerializer
 from .filters import ProductFilter
+from ...models import Product, Favorite
+from drf_yasg.utils import swagger_auto_schema
 
 
 class ProductListApi(APIView):
@@ -29,3 +31,20 @@ class ProductListApi(APIView):
                 "products": product_data,
             }
         )
+
+
+class AddFavoriteApi(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @swagger_auto_schema(security=[{"Bearer": []}])
+    def get(self, request, pk):
+        product = Product.objects.get(pk=pk)
+        serializer = ProductDetailSerializer(product)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @swagger_auto_schema(security=[{"Bearer": []}])
+    def post(self, request, pk):
+        user = request.user
+        product = Product.objects.get(pk=pk)
+        Favorite.objects.create(customer=user, product=product)
+        return Response(status=status.HTTP_200_OK)

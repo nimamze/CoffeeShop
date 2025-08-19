@@ -8,6 +8,7 @@ from .views import (
     checkout,
     delete_item,
 )
+from .api_views import ProductListApi
 
 app_name = "shop"
 
@@ -20,4 +21,10 @@ urlpatterns = [
     path("cart/items/", CartItemsView.as_view(), name="cart_items"),
     path("cart/checkout/", checkout, name="cart_checkout"),
     path("cart/delete/<int:pk>/", delete_item, name="delete_item"),
+    path("api/products/", ProductListApi.as_view(), name="product_list"),
+    path(
+        "api/products/<str:name>/",
+        ProductListApi.as_view(),
+        name="product_list_by_category",
+    ),
 ]

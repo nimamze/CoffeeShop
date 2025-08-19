@@ -14,6 +14,8 @@ from .views import (
 
 from accounts.api_views import SignUpApi, SignUpConfirmApi, ProfileApi
 
+
+
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,

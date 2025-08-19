@@ -20,3 +20,5 @@ class ProfileChangeSerializer(serializers.ModelSerializer):
 
 class SelectFavoriteSerializer(serializers.Serializer):
     id = serializers.IntegerField()
+
+

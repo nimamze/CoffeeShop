@@ -1,11 +1,17 @@
 from rest_framework.response import Response
-from .serializers import CustomUserSerializer, OtpSerializer
+from .serializers import (
+    CustomUserSerializer,
+    OtpSerializer,
+    ProfileChangeSerializer,
+    SelectFavoriteSerializer,
+)
 from rest_framework import status
 from .models import CustomUser
 from rest_framework.views import APIView
 import random
 from django.contrib.auth.hashers import make_password
-from django.core.files.storage import default_storage
+from shop.models import Favorite, Order
+from rest_framework.permissions import IsAuthenticated
 
 
 class SignUpApi(APIView):
@@ -53,13 +59,33 @@ class SignUpConfirmApi(APIView):
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-# class ProfileApi(APIView):
-#     def post(self, request):
-#         pass
+class ProfileApi(APIView):
+    permission_classes = [IsAuthenticated]
 
-#     def get(self, request):
-#         user = request.user
-#         content = {"username" : {f"{user.first_name}"}}
+    def get(self, request):
+        user = request.user
+        content = {
+            "username": f"first name is {user.first_name} - last name is {user.last_name} and phon is {user.phone}",
+            "favorites": Favorite.objects.filter(customer__pk=user.pk).values(),
+            "order": Order.objects.filter(customer__pk=user.pk).values(),
+        }
+        return Response(content, status=status.HTTP_200_OK)
 
-#     def delete(self, request):
-#         pass
+    def delete(self, request):
+        serializer = SelectFavoriteSerializer(data=request.data)
+        if serializer.is_valid():
+            id = serializer.validated_data.get("id")  # type: ignore
+            favorite = Favorite.objects.filter(pk=id, customer=request.user).first()
+            if favorite:
+                favorite.delete()
+                return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self, request):
+        serializer = ProfileChangeSerializer(
+            instance=request.user, data=request.data, partial=True
+        )
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)

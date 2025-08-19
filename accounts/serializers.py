@@ -10,3 +10,13 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
 class OtpSerializer(serializers.Serializer):
     otp = serializers.IntegerField()
+
+
+class ProfileChangeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ["phone", "first_name", "last_name"]
+
+
+class SelectFavoriteSerializer(serializers.Serializer):
+    id = serializers.IntegerField()

@@ -208,7 +208,7 @@ __marimo__/
 # database
 media/
 media
-Question.py
 .env
 Question.pdf
 Question2.pdf
+ERD.pdf

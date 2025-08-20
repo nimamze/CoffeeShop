@@ -17,12 +17,21 @@ from drf_yasg.utils import swagger_auto_schema
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 import os
+from django.core.mail import send_mail
 
 
 class SignUpApi(APIView):
     def post(self, request):
         ser_data = CustomUserSerializer(data=request.data)
+        user = request.user
         otp = random.randint(1, 100)
+        send_mail(
+            "OTP",
+            f"{otp}",
+            "nimamze3@gmail.com",
+            [user.email],
+            fail_silently=False,
+        )
         print(otp)
         if ser_data.is_valid():
             user_info = ser_data.validated_data.copy()  # type: ignore

@@ -5,7 +5,7 @@ from ...models import CustomUser
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ["phone", "email", "password", "first_name", "last_name"]
+        fields = ["phone", "email", "password", "first_name", "last_name", "image"]
 
 
 class OtpSerializer(serializers.Serializer):
@@ -15,7 +15,7 @@ class OtpSerializer(serializers.Serializer):
 class ProfileChangeSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ["phone", "first_name", "last_name"]
+        fields = ["phone", "first_name", "last_name", "image"]
 
 
 class SelectFavoriteSerializer(serializers.Serializer):

@@ -14,6 +14,9 @@ from django.contrib.auth.hashers import make_password
 from shop.models import Favorite, Order
 from rest_framework.permissions import IsAuthenticated
 from drf_yasg.utils import swagger_auto_schema
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+import os
 
 
 class SignUpApi(APIView):
@@ -22,15 +25,15 @@ class SignUpApi(APIView):
         otp = random.randint(1, 100)
         print(otp)
         if ser_data.is_valid():
+            user_info = ser_data.validated_data.copy()
+            uploaded_file = user_info.pop("image", None)
+            temp_path = None
+            if uploaded_file:
+                temp_path = default_storage.save(f"temp/{uploaded_file.name}", ContentFile(uploaded_file.read()))
             request.session["info"] = {
-                "user_info": {
-                    "phone": ser_data.validated_data["phone"],  # type: ignore
-                    "email": ser_data.validated_data["email"],  # type: ignore
-                    "password": ser_data.validated_data["password"],  # type: ignore
-                    "first_name": ser_data.validated_data["first_name"],  # type: ignore
-                    "last_name": ser_data.validated_data["last_name"],  # type: ignore
-                },
+                "user_info": user_info,
                 "otp_input": otp,
+                "temp_image_path": temp_path
             }
             return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -48,6 +51,11 @@ class SignUpConfirmApi(APIView):
         if otp_serializer.is_valid():
             otp_in = otp_serializer.validated_data.get("otp")  # type: ignore
             otp_match = request.session["info"]["otp_input"]
+            temp_image_path = request.session.get("info").get("temp_image_path")
+            image_file = None
+            if temp_image_path and default_storage.exists(temp_image_path):
+                with default_storage.open(temp_image_path, "rb") as f:
+                    image_file = ContentFile(f.read(), name=os.path.basename(temp_image_path))
             if otp_in == otp_match:
                 user_detail = request.session["info"]["user_info"]
                 CustomUser.objects.create(
@@ -56,7 +64,11 @@ class SignUpConfirmApi(APIView):
                     first_name=user_detail["first_name"],
                     last_name=user_detail["last_name"],
                     password=make_password(user_detail["password"]),
+                    image=image_file,
                 )
+                if temp_image_path:
+                    default_storage.delete(temp_image_path)
+                request.session.pop("info", None)
                 return Response(status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 

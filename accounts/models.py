@@ -41,7 +41,7 @@ class CustomUser(AbstractUser):
     username = None
     phone = models.CharField(unique=True, max_length=15, verbose_name="شماره تلفن")
     email = models.EmailField(verbose_name="ایمیل")
-    image = models.ImageField(upload_to=user_image_upload_to, null=True, blank=True)
+    image = models.ImageField(upload_to="profile_images/", null=True, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     first_name = models.CharField(max_length=20, verbose_name="نام")
     last_name = models.CharField(max_length=20, verbose_name="نام خانوادگی")

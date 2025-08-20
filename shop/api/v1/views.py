@@ -9,6 +9,7 @@ from .serializers import CategorySerializer, ProductSerializer, ProductDetailSer
 from .filters import ProductFilter
 from ...models import Product, Favorite
 from drf_yasg.utils import swagger_auto_schema
+from rest_framework.decorators import permission_classes
 
 
 class ProductListApi(APIView):
@@ -33,16 +34,14 @@ class ProductListApi(APIView):
         )
 
 
-class AddFavoriteApi(APIView):
-    permission_classes = [IsAuthenticated]
-
-    @swagger_auto_schema(security=[{"Bearer": []}])
+class ProductDetailApi(APIView):
     def get(self, request, pk):
         product = Product.objects.get(pk=pk)
         serializer = ProductDetailSerializer(product)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @swagger_auto_schema(security=[{"Bearer": []}])
+    @permission_classes([IsAuthenticated])
     def post(self, request, pk):
         user = request.user
         product = Product.objects.get(pk=pk)

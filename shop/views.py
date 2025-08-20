@@ -1,3 +1,4 @@
+from django.http import HttpRequest, HttpResponse
 from django.urls import reverse
 from django.views import View
 from django.shortcuts import get_object_or_404, render, redirect
@@ -42,6 +43,13 @@ class ProductDetailView(DetailView):
     model = Product
     template_name = "shop/products_details.html"
     context_object_name = "product"
+
+    def get(self, request: HttpRequest, *args, **kwargs):
+        product = self.get_object()
+        if product.stock == 0:  # type: ignore
+            product.availability = False  # type: ignore
+        product.save()
+        return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

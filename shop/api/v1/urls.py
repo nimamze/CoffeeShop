@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ProductListApi, AddFavoriteApi
+from .views import ProductListApi, ProductDetailApi
 
 
 urlpatterns = [
@@ -9,5 +9,5 @@ urlpatterns = [
         ProductListApi.as_view(),
         name="product_list_by_category",
     ),
-    path("add-favorite/<int:pk>/", AddFavoriteApi.as_view(), name="add_favorite"),
+    path("product/<int:pk>/", ProductDetailApi.as_view(), name="product"),
 ]

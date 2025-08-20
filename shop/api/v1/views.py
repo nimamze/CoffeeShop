@@ -5,9 +5,14 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from .serializers import CategorySerializer, ProductSerializer, ProductDetailSerializer
+from .serializers import (
+    CategorySerializer,
+    ProductSerializer,
+    ProductDetailSerializer,
+    ProductDetailPostSerializer,
+)
 from .filters import ProductFilter
-from ...models import Product, Favorite
+from ...models import Product, Favorite, Cart, CartItem
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import permission_classes
 
@@ -43,7 +48,27 @@ class ProductDetailApi(APIView):
     @swagger_auto_schema(security=[{"Bearer": []}])
     @permission_classes([IsAuthenticated])
     def post(self, request, pk):
-        user = request.user
-        product = Product.objects.get(pk=pk)
-        Favorite.objects.create(customer=user, product=product)
+        serializer = ProductDetailPostSerializer(data=request.data)
+        if serializer.is_valid():
+            data = serializer.validated_data
+            fav = data.get("favorite")  # type: ignore
+            order_amount = data.get("order_amount")  # type: ignore
+            user = request.user
+            product = Product.objects.get(pk=pk)
+            if fav:
+                Favorite.objects.create(customer=user, product=product)
+            if order_amount and order_amount > 0 and product.availability:
+                product.stock -= order_amount
+                if product.stock < 0:
+                    return Response(
+                        {"message": "cant order more than the product stock"},
+                        status=status.HTTP_400_BAD_REQUEST,
+                    )
+                elif product.stock == 0:
+                    product.availability = False
+                cart = user.carts_customer.first()
+                if not cart:
+                    cart = Cart.objects.create(customer=user)
+                CartItem.objects.create(cart=cart, product=product)
+                product.save()
         return Response(status=status.HTTP_200_OK)

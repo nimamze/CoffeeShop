@@ -20,3 +20,8 @@ class ProductDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ["id", "name", "price", "availability", "stock"]
+
+
+class ProductDetailPostSerializer(serializers.Serializer):
+    favorite = serializers.BooleanField(required=False)
+    order_amount = serializers.IntegerField(required=False)

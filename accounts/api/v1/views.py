@@ -25,15 +25,17 @@ class SignUpApi(APIView):
         otp = random.randint(1, 100)
         print(otp)
         if ser_data.is_valid():
-            user_info = ser_data.validated_data.copy() # type: ignore
+            user_info = ser_data.validated_data.copy()  # type: ignore
             uploaded_file = user_info.pop("image", None)
             temp_path = None
             if uploaded_file:
-                temp_path = default_storage.save(f"temp/{uploaded_file.name}", ContentFile(uploaded_file.read()))
+                temp_path = default_storage.save(
+                    f"temp/{uploaded_file.name}", ContentFile(uploaded_file.read())
+                )
             request.session["info"] = {
                 "user_info": user_info,
                 "otp_input": otp,
-                "temp_image_path": temp_path
+                "temp_image_path": temp_path,
             }
             return Response(status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -55,7 +57,9 @@ class SignUpConfirmApi(APIView):
             image_file = None
             if temp_image_path and default_storage.exists(temp_image_path):
                 with default_storage.open(temp_image_path, "rb") as f:
-                    image_file = ContentFile(f.read(), name=os.path.basename(temp_image_path))
+                    image_file = ContentFile(
+                        f.read(), name=os.path.basename(temp_image_path)
+                    )
             if otp_in == otp_match:
                 user_detail = request.session["info"]["user_info"]
                 CustomUser.objects.create(
@@ -106,6 +110,3 @@ class ProfileApi(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
-
-
-

@@ -4,15 +4,16 @@ from shop.models import Category, Product
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from .serializers import (
     CategorySerializer,
     ProductSerializer,
     ProductDetailSerializer,
     ProductDetailPostSerializer,
+    ProductImageSerializer,
 )
 from .filters import ProductFilter
-from ...models import Product, Favorite, Cart, CartItem
+from ...models import Product, Favorite, Cart, CartItem, ProductImage
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import permission_classes
 
@@ -75,3 +76,29 @@ class ProductDetailApi(APIView):
                 CartItem.objects.create(cart=cart, product=product)
                 product.save()
         return Response(status=status.HTTP_200_OK)
+
+class ProductImageEditApi(APIView):
+    permission_classes= [IsAuthenticated, IsAdminUser]
+
+    def get(self, request, pk):
+        product = get_object_or_404(Product, pk=pk)
+        images = ProductImage.objects.filter(product = product)
+        serializer = ProductImageSerializer(images, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def post(self, request, pk):
+        product = get_object_or_404(Product, pk=pk)
+        serializer = ProductImageSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(product=product) 
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, pk):
+        image_id = request.data.get("id") 
+        if not image_id:
+            return Response({"error": "Image id is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        image = get_object_or_404(ProductImage, pk=image_id, product_id=pk)
+        image.delete()
+        return Response({"message": "Image deleted successfully"}, status=status.HTTP_204_NO_CONTENT)

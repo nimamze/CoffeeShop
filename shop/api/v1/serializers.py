@@ -1,4 +1,4 @@
-from ...models import Category, Product, Tag
+from ...models import Category, Product, Tag, ProductImage
 from rest_framework import serializers
 
 
@@ -32,3 +32,9 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 class ProductDetailPostSerializer(serializers.Serializer):
     favorite = serializers.BooleanField(required=False)
     order_amount = serializers.IntegerField(required=False)
+
+class ProductImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductImage
+        fields = ["id","product", "image", "is_main"]
+        read_only_fields = ["id", "product"]

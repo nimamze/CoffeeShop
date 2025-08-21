@@ -11,7 +11,7 @@ from ...models import CustomUser
 from rest_framework.views import APIView
 import random
 from django.contrib.auth.hashers import make_password
-from shop.models import Favorite, Order
+from shop.models import Favorite, Order, CartItem
 from rest_framework.permissions import IsAuthenticated
 from drf_yasg.utils import swagger_auto_schema
 from django.core.files.storage import default_storage
@@ -96,6 +96,7 @@ class ProfileApi(APIView):
             "username": f"first name is {user.first_name} - last name is {user.last_name} and phon is {user.phone}",
             "favorites": Favorite.objects.filter(customer__pk=user.pk).values(),
             "order": Order.objects.filter(customer__pk=user.pk).values(),
+            "cart_items": CartItem.objects.filter(cart__customer__pk=user.pk).values(),
         }
         return Response(content, status=status.HTTP_200_OK)
 

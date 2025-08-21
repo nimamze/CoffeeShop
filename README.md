@@ -32,8 +32,8 @@ python manage.py migrate
 python manage.py runserver
 ```
 ## 📮 Postman Collection
-For testing the API, you can use the Postman collection included in this repository:
-Download Collection
-Import the file into Postman.
-Run the Django server.
-Execute the requests directly in Postman.
+- For testing the API, you can use the Postman collection included in this repository:
+- Download Collection
+- Import the file into Postman.
+- Run the Django server.
+- Execute the requests directly in Postman.

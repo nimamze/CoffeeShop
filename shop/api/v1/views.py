@@ -26,9 +26,12 @@ class ProductListApi(APIView):
             products = Product.objects.filter(categories=category)
         else:
             products = Product.objects.all()
+        tags = request.query_params.getlist("tags")
+        if tags:
+            products = products.filter(tags__name__in=tags).distinct()
         filtered_products = ProductFilter(request.GET, queryset=products).qs
         paginator = PageNumberPagination()
-        paginator.page_size = 4
+        paginator.page_size = 4  # type: ignore
         result_page = paginator.paginate_queryset(filtered_products, request)
         product_data = ProductSerializer(result_page, many=True).data
         return paginator.get_paginated_response(

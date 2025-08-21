@@ -23,13 +23,12 @@ from django.core.mail import send_mail
 class SignUpApi(APIView):
     def post(self, request):
         ser_data = CustomUserSerializer(data=request.data)
-        user = request.user
         otp = random.randint(1, 100)
         send_mail(
             "OTP",
             f"{otp}",
             "nimamze3@gmail.com",
-            [user.email],
+            [request.POST.get("email")],
             fail_silently=False,
         )
         print(otp)
@@ -41,6 +40,7 @@ class SignUpApi(APIView):
                 temp_path = default_storage.save(
                     f"temp/{uploaded_file.name}", ContentFile(uploaded_file.read())
                 )
+            user_info["password"] = make_password(user_info.get("password"))
             request.session["info"] = {
                 "user_info": user_info,
                 "otp_input": otp,
@@ -76,7 +76,7 @@ class SignUpConfirmApi(APIView):
                     email=user_detail["email"],
                     first_name=user_detail["first_name"],
                     last_name=user_detail["last_name"],
-                    password=make_password(user_detail["password"]),
+                    password=(user_detail["password"]),
                     image=image_file,
                 )
                 if temp_image_path:

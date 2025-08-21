@@ -16,6 +16,7 @@ from .filters import ProductFilter
 from ...models import Product, Favorite, Cart, CartItem, ProductImage
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import permission_classes
+from django.db.models import Q
 
 
 class ProductListApi(APIView):
@@ -30,6 +31,13 @@ class ProductListApi(APIView):
         tags = request.query_params.getlist("tags")
         if tags:
             products = products.filter(tags__name__in=tags).distinct()
+
+        search = request.query_params.get("search")
+        if search:
+            products = products.filter(
+                Q(name__icontains=search) | Q(description__icontains=search)
+            )
+
         filtered_products = ProductFilter(request.GET, queryset=products).qs
         paginator = PageNumberPagination()
         paginator.page_size = 4  # type: ignore
@@ -77,28 +85,33 @@ class ProductDetailApi(APIView):
                 product.save()
         return Response(status=status.HTTP_200_OK)
 
+
 class ProductImageEditApi(APIView):
-    permission_classes= [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticated, IsAdminUser]
 
     def get(self, request, pk):
         product = get_object_or_404(Product, pk=pk)
-        images = ProductImage.objects.filter(product = product)
+        images = ProductImage.objects.filter(product=product)
         serializer = ProductImageSerializer(images, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
     def post(self, request, pk):
         product = get_object_or_404(Product, pk=pk)
         serializer = ProductImageSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(product=product) 
+            serializer.save(product=product)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
     def delete(self, request, pk):
-        image_id = request.data.get("id") 
+        image_id = request.data.get("id")
         if not image_id:
-            return Response({"error": "Image id is required"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"error": "Image id is required"}, status=status.HTTP_400_BAD_REQUEST
+            )
 
         image = get_object_or_404(ProductImage, pk=image_id, product_id=pk)
         image.delete()
-        return Response({"message": "Image deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+        return Response(
+            {"message": "Image deleted successfully"}, status=status.HTTP_204_NO_CONTENT
+        )

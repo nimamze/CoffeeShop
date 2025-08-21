@@ -1,0 +1,2444 @@
+{
+	"info": {
+		"_postman_id": "0b15c669-9df5-477f-bd06-7f2f4fccfe21",
+		"name": "Coffee Shop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47249645",
+		"_collection_link": "https://nimamze3-5138703.postman.co/workspace/Coffee-Shop~4f3df940-6171-4065-bce8-de8f1dc0fa42/collection/47249645-0b15c669-9df5-477f-bd06-7f2f4fccfe21?action=share&source=collection_link&creator=47249645"
+	},
+	"item": [
+		{
+			"name": "accounts",
+			"item": [
+				{
+					"name": "Sign Up Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/accounts/api/v1/sign-up/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"accounts",
+								"api",
+								"v1",
+								"sign-up",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sign Up Details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/accounts/api/v1/sign-up/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"accounts",
+										"api",
+										"v1",
+										"sign-up",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 14:03:18 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "81"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"phone\": \"\",\n    \"email\": \"\",\n    \"password\": \"\",\n    \"first_name\": \"\",\n    \"last_name\": \"\",\n    \"image\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Do Sign Up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "phone",
+									"value": "09123387622",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "nimamze6@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "2181",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "Nima",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "Moazzenie",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/home/nimamze/Pictures/Me/nima.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/accounts/api/v1/sign-up/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"accounts",
+								"api",
+								"v1",
+								"sign-up",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Do Sign Up",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "phone",
+											"value": "09123387622",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "nimamze6@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "2181",
+											"type": "text"
+										},
+										{
+											"key": "first_name",
+											"value": "Nima",
+											"type": "text"
+										},
+										{
+											"key": "last_name",
+											"value": "Moazzenie",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/home/nimamze/Pictures/Me/nima.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/accounts/api/v1/sign-up/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"accounts",
+										"api",
+										"v1",
+										"sign-up",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 14:03:51 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.12"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "sessionid=vg2ffvzcj6wk6qef8wlhxlboir6j9u56; expires=Thu, 04 Sep 2025 14:03:51 GMT; HttpOnly; Max-Age=1209600; Path=/; SameSite=Lax"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Sign Up Confirm",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "otp",
+									"value": "53",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/accounts/api/v1/sign-up-confirm/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"accounts",
+								"api",
+								"v1",
+								"sign-up-confirm",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sign Up Confirm",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "otp",
+											"value": "92",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/accounts/api/v1/sign-up-confirm/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"accounts",
+										"api",
+										"v1",
+										"sign-up-confirm",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 14:05:22 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.12"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept, Cookie"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "sessionid=vg2ffvzcj6wk6qef8wlhxlboir6j9u56; expires=Thu, 04 Sep 2025 14:05:22 GMT; HttpOnly; Max-Age=1209600; Path=/; SameSite=Lax"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Get Jwt Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "phone",
+									"value": "09128997804",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "nima2181",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/accounts/api/v1/token/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"accounts",
+								"api",
+								"v1",
+								"token",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Jwt Token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "phone",
+											"value": "09128997804",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "nima2181",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/accounts/api/v1/token/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"accounts",
+										"api",
+										"v1",
+										"token",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 14:01:28 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "489"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NjM4OTY4OCwiaWF0IjoxNzU1Nzg0ODg4LCJqdGkiOiI4NDcwYWQ2MWI3OGE0OWQxOGE1YTQ4MDM0ZGZiNTZmYSIsInVzZXJfaWQiOiIyIn0.Kd4FlZQIrIFc2CIgrS32nT4KD4_c831UlP1Iuqbp-TU\",\n    \"access\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2Mzg5Njg4LCJpYXQiOjE3NTU3ODQ4ODgsImp0aSI6ImM4Nzc3YmVkYmRiYTQ1MzU5M2ZkMTk0ODhkZGY1YWNlIiwidXNlcl9pZCI6IjIifQ.zNklJRX-jhQDh_55xh4cOKwLNYeKKT1J0XBX5ORfFYI\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get A New Jwt Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "refresh",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NjM4NzY2MiwiaWF0IjoxNzU1NzgyODYyLCJqdGkiOiJmY2M3MTE4MmNjOWY0MDJmYmQ2OGY3OWU4MjgxMGQ2YiIsInVzZXJfaWQiOiIxMiJ9.zbOgj1Y6XEhf8wx5uUKmmS6TVaKQ4tjJGBeKPnuwoSI",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/accounts/api/v1/token/refresh/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"accounts",
+								"api",
+								"v1",
+								"token",
+								"refresh",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get A New Jwt Token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "refresh",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NjM4NzY2MiwiaWF0IjoxNzU1NzgyODYyLCJqdGkiOiJmY2M3MTE4MmNjOWY0MDJmYmQ2OGY3OWU4MjgxMGQ2YiIsInVzZXJfaWQiOiIxMiJ9.zbOgj1Y6XEhf8wx5uUKmmS6TVaKQ4tjJGBeKPnuwoSI",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/accounts/api/v1/token/refresh/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"accounts",
+										"api",
+										"v1",
+										"token",
+										"refresh",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 14:04:01 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "POST, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "245"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"access\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2Mzg5ODQxLCJpYXQiOjE3NTU3ODUwNDEsImp0aSI6IjJlMWM4NjQwYTlhMTQyMzlhMmIxOTk2ZjdhMzQzMDdiIiwidXNlcl9pZCI6IjEyIn0.wjEO0UZb8kRS1X8TMx6rL1taWGj5DljqAGvERze__70\"\n}"
+						}
+					]
+				},
+				{
+					"name": "See Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2MzkwMTAzLCJpYXQiOjE3NTU3ODUzMDMsImp0aSI6ImM2OThmYjdkYjhmYzQ0MWQ5YTVjN2EzNjFlYjA3Mjk0IiwidXNlcl9pZCI6IjE0In0.ZVnigCPHRvngMaYa1Sa3WfhG95CMPn9D-T2xy6diEsw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/accounts/api/v1/profile/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"accounts",
+								"api",
+								"v1",
+								"profile",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "See Profile",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2Mzg3NzA1LCJpYXQiOjE3NTU3ODI5MDUsImp0aSI6IjVlYjQ1Njc5MmRmNTRlOTlhZmNmMzAzYzY4YWJjOWVjIiwidXNlcl9pZCI6IjEyIn0.sJdojd9UIvglNSVZBBc1ziv2BLNVn-3GyCa0T_L8T70",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8000/accounts/api/v1/profile/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"accounts",
+										"api",
+										"v1",
+										"profile",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 14:04:09 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, PATCH, DELETE, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "260"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"username\": \"first name is Nima - last name is Mze and phon is 09123273213\",\n    \"favorites\": [\n        {\n            \"id\": 11,\n            \"customer_id\": 12,\n            \"product_id\": 1\n        }\n    ],\n    \"order\": [],\n    \"cart_items\": [\n        {\n            \"id\": 10,\n            \"cart_id\": 10,\n            \"product_id\": 1,\n            \"quantity\": 1\n        },\n        {\n            \"id\": 11,\n            \"cart_id\": 10,\n            \"product_id\": 1,\n            \"quantity\": 1\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2Mzg3NzA1LCJpYXQiOjE3NTU3ODI5MDUsImp0aSI6IjVlYjQ1Njc5MmRmNTRlOTlhZmNmMzAzYzY4YWJjOWVjIiwidXNlcl9pZCI6IjEyIn0.sJdojd9UIvglNSVZBBc1ziv2BLNVn-3GyCa0T_L8T70",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "last_name",
+									"value": "Mze",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/accounts/api/v1/profile/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"accounts",
+								"api",
+								"v1",
+								"profile",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Profile",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2Mzg3NzA1LCJpYXQiOjE3NTU3ODI5MDUsImp0aSI6IjVlYjQ1Njc5MmRmNTRlOTlhZmNmMzAzYzY4YWJjOWVjIiwidXNlcl9pZCI6IjEyIn0.sJdojd9UIvglNSVZBBc1ziv2BLNVn-3GyCa0T_L8T70",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "last_name",
+											"value": "Mze",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/accounts/api/v1/profile/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"accounts",
+										"api",
+										"v1",
+										"profile",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 14:04:21 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, PATCH, DELETE, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "110"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"phone\": \"09123273213\",\n    \"first_name\": \"Nima\",\n    \"last_name\": \"Mze\",\n    \"image\": \"/media/profile_images/nima_ZBLBFRs.jpg\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Favorite",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2MzkwMTAzLCJpYXQiOjE3NTU3ODUzMDMsImp0aSI6ImM2OThmYjdkYjhmYzQ0MWQ5YTVjN2EzNjFlYjA3Mjk0IiwidXNlcl9pZCI6IjE0In0.ZVnigCPHRvngMaYa1Sa3WfhG95CMPn9D-T2xy6diEsw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "12",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/accounts/api/v1/profile/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"accounts",
+								"api",
+								"v1",
+								"profile",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Favorite",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2MzkwMTAzLCJpYXQiOjE3NTU3ODUzMDMsImp0aSI6ImM2OThmYjdkYjhmYzQ0MWQ5YTVjN2EzNjFlYjA3Mjk0IiwidXNlcl9pZCI6IjE0In0.ZVnigCPHRvngMaYa1Sa3WfhG95CMPn9D-T2xy6diEsw",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "12",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/accounts/api/v1/profile/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"accounts",
+										"api",
+										"v1",
+										"profile",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 14:09:22 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.12"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, PATCH, DELETE, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "shop",
+			"item": [
+				{
+					"name": "All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/shop/api/v1/products/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"shop",
+								"api",
+								"v1",
+								"products",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "All Products",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/shop/api/v1/products/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"shop",
+										"api",
+										"v1",
+										"products",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 14:09:33 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "892"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"count\": 26,\n    \"next\": \"http://127.0.0.1:8000/shop/api/v1/products/?page=2\",\n    \"previous\": null,\n    \"results\": {\n        \"categories\": [\n            {\n                \"id\": 1,\n                \"name\": \"قهوه\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"چای\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"دمنوش\"\n            },\n            {\n                \"id\": 4,\n                \"name\": \"سردنوش\"\n            },\n            {\n                \"id\": 5,\n                \"name\": \"شربت\"\n            },\n            {\n                \"id\": 6,\n                \"name\": \"کیک\"\n            }\n        ],\n        \"products\": [\n            {\n                \"id\": 1,\n                \"name\": \"چای سیاه\",\n                \"price\": \"50.00\",\n                \"categories\": [\n                    {\n                        \"id\": 2,\n                        \"name\": \"چای\"\n                    }\n                ],\n                \"availability\": true,\n                \"description\": \"چای سیاه\",\n                \"tags\": []\n            },\n            {\n                \"id\": 2,\n                \"name\": \"چای سبز\",\n                \"price\": \"60.00\",\n                \"categories\": [\n                    {\n                        \"id\": 2,\n                        \"name\": \"چای\"\n                    }\n                ],\n                \"availability\": true,\n                \"description\": \"چای سبز\",\n                \"tags\": []\n            },\n            {\n                \"id\": 3,\n                \"name\": \"چای کوهی\",\n                \"price\": \"70.00\",\n                \"categories\": [\n                    {\n                        \"id\": 2,\n                        \"name\": \"چای\"\n                    }\n                ],\n                \"availability\": true,\n                \"description\": \"چای کوهی\",\n                \"tags\": []\n            },\n            {\n                \"id\": 4,\n                \"name\": \"چای ترش\",\n                \"price\": \"60.00\",\n                \"categories\": [\n                    {\n                        \"id\": 2,\n                        \"name\": \"چای\"\n                    }\n                ],\n                \"availability\": true,\n                \"description\": \"چای ترش\",\n                \"tags\": []\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Product By Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/shop/api/v1/products/?name=%D9%82%D9%87%D9%88%D9%87",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"shop",
+								"api",
+								"v1",
+								"products",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "%D9%82%D9%87%D9%88%D9%87"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Product By Name",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/shop/api/v1/products/?name=%D9%82%D9%87%D9%88%D9%87",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"shop",
+										"api",
+										"v1",
+										"products",
+										""
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "%D9%82%D9%87%D9%88%D9%87"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 14:09:43 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "408"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"count\": 1,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": {\n        \"categories\": [\n            {\n                \"id\": 1,\n                \"name\": \"قهوه\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"چای\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"دمنوش\"\n            },\n            {\n                \"id\": 4,\n                \"name\": \"سردنوش\"\n            },\n            {\n                \"id\": 5,\n                \"name\": \"شربت\"\n            },\n            {\n                \"id\": 6,\n                \"name\": \"کیک\"\n            }\n        ],\n        \"products\": [\n            {\n                \"id\": 14,\n                \"name\": \"قهوه سرد دم\",\n                \"price\": \"80.00\",\n                \"categories\": [\n                    {\n                        \"id\": 1,\n                        \"name\": \"قهوه\"\n                    }\n                ],\n                \"availability\": true,\n                \"description\": \"قهوه سرد دم\",\n                \"tags\": []\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Products By One Tag",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/shop/api/v1/products/?tags=خنک",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"shop",
+								"api",
+								"v1",
+								"products",
+								""
+							],
+							"query": [
+								{
+									"key": "tags",
+									"value": "خنک"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Products By One Tag",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/shop/api/v1/products/?tags=خنک",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"shop",
+										"api",
+										"v1",
+										"products",
+										""
+									],
+									"query": [
+										{
+											"key": "tags",
+											"value": "خنک"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 14:09:52 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "667"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"count\": 2,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": {\n        \"categories\": [\n            {\n                \"id\": 1,\n                \"name\": \"قهوه\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"چای\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"دمنوش\"\n            },\n            {\n                \"id\": 4,\n                \"name\": \"سردنوش\"\n            },\n            {\n                \"id\": 5,\n                \"name\": \"شربت\"\n            },\n            {\n                \"id\": 6,\n                \"name\": \"کیک\"\n            }\n        ],\n        \"products\": [\n            {\n                \"id\": 21,\n                \"name\": \"خیار و سکنجبین\",\n                \"price\": \"120.00\",\n                \"categories\": [\n                    {\n                        \"id\": 4,\n                        \"name\": \"سردنوش\"\n                    }\n                ],\n                \"availability\": true,\n                \"description\": \"خیار و سکنجبین\",\n                \"tags\": [\n                    {\n                        \"id\": 1,\n                        \"name\": \"خنک\"\n                    },\n                    {\n                        \"id\": 2,\n                        \"name\": \"گرم\"\n                    }\n                ]\n            },\n            {\n                \"id\": 19,\n                \"name\": \"نعنا و لیمو\",\n                \"price\": \"70.00\",\n                \"categories\": [\n                    {\n                        \"id\": 4,\n                        \"name\": \"سردنوش\"\n                    }\n                ],\n                \"availability\": true,\n                \"description\": \"نعنا و لیمو\",\n                \"tags\": [\n                    {\n                        \"id\": 1,\n                        \"name\": \"خنک\"\n                    }\n                ]\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Products By Two Tags",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/shop/api/v1/products/?tags=خنک&tags=گرم",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"shop",
+								"api",
+								"v1",
+								"products",
+								""
+							],
+							"query": [
+								{
+									"key": "tags",
+									"value": "خنک"
+								},
+								{
+									"key": "tags",
+									"value": "گرم"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Products By Two Tags",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/shop/api/v1/products/?tags=خنک&tags=گرم",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"shop",
+										"api",
+										"v1",
+										"products",
+										""
+									],
+									"query": [
+										{
+											"key": "tags",
+											"value": "خنک"
+										},
+										{
+											"key": "tags",
+											"value": "گرم"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 14:10:04 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "860"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"count\": 3,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": {\n        \"categories\": [\n            {\n                \"id\": 1,\n                \"name\": \"قهوه\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"چای\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"دمنوش\"\n            },\n            {\n                \"id\": 4,\n                \"name\": \"سردنوش\"\n            },\n            {\n                \"id\": 5,\n                \"name\": \"شربت\"\n            },\n            {\n                \"id\": 6,\n                \"name\": \"کیک\"\n            }\n        ],\n        \"products\": [\n            {\n                \"id\": 21,\n                \"name\": \"خیار و سکنجبین\",\n                \"price\": \"120.00\",\n                \"categories\": [\n                    {\n                        \"id\": 4,\n                        \"name\": \"سردنوش\"\n                    }\n                ],\n                \"availability\": true,\n                \"description\": \"خیار و سکنجبین\",\n                \"tags\": [\n                    {\n                        \"id\": 1,\n                        \"name\": \"خنک\"\n                    },\n                    {\n                        \"id\": 2,\n                        \"name\": \"گرم\"\n                    }\n                ]\n            },\n            {\n                \"id\": 19,\n                \"name\": \"نعنا و لیمو\",\n                \"price\": \"70.00\",\n                \"categories\": [\n                    {\n                        \"id\": 4,\n                        \"name\": \"سردنوش\"\n                    }\n                ],\n                \"availability\": true,\n                \"description\": \"نعنا و لیمو\",\n                \"tags\": [\n                    {\n                        \"id\": 1,\n                        \"name\": \"خنک\"\n                    }\n                ]\n            },\n            {\n                \"id\": 17,\n                \"name\": \"دمنوش زنجبل\",\n                \"price\": \"90.00\",\n                \"categories\": [\n                    {\n                        \"id\": 3,\n                        \"name\": \"دمنوش\"\n                    }\n                ],\n                \"availability\": true,\n                \"description\": \"دمنوش زنجبل\",\n                \"tags\": [\n                    {\n                        \"id\": 2,\n                        \"name\": \"گرم\"\n                    }\n                ]\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Products By Search In Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/shop/api/v1/products/?search=اسپرسو",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"shop",
+								"api",
+								"v1",
+								"products",
+								""
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "اسپرسو"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Products By Search In Name",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/shop/api/v1/products/?search=اسپرسو",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"shop",
+										"api",
+										"v1",
+										"products",
+										""
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "اسپرسو"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 14:10:13 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "391"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"count\": 1,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": {\n        \"categories\": [\n            {\n                \"id\": 1,\n                \"name\": \"قهوه\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"چای\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"دمنوش\"\n            },\n            {\n                \"id\": 4,\n                \"name\": \"سردنوش\"\n            },\n            {\n                \"id\": 5,\n                \"name\": \"شربت\"\n            },\n            {\n                \"id\": 6,\n                \"name\": \"کیک\"\n            }\n        ],\n        \"products\": [\n            {\n                \"id\": 5,\n                \"name\": \"اسپرسو\",\n                \"price\": \"80.00\",\n                \"categories\": [\n                    {\n                        \"id\": 1,\n                        \"name\": \"قهوه\"\n                    }\n                ],\n                \"availability\": true,\n                \"description\": \"اسپرسو\",\n                \"tags\": []\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Products By Search In Description",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/shop/api/v1/products/?search=%D8%B3%D8%B1%D8%B7%D8%A7%D9%86",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"shop",
+								"api",
+								"v1",
+								"products",
+								""
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "%D8%B3%D8%B1%D8%B7%D8%A7%D9%86"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Products By Search In Description",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/shop/api/v1/products/?search=%D8%B3%D8%B1%D8%B7%D8%A7%D9%86",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"shop",
+										"api",
+										"v1",
+										"products",
+										""
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "%D8%B3%D8%B1%D8%B7%D8%A7%D9%86"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 14:10:24 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "394"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"count\": 1,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": {\n        \"categories\": [\n            {\n                \"id\": 1,\n                \"name\": \"قهوه\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"چای\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"دمنوش\"\n            },\n            {\n                \"id\": 4,\n                \"name\": \"سردنوش\"\n            },\n            {\n                \"id\": 5,\n                \"name\": \"شربت\"\n            },\n            {\n                \"id\": 6,\n                \"name\": \"کیک\"\n            }\n        ],\n        \"products\": [\n            {\n                \"id\": 22,\n                \"name\": \"خاکشیر\",\n                \"price\": \"80.00\",\n                \"categories\": [\n                    {\n                        \"id\": 5,\n                        \"name\": \"شربت\"\n                    }\n                ],\n                \"availability\": true,\n                \"description\": \"ضدسرطان\",\n                \"tags\": []\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Product Detail By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/shop/api/v1/product/1/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"shop",
+								"api",
+								"v1",
+								"product",
+								"1",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Product Detail By Id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/shop/api/v1/product/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"shop",
+										"api",
+										"v1",
+										"product",
+										"1",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 14:10:34 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "89"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"چای سیاه\",\n    \"price\": \"50.00\",\n    \"availability\": true,\n    \"stock\": 2,\n    \"tags\": []\n}"
+						}
+					]
+				},
+				{
+					"name": "Add Favorite",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2MzkwMTAzLCJpYXQiOjE3NTU3ODUzMDMsImp0aSI6ImM2OThmYjdkYjhmYzQ0MWQ5YTVjN2EzNjFlYjA3Mjk0IiwidXNlcl9pZCI6IjE0In0.ZVnigCPHRvngMaYa1Sa3WfhG95CMPn9D-T2xy6diEsw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "favorite",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/shop/api/v1/product/1/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"shop",
+								"api",
+								"v1",
+								"product",
+								"1",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Add Favorite",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2MzkwMTAzLCJpYXQiOjE3NTU3ODUzMDMsImp0aSI6ImM2OThmYjdkYjhmYzQ0MWQ5YTVjN2EzNjFlYjA3Mjk0IiwidXNlcl9pZCI6IjE0In0.ZVnigCPHRvngMaYa1Sa3WfhG95CMPn9D-T2xy6diEsw",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "favorite",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/shop/api/v1/product/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"shop",
+										"api",
+										"v1",
+										"product",
+										"1",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 14:08:46 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.12"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Add Product To Cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2MzkwMTAzLCJpYXQiOjE3NTU3ODUzMDMsImp0aSI6ImM2OThmYjdkYjhmYzQ0MWQ5YTVjN2EzNjFlYjA3Mjk0IiwidXNlcl9pZCI6IjE0In0.ZVnigCPHRvngMaYa1Sa3WfhG95CMPn9D-T2xy6diEsw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "order_amount",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/shop/api/v1/product/1/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"shop",
+								"api",
+								"v1",
+								"product",
+								"1",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Add Product To Cart",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2MzkwMTAzLCJpYXQiOjE3NTU3ODUzMDMsImp0aSI6ImM2OThmYjdkYjhmYzQ0MWQ5YTVjN2EzNjFlYjA3Mjk0IiwidXNlcl9pZCI6IjE0In0.ZVnigCPHRvngMaYa1Sa3WfhG95CMPn9D-T2xy6diEsw",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "order_amount",
+											"value": "2",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/shop/api/v1/product/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"shop",
+										"api",
+										"v1",
+										"product",
+										"1",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 14:10:56 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.12"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "See Product Images",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2MzkwNDA4LCJpYXQiOjE3NTU3ODU2MDgsImp0aSI6IjljMGFhZTU0YjkzNTQyN2FiZWI3NmZmYjMzYmI5ZDM4IiwidXNlcl9pZCI6IjIifQ.bdojS8YzRMczFYD6cR1n4kS8NufWTjQxUohM-jpoWME",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/shop/api/v1/product/1/edit-image/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"shop",
+								"api",
+								"v1",
+								"product",
+								"1",
+								"edit-image",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "See Product Images",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2MzkwNDA4LCJpYXQiOjE3NTU3ODU2MDgsImp0aSI6IjljMGFhZTU0YjkzNTQyN2FiZWI3NmZmYjMzYmI5ZDM4IiwidXNlcl9pZCI6IjIifQ.bdojS8YzRMczFYD6cR1n4kS8NufWTjQxUohM-jpoWME",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/shop/api/v1/product/1/edit-image/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"shop",
+										"api",
+										"v1",
+										"product",
+										"1",
+										"edit-image",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 14:13:44 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, DELETE, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "265"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"product\": 1,\n        \"image\": \"/media/product_images/tea.jpg\",\n        \"is_main\": true\n    },\n    {\n        \"id\": 2,\n        \"product\": 1,\n        \"image\": \"/media/product_images/tea2.jpg\",\n        \"is_main\": false\n    },\n    {\n        \"id\": 31,\n        \"product\": 1,\n        \"image\": \"/media/product_images/ezio-hd-video-game-7wyqom1v0wfm1j8v.jpg\",\n        \"is_main\": false\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Delete An Image From A Product",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2MzkwNDA4LCJpYXQiOjE3NTU3ODU2MDgsImp0aSI6IjljMGFhZTU0YjkzNTQyN2FiZWI3NmZmYjMzYmI5ZDM4IiwidXNlcl9pZCI6IjIifQ.bdojS8YzRMczFYD6cR1n4kS8NufWTjQxUohM-jpoWME",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/shop/api/v1/product/1/edit-image/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"shop",
+								"api",
+								"v1",
+								"product",
+								"1",
+								"edit-image",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete An Image From A Product",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2MzkwNDA4LCJpYXQiOjE3NTU3ODU2MDgsImp0aSI6IjljMGFhZTU0YjkzNTQyN2FiZWI3NmZmYjMzYmI5ZDM4IiwidXNlcl9pZCI6IjIifQ.bdojS8YzRMczFYD6cR1n4kS8NufWTjQxUohM-jpoWME",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/shop/api/v1/product/1/edit-image/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"shop",
+										"api",
+										"v1",
+										"product",
+										"1",
+										"edit-image",
+										""
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 14:13:59 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, DELETE, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "40"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Image deleted successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Add Image For A Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2MzkwNDA4LCJpYXQiOjE3NTU3ODU2MDgsImp0aSI6IjljMGFhZTU0YjkzNTQyN2FiZWI3NmZmYjMzYmI5ZDM4IiwidXNlcl9pZCI6IjIifQ.bdojS8YzRMczFYD6cR1n4kS8NufWTjQxUohM-jpoWME",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/home/nimamze/Pictures/Wallpaper/ezio-hd-video-game-7wyqom1v0wfm1j8v.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/shop/api/v1/product/1/edit-image/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"shop",
+								"api",
+								"v1",
+								"product",
+								"1",
+								"edit-image",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Add Image For A Product",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2MzkwNDA4LCJpYXQiOjE3NTU3ODU2MDgsImp0aSI6IjljMGFhZTU0YjkzNTQyN2FiZWI3NmZmYjMzYmI5ZDM4IiwidXNlcl9pZCI6IjIifQ.bdojS8YzRMczFYD6cR1n4kS8NufWTjQxUohM-jpoWME",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/home/nimamze/Pictures/Wallpaper/ezio-hd-video-game-7wyqom1v0wfm1j8v.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/shop/api/v1/product/1/edit-image/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"shop",
+										"api",
+										"v1",
+										"product",
+										"1",
+										"edit-image",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 14:14:14 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, POST, DELETE, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "117"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 32,\n    \"product\": 1,\n    \"image\": \"/media/product_images/ezio-hd-video-game-7wyqom1v0wfm1j8v_QmBJkbL.jpg\",\n    \"is_main\": false\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -12,7 +12,6 @@ from .serializers import (
     ProductDetailPostSerializer,
     ProductImageSerializer,
 )
-from .filters import ProductFilter
 from ...models import Product, Favorite, Cart, CartItem, ProductImage
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import permission_classes

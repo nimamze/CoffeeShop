@@ -165,22 +165,22 @@
 </head>
 
 <body>
-    <nav class="navbar">
-        <ul>
-            <a class="navbar-brand" href="{% url 'shop:product_list' %}">خانه</a>
-            {% if not request.user.is_authenticated %}
-            <li><a href="{% url 'accounts:login' %}">ورود</a></li>
-            <li><a href="{% url 'accounts:signup' %}">ثبت‌نام</a></li>
-            {% else %}
-            <li><a href="{% url 'accounts:profile' %}">پروفایل</a></li>
-            <li><a href="{% url 'accounts:user_update' %}">ویرایش پروفایل</a></li>
-            <li><a href="{% url 'accounts:favorites' %}">علاقه‌مندی‌ها</a></li>
-            <li><a href="{% url 'shop:cart_items' %}">سبد خرید</a></li>
-            <li><a href="{% url 'accounts:orders' %}">سفارشات</a></li>
-            <li><a href="{% url 'accounts:logout' %}">خروج</a></li>
-            {% endif %}
-        </ul>
-    </nav>
+  <nav class="navbar">
+    <ul>
+      <a class="navbar-brand" href="{% url 'shop:product_list' %}">خانه</a>
+      {% if not request.user.is_authenticated %}
+      <li><a href="{% url 'accounts:login' %}">ورود</a></li>
+      <li><a href="{% url 'accounts:signup' %}">ثبت‌نام</a></li>
+      {% else %}
+      <li><a href="{% url 'accounts:profile' %}">پروفایل</a></li>
+      <li><a href="{% url 'accounts:user_update' %}">ویرایش پروفایل</a></li>
+      <li><a href="{% url 'accounts:favorites' %}">علاقه‌مندی‌ها</a></li>
+      <li><a href="{% url 'shop:cart_items' %}">سبد خرید</a></li>
+      <li><a href="{% url 'accounts:orders' %}">سفارشات</a></li>
+      <li><a href="{% url 'accounts:logout' %}">خروج</a></li>
+      {% endif %}
+    </ul>
+  </nav>
     <div class="container">
         <div class="card">
             <h2>سبد خرید من</h2>

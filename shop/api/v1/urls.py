@@ -10,5 +10,9 @@ urlpatterns = [
         name="product_list_by_category_api",
     ),
     path("product/<int:pk>/", ProductDetailApi.as_view(), name="product_api"),
-    path("product/<int:pk>/edit-image/", ProductImageEditApi.as_view(), name="product_image_api"),
+    path(
+        "product/<int:pk>/edit-image/",
+        ProductImageEditApi.as_view(),
+        name="product_image_api",
+    ),
 ]

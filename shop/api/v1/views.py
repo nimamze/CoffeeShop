@@ -23,25 +23,25 @@ class ProductListApi(APIView):
     def get(self, request, name=None):
         categories = Category.objects.all()
         category_data = CategorySerializer(categories, many=True).data
+        products = Product.objects.all()
+        q = Q()
         if name:
-            category = get_object_or_404(Category, name=name)
-            products = Product.objects.filter(categories=category)
-        else:
-            products = Product.objects.all()
+            q |= Q(categories__name__icontains=name)
+
         tags = request.query_params.getlist("tags")
         if tags:
-            products = products.filter(tags__name__in=tags).distinct()
+            for tag in tags:
+                q |= Q(tags__name__icontains=tag)
 
-        search = request.query_params.get("search")
-        if search:
-            products = products.filter(
-                Q(name__icontains=search) | Q(description__icontains=search)
-            )
-
-        filtered_products = ProductFilter(request.GET, queryset=products).qs
+        search_terms = request.query_params.getlist("search")
+        if search_terms:
+            for term in search_terms:
+                q |= Q(name__icontains=term) | Q(description__icontains=term)
+        if q:
+            products = products.filter(q).distinct()
         paginator = PageNumberPagination()
-        paginator.page_size = 4  # type: ignore
-        result_page = paginator.paginate_queryset(filtered_products, request)
+        paginator.page_size = int(request.query_params.get("page_size", 5))
+        result_page = paginator.paginate_queryset(products, request)
         product_data = ProductSerializer(result_page, many=True).data
         return paginator.get_paginated_response(
             {

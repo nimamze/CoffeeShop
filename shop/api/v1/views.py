@@ -25,6 +25,7 @@ from .serializers import (
     ProductDetailPostSerializer,
     ProductImageSerializer,
     CommentSerializer,
+    OrderSerializer,
 )
 from django.shortcuts import get_object_or_404
 
@@ -95,9 +96,9 @@ class ProductDetailApi(APIView):
         if fav:
             Favorite.objects.get_or_create(customer=user, product=product)
             return Response(
-                    {"message": "product added to favorite successfully"},
-                    status=status.HTTP_200_OK,
-                )
+                {"message": "product added to favorite successfully"},
+                status=status.HTTP_200_OK,
+            )
 
         if comment and score:
             has_purchased = Order.objects.filter(
@@ -113,9 +114,9 @@ class ProductDetailApi(APIView):
                 has_purchased=has_purchased,
             )
             return Response(
-                    {"message": "comment added successfully"},
-                    status=status.HTTP_200_OK,
-                )
+                {"message": "comment added successfully"},
+                status=status.HTTP_200_OK,
+            )
 
         if order_amount and order_amount > 0:
             if product.availability:
@@ -224,3 +225,15 @@ class ProductOrder(APIView):
             {"message": "your have ordered!"}, status=status.HTTP_201_CREATED
         )
 
+
+class OrderList(APIView):
+    permission_classes = [IsAdminUser]
+
+    def get(self, request):
+        orders = Order.objects.all()
+        if not orders.exists():
+            return Response(
+                {"message": "No order has been added yet"}, status=status.HTTP_200_OK
+            )
+        serializer = OrderSerializer(orders, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

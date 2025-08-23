@@ -1,4 +1,4 @@
-from ...models import Category, Product, Tag, ProductImage, Comment, Ingredient
+from ...models import Category, Product, Tag, ProductImage, Comment, Order
 from rest_framework import serializers
 
 
@@ -32,7 +32,10 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
-    ingredients = serializers.SlugRelatedField(many=True, read_only=True, slug_field = "name")
+    ingredients = serializers.SlugRelatedField(
+        many=True, read_only=True, slug_field="name"
+    )
+
     class Meta:
         model = Product
         fields = ["id", "name", "price", "availability", "ingredients", "stock", "tags"]
@@ -53,7 +56,14 @@ class ProductImageSerializer(serializers.ModelSerializer):
         fields = ["id", "product", "image", "is_main"]
         read_only_fields = ["id", "product"]
 
+
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
+        fields = "__all__"
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
         fields = "__all__"

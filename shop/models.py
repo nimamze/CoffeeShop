@@ -149,6 +149,9 @@ class Order(models.Model):
         verbose_name="وضعیت سفارش",
     )
 
+    class Meta:
+        ordering = ["-created_at"]
+
     def __str__(self):
         return f"سفارش #{self.id} توسط {self.customer.get_full_name()}"  # type: ignore
 

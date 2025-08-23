@@ -208,7 +208,7 @@ def checkout(request):
     for item in cart.cart_items.all():  # type: ignore
         OrderItem.objects.create(
             order=order,
-            product_name=item.product.name,
+            product=item.product,
             quantity=item.quantity,
             price_at_purchase=item.product.price,
         )

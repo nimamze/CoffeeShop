@@ -16,6 +16,7 @@ from shop.models import (
     ProductImage,
     Order,
     OrderItem,
+    Comment,
 )
 from .serializers import (
     CategorySerializer,
@@ -23,6 +24,7 @@ from .serializers import (
     ProductDetailSerializer,
     ProductDetailPostSerializer,
     ProductImageSerializer,
+    CommentSerializer,
 )
 from django.shortcuts import get_object_or_404
 
@@ -67,8 +69,15 @@ class ProductListApi(APIView):
 class ProductDetailApi(APIView):
     def get(self, request, pk):
         product = get_object_or_404(Product, pk=pk)
-        serializer = ProductDetailSerializer(product)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        comments = Comment.objects.filter(product=product, is_confirmed=True)
+
+        product_serializer = ProductDetailSerializer(product)
+        data1 = product_serializer.data
+        comment_serializer = CommentSerializer(comments, many=True)
+        data2 = comment_serializer.data
+
+        combined_data = {"product_detail": data1, "comments": data2}
+        return Response(combined_data, status=status.HTTP_200_OK)
 
     @swagger_auto_schema(security=[{"Bearer": []}])
     @permission_classes([IsAuthenticated])
@@ -78,8 +87,11 @@ class ProductDetailApi(APIView):
         data = serializer.validated_data
         fav = data.get("favorite")  # type: ignore
         order_amount = data.get("order_amount")  # type: ignore
+        comment = data.get("comment")  # type: ignore
+        score = data.get("score")  # type: ignore
         user = request.user
         product = get_object_or_404(Product, pk=pk)
+        print(comment, score, user)
 
         if fav:
             Favorite.objects.get_or_create(customer=user, product=product)
@@ -100,6 +112,19 @@ class ProductDetailApi(APIView):
                 CartItem.objects.create(
                     cart=cart, product=product, quantity=order_amount
                 )
+                if comment and score:
+                    has_purchased = Order.objects.filter(
+                        customer=user,
+                        order_items__product=product.id,  # type: ignore
+                    ).exists()
+
+                    Comment.objects.create(
+                        text=comment,
+                        score=score,
+                        product=product,
+                        customer=user,
+                        has_purchased=has_purchased,
+                    )
                 product.save()
                 return Response(
                     {"message": "product added to cart successfully?"},
@@ -183,7 +208,7 @@ class ProductOrder(APIView):
                 quantity=item.quantity,
                 price_at_purchase=item.product.price,
             )
-        user_cart.cart_items.all().delete() # type: ignore
+        user_cart.cart_items.all().delete()  # type: ignore
         user_cart.is_active = False
         user_cart.save()
         return Response(

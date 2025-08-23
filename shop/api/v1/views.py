@@ -224,12 +224,3 @@ class ProductOrder(APIView):
             {"message": "your have ordered!"}, status=status.HTTP_201_CREATED
         )
 
-    # item = get_object_or_404(CartItem, pk=pk, cart__customer=request.user)
-    # item_name = item.product.name
-    # item.product.stock = item.product.stock + item.quantity
-    # item.product.save()
-    # item.delete()
-    # return Response(
-    #     {"message": f"{item_name} has been deleted from your cart"},
-    #     status=status.HTTP_200_OK,
-    # )

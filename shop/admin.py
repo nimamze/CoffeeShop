@@ -87,8 +87,8 @@ class OrderAdmin(admin.ModelAdmin):
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
-    list_display = ("id", "order", "product_name", "quantity", "price_at_purchase")
-    search_fields = ("product_name", "order__customer__username")
+    list_display = ("id", "order", "product", "quantity", "price_at_purchase")
+    search_fields = ("product", "order__customer__username")
 
 
 @admin.register(Comment)

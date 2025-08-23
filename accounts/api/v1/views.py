@@ -33,7 +33,7 @@ class SignUpApi(APIView):
                 fail_silently=False,
             )
         if ser_data.is_valid():
-            user_info = ser_data.validated_data.copy() # type: ignore
+            user_info = ser_data.validated_data.copy()  # type: ignore
             uploaded_file = user_info.pop("image", None)
             temp_path = None
             if uploaded_file:
@@ -68,7 +68,7 @@ class SignUpConfirmApi(APIView):
     def post(self, request):
         otp_serializer = OtpSerializer(data=request.data)
         if otp_serializer.is_valid():
-            otp_in = otp_serializer.validated_data.get("otp") # type: ignore
+            otp_in = otp_serializer.validated_data.get("otp")  # type: ignore
             otp_match = request.session.get("info", {}).get("otp_input")
             temp_image_path = request.session.get("info", {}).get("temp_image_path")
             image_file = None
@@ -121,11 +121,6 @@ class ProfileApi(APIView):
             "favorites": list(
                 Favorite.objects.filter(customer=user).values("id", "product_id")
             ),
-            "orders": list(
-                Order.objects.filter(customer=user).values(
-                    "id", "total_amount", "status"
-                )
-            ),
             "cart_items": list(
                 CartItem.objects.filter(cart__customer=user).values(
                     "id", "product_id", "quantity"
@@ -138,7 +133,7 @@ class ProfileApi(APIView):
     def delete(self, request):
         serializer = SelectFavoriteSerializer(data=request.data)
         if serializer.is_valid():
-            id = serializer.validated_data.get("id") # type: ignore
+            id = serializer.validated_data.get("id")  # type: ignore
             favorite = Favorite.objects.filter(pk=id, customer=request.user).first()
             if favorite:
                 favorite.delete()

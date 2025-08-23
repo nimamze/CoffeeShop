@@ -288,7 +288,7 @@
 							"formdata": [
 								{
 									"key": "otp",
-									"value": "53",
+									"value": "99",
 									"type": "text"
 								}
 							]
@@ -407,12 +407,12 @@
 							"formdata": [
 								{
 									"key": "phone",
-									"value": "09128997804",
+									"value": "09123387622",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "nima2181",
+									"value": "2181",
 									"type": "text"
 								}
 							]
@@ -536,7 +536,7 @@
 							"formdata": [
 								{
 									"key": "refresh",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NjM4NzY2MiwiaWF0IjoxNzU1NzgyODYyLCJqdGkiOiJmY2M3MTE4MmNjOWY0MDJmYmQ2OGY3OWU4MjgxMGQ2YiIsInVzZXJfaWQiOiIxMiJ9.zbOgj1Y6XEhf8wx5uUKmmS6TVaKQ4tjJGBeKPnuwoSI",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NjQ2NTU2MSwiaWF0IjoxNzU1ODYwNzYxLCJqdGkiOiJlNjg1NGRmM2EwNDk0YWQ5OGMzZTE3NTI5OGUzMDVkOCIsInVzZXJfaWQiOiIxNSJ9.hHoCpErZI8b10vsLrMazI61ME-UX4niwLOAV3ZgvsAs",
 									"type": "text"
 								}
 							]
@@ -654,7 +654,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2MzkwMTAzLCJpYXQiOjE3NTU3ODUzMDMsImp0aSI6ImM2OThmYjdkYjhmYzQ0MWQ5YTVjN2EzNjFlYjA3Mjk0IiwidXNlcl9pZCI6IjE0In0.ZVnigCPHRvngMaYa1Sa3WfhG95CMPn9D-T2xy6diEsw",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2NDY1NTgyLCJpYXQiOjE3NTU4NjA3ODIsImp0aSI6Ijg0Mzc2ODFkMTFkNDQwNmRiNDNkNDMzODA2OWUzYThiIiwidXNlcl9pZCI6IjE1In0.HReT-ti9Nyz9XQ3hGHD-TqV6HeT1nvJJLrg20_ZOzX8",
 								"type": "text"
 							}
 						],
@@ -765,7 +765,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2Mzg3NzA1LCJpYXQiOjE3NTU3ODI5MDUsImp0aSI6IjVlYjQ1Njc5MmRmNTRlOTlhZmNmMzAzYzY4YWJjOWVjIiwidXNlcl9pZCI6IjEyIn0.sJdojd9UIvglNSVZBBc1ziv2BLNVn-3GyCa0T_L8T70",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2NDY1NTgyLCJpYXQiOjE3NTU4NjA3ODIsImp0aSI6Ijg0Mzc2ODFkMTFkNDQwNmRiNDNkNDMzODA2OWUzYThiIiwidXNlcl9pZCI6IjE1In0.HReT-ti9Nyz9XQ3hGHD-TqV6HeT1nvJJLrg20_ZOzX8",
 								"type": "text"
 							}
 						],
@@ -773,9 +773,9 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "last_name",
-									"value": "Mze",
-									"type": "text"
+									"key": "image",
+									"type": "file",
+									"src": "/home/nimamze/Pictures/Wallpaper/assassins-creed-unity-video-game-40-1920x1080.jpg"
 								}
 							]
 						},
@@ -1126,7 +1126,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/shop/api/v1/products/?name=%D9%82%D9%87%D9%88%D9%87",
+							"raw": "http://127.0.0.1:8000/shop/api/v1/products/?name=چای",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -1145,7 +1145,7 @@
 							"query": [
 								{
 									"key": "name",
-									"value": "%D9%82%D9%87%D9%88%D9%87"
+									"value": "چای"
 								}
 							]
 						}
@@ -2043,6 +2043,101 @@
 					]
 				},
 				{
+					"name": "Add comment for product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2NTY3NDg3LCJpYXQiOjE3NTU5NjI2ODcsImp0aSI6IjJkMDFiODcxMDdiZTRiNGU4NGNmZmZhZTEwZjRhNGJkIiwidXNlcl9pZCI6IjE1In0.-0NwZutaQUPc1A9kYCcglAgIDOXQqM-2XcXGaTKQ1ws",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "comment",
+									"value": "good",
+									"type": "text"
+								},
+								{
+									"key": "score",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/shop/api/v1/product/1/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"shop",
+								"api",
+								"v1",
+								"product",
+								"1",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Add comment for product",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2MzkwMTAzLCJpYXQiOjE3NTU3ODUzMDMsImp0aSI6ImM2OThmYjdkYjhmYzQ0MWQ5YTVjN2EzNjFlYjA3Mjk0IiwidXNlcl9pZCI6IjE0In0.ZVnigCPHRvngMaYa1Sa3WfhG95CMPn9D-T2xy6diEsw",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "order_amount",
+											"value": "2",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/shop/api/v1/product/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"shop",
+										"api",
+										"v1",
+										"product",
+										"1",
+										""
+									]
+								}
+							},
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
 					"name": "See Product Images",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -2052,7 +2147,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2MzkwNDA4LCJpYXQiOjE3NTU3ODU2MDgsImp0aSI6IjljMGFhZTU0YjkzNTQyN2FiZWI3NmZmYjMzYmI5ZDM4IiwidXNlcl9pZCI6IjIifQ.bdojS8YzRMczFYD6cR1n4kS8NufWTjQxUohM-jpoWME",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2NTQ1NDkwLCJpYXQiOjE3NTU5NDA2OTAsImp0aSI6IjgzYjU5MDM0NWJiYjQzOGRiMTc0ZDQ5OGU5NmNlODkwIiwidXNlcl9pZCI6IjE1In0.pApuhDk1PP58GE3Le2cv1b8wK3vRAfbxAwis_ZHXRTQ",
 								"type": "text"
 							}
 						],
@@ -2435,6 +2530,152 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"id\": 32,\n    \"product\": 1,\n    \"image\": \"/media/product_images/ezio-hd-video-game-7wyqom1v0wfm1j8v_QmBJkbL.jpg\",\n    \"is_main\": false\n}"
+						}
+					]
+				},
+				{
+					"name": "Order Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2NTUwNDQ0LCJpYXQiOjE3NTU5NDU2NDQsImp0aSI6ImY1OTcxYzYzOWNjNTQxNDRiYTk3NDNlNTY3MTIzNzM2IiwidXNlcl9pZCI6IjE1In0.fVsHu-HvYEzsN8WzgflB1gGbssTlLqe4w80UtfEyybc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/shop/api/v1/order/1/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"shop",
+								"api",
+								"v1",
+								"order",
+								"1",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Order Product",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2NTUwNDQ0LCJpYXQiOjE3NTU5NDU2NDQsImp0aSI6ImY1OTcxYzYzOWNjNTQxNDRiYTk3NDNlNTY3MTIzNzM2IiwidXNlcl9pZCI6IjE1In0.fVsHu-HvYEzsN8WzgflB1gGbssTlLqe4w80UtfEyybc",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/shop/api/v1/order/1/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"shop",
+										"api",
+										"v1",
+										"order",
+										"1",
+										""
+									]
+								}
+							},
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Orders List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2NTY3MTIwLCJpYXQiOjE3NTU5NjIzMjAsImp0aSI6IjhiNmRkZTM0YjJmNTQ1ODViYjM4NDc5MzFkZmEzM2FjIiwidXNlcl9pZCI6IjE1In0.LsB1YGYkCowPmv8sVVz5lT3wGFyN8upNXjnmQDt2UB0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/shop/api/v1/orders-list/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"shop",
+								"api",
+								"v1",
+								"orders-list",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Orders List",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2NTY3MTIwLCJpYXQiOjE3NTU5NjIzMjAsImp0aSI6IjhiNmRkZTM0YjJmNTQ1ODViYjM4NDc5MzFkZmEzM2FjIiwidXNlcl9pZCI6IjE1In0.LsB1YGYkCowPmv8sVVz5lT3wGFyN8upNXjnmQDt2UB0",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8000/shop/api/v1/orders-list/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"shop",
+										"api",
+										"v1",
+										"orders-list",
+										""
+									]
+								}
+							},
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [],
+							"body": ""
 						}
 					]
 				}

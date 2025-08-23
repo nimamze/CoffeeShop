@@ -91,10 +91,31 @@ class ProductDetailApi(APIView):
         score = data.get("score")  # type: ignore
         user = request.user
         product = get_object_or_404(Product, pk=pk)
-        print(comment, score, user)
 
         if fav:
             Favorite.objects.get_or_create(customer=user, product=product)
+            return Response(
+                    {"message": "product added to favorite successfully"},
+                    status=status.HTTP_200_OK,
+                )
+
+        if comment and score:
+            has_purchased = Order.objects.filter(
+                customer=user,
+                order_items__product=product.id,  # type: ignore
+            ).exists()
+
+            Comment.objects.create(
+                text=comment,
+                score=score,
+                product=product,
+                customer=user,
+                has_purchased=has_purchased,
+            )
+            return Response(
+                    {"message": "comment added successfully"},
+                    status=status.HTTP_200_OK,
+                )
 
         if order_amount and order_amount > 0:
             if product.availability:
@@ -112,19 +133,7 @@ class ProductDetailApi(APIView):
                 CartItem.objects.create(
                     cart=cart, product=product, quantity=order_amount
                 )
-                if comment and score:
-                    has_purchased = Order.objects.filter(
-                        customer=user,
-                        order_items__product=product.id,  # type: ignore
-                    ).exists()
 
-                    Comment.objects.create(
-                        text=comment,
-                        score=score,
-                        product=product,
-                        customer=user,
-                        has_purchased=has_purchased,
-                    )
                 product.save()
                 return Response(
                     {"message": "product added to cart successfully?"},

@@ -74,7 +74,7 @@ class ProductDetailView(DetailView):
             customer = request.user
 
             has_purchased = Order.objects.filter(
-                customer=customer, order_items__product_name=product.name
+                customer=customer, order_items__product=product
             ).exists()
 
             Comment.objects.create(

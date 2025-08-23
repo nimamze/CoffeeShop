@@ -7,13 +7,14 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.db.models import Q
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import permission_classes
-from shop.models import Category, Product, Favorite, Cart, CartItem, ProductImage
+from shop.models import Category, Product, Favorite, Cart, CartItem, ProductImage, Order, Comment
 from .serializers import (
     CategorySerializer,
     ProductSerializer,
     ProductDetailSerializer,
     ProductDetailPostSerializer,
     ProductImageSerializer,
+    CommentSerializer,
 )
 
 
@@ -57,8 +58,16 @@ class ProductListApi(APIView):
 class ProductDetailApi(APIView):
     def get(self, request, pk):
         product = get_object_or_404(Product, pk=pk)
-        serializer = ProductDetailSerializer(product)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        comments = Comment.objects.filter(product=product ,is_confirmed=True)
+
+        product_serializer = ProductDetailSerializer(product)
+        data1 = product_serializer.data
+        comment_serializer = CommentSerializer(comments, many=True)
+        data2 = comment_serializer.data
+
+        combined_data = {"product_detail": data1,
+                         "comments": data2 }
+        return Response(combined_data, status=status.HTTP_200_OK)
 
     @swagger_auto_schema(security=[{"Bearer": []}])
     @permission_classes([IsAuthenticated])
@@ -68,8 +77,11 @@ class ProductDetailApi(APIView):
         data = serializer.validated_data
         fav = data.get("favorite")  # type: ignore
         order_amount = data.get("order_amount")  # type: ignore
+        comment = data.get("comment") # type: ignore
+        score = data.get("score") # type: ignore
         user = request.user
         product = get_object_or_404(Product, pk=pk)
+        print(comment, score, user)
 
         if fav:
             Favorite.objects.get_or_create(customer=user, product=product)
@@ -86,6 +98,19 @@ class ProductDetailApi(APIView):
             cart, _ = Cart.objects.get_or_create(customer=user)
             CartItem.objects.create(cart=cart, product=product, quantity=order_amount)
             product.save()
+
+        if comment and score:
+            has_purchased = Order.objects.filter(
+                customer=user, order_items__product=product.id
+            ).exists()
+
+            Comment.objects.create(
+                text=comment,
+                score=score,
+                product=product,
+                customer=user,
+                has_purchased=has_purchased,
+            )
 
         return Response(status=status.HTTP_200_OK)
 

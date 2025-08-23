@@ -1,4 +1,4 @@
-from ...models import Category, Product, Tag, ProductImage
+from ...models import Category, Product, Tag, ProductImage, Comment
 from rest_framework import serializers
 
 
@@ -38,8 +38,12 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 
 
 class ProductDetailPostSerializer(serializers.Serializer):
+    SCORE_CHOICES = [(i, str(i)) for i in range(1, 6)]
+
     favorite = serializers.BooleanField(required=False)
     order_amount = serializers.IntegerField(required=False)
+    comment = serializers.CharField(required=False)
+    score = serializers.ChoiceField(choices=SCORE_CHOICES, required=False)
 
 
 class ProductImageSerializer(serializers.ModelSerializer):
@@ -47,3 +51,8 @@ class ProductImageSerializer(serializers.ModelSerializer):
         model = ProductImage
         fields = ["id", "product", "image", "is_main"]
         read_only_fields = ["id", "product"]
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = "__all__"

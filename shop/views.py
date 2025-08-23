@@ -1,4 +1,4 @@
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest
 from django.urls import reverse
 from django.views import View
 from django.shortcuts import get_object_or_404, render, redirect
@@ -55,7 +55,7 @@ class ProductDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         product = self.get_object()
         product.refresh_from_db()
-        context["form"] = CartAddForm()
+        context["form"] = CartAddForm(stock=product.stock) # type: ignore
         context["comment_form"] = CommentForm(prefix="comment")
         context["comments"] = self.get_comment_queryset()
         context["average_score"] = self.get_average_score()

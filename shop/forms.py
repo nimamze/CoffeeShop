@@ -18,10 +18,7 @@ class CartAddForm(forms.Form):
         stock = kwargs.pop("stock", None)
         super().__init__(*args, **kwargs)
         if stock is not None:
-            # ولیدیشن سمت سرور
             self.fields["quantity"].max_value = stock  # type: ignore
-
-            # محدودیت سمت مرورگر
             self.fields["quantity"].widget.attrs.update({"max": stock})
 
 

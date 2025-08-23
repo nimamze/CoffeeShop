@@ -114,11 +114,18 @@ class ProductDetailApi(APIView):
                 has_purchased=has_purchased,
             )
             return Response(
-                {"message": "comment added successfully"},
+                {
+                    "message": "comment and score added successfully But will shown when admin verify it"
+                },
                 status=status.HTTP_200_OK,
             )
 
-        if order_amount and order_amount > 0:
+        if order_amount:
+            if order_amount < 0:
+                return Response(
+                    {"message": "please enter a positive order amount!"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
             if product.availability:
                 if product.stock < order_amount:
                     return Response(
@@ -144,10 +151,6 @@ class ProductDetailApi(APIView):
                 {"message": "sorry this product has been finished"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        return Response(
-            {"message": "please enter a positive order amount!"},
-            status=status.HTTP_400_BAD_REQUEST,
-        )
 
 
 class ProductImageEditApi(APIView):

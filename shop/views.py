@@ -186,15 +186,6 @@ def checkout(request):
         messages.error(request, "سبد خرید شما خالی است.")
         return redirect("shop:cart_items")
 
-    # چک کردن موجودی کافی قبل از ثبت سفارش
-    for item in cart.cart_items.select_related("product").all():  # type: ignore
-        if item.quantity > item.product.stock:
-            messages.error(
-                request,
-                f"محصول '{item.product.name}' به اندازه کافی موجود نیست. موجودی فعلی: {item.product.stock} عدد.",
-            )
-            return redirect("shop:cart_items")
-
     if hasattr(cart, "cart_order") and cart.cart_order:  # type: ignore
         messages.warning(request, "برای این سبد قبلاً سفارش ثبت شده است.")
         return redirect("shop:cart_items")

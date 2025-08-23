@@ -7,7 +7,16 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.db.models import Q
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import permission_classes
-from shop.models import Category, Product, Favorite, Cart, CartItem, ProductImage
+from shop.models import (
+    Category,
+    Product,
+    Favorite,
+    Cart,
+    CartItem,
+    ProductImage,
+    Order,
+    OrderItem,
+)
 from .serializers import (
     CategorySerializer,
     ProductSerializer,
@@ -15,6 +24,7 @@ from .serializers import (
     ProductDetailPostSerializer,
     ProductImageSerializer,
 )
+from django.shortcuts import get_object_or_404
 
 
 class ProductListApi(APIView):
@@ -74,20 +84,35 @@ class ProductDetailApi(APIView):
         if fav:
             Favorite.objects.get_or_create(customer=user, product=product)
 
-        if order_amount and order_amount > 0 and product.availability:
-            if product.stock < order_amount:
-                return Response(
-                    {"message": "Cannot order more than product stock"},
-                    status=status.HTTP_400_BAD_REQUEST,
+        if order_amount and order_amount > 0:
+            if product.availability:
+                if product.stock < order_amount:
+                    return Response(
+                        {"message": "Cannot order more than product stock"},
+                        status=status.HTTP_400_BAD_REQUEST,
+                    )
+                product.stock -= order_amount
+                if product.stock == 0:
+                    product.availability = False
+                cart, created = Cart.objects.get_or_create(
+                    customer=user, is_active=True
                 )
-            product.stock -= order_amount
-            if product.stock == 0:
-                product.availability = False
-            cart, _ = Cart.objects.get_or_create(customer=user)
-            CartItem.objects.create(cart=cart, product=product, quantity=order_amount)
-            product.save()
-
-        return Response(status=status.HTTP_200_OK)
+                CartItem.objects.create(
+                    cart=cart, product=product, quantity=order_amount
+                )
+                product.save()
+                return Response(
+                    {"message": "product added to cart successfully?"},
+                    status=status.HTTP_200_OK,
+                )
+            return Response(
+                {"message": "sorry this product has been finished"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        return Response(
+            {"message": "please enter a positive order amount!"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
 
 
 class ProductImageEditApi(APIView):
@@ -115,3 +140,62 @@ class ProductImageEditApi(APIView):
         image = get_object_or_404(ProductImage, pk=image_id, product_id=pk)
         image.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class ProductOrder(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            user_cart = Cart.objects.get(customer=request.user, is_active=True)
+        except Cart.DoesNotExist:
+            return Response(
+                {"message": "Your active cart could not be found or is empty."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        if not user_cart.cart_items.exists():  # type: ignore
+            return Response(
+                {"message": "your cart is empty"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        try:
+            if user_cart.cart_order.status == "pending":  # type: ignore
+                return Response(
+                    {
+                        "message": "admin has not verified your previous order state yet and it's on pending"
+                    },
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+        except:
+            pass
+        order = Order.objects.create(
+            customer=request.user,
+            cart=user_cart,
+            total_price=user_cart.get_total_price(),
+        )
+        user_cart.cart_order = order  # type: ignore
+        user_cart.save()
+
+        for item in user_cart.cart_items.all():  # type: ignore
+            OrderItem.objects.create(
+                order=order,
+                product=item.product,
+                quantity=item.quantity,
+                price_at_purchase=item.product.price,
+            )
+        user_cart.cart_items.all().delete() # type: ignore
+        user_cart.is_active = False
+        user_cart.save()
+        return Response(
+            {"message": "your have ordered!"}, status=status.HTTP_201_CREATED
+        )
+
+    # item = get_object_or_404(CartItem, pk=pk, cart__customer=request.user)
+    # item_name = item.product.name
+    # item.product.stock = item.product.stock + item.quantity
+    # item.product.save()
+    # item.delete()
+    # return Response(
+    #     {"message": f"{item_name} has been deleted from your cart"},
+    #     status=status.HTTP_200_OK,
+    # )

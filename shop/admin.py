@@ -80,7 +80,7 @@ class ProductCategoryFilter(admin.SimpleListFilter):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ("id", "customer", "created_at", "total_price")
+    list_display = ("id", "customer", "created_at", "total_price", "status")
     list_filter = ("created_at", ProductCategoryFilter)
     search_fields = ("customer__username",)
 

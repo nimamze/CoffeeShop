@@ -25,8 +25,7 @@ class ProductSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(many=True, read_only=True)
     tags = TagSerializer(many=True, read_only=True)
     main_image = serializers.SerializerMethodField()
-    images = ProductImageSerializer(
-        many=True, source="product_images", read_only=True)
+    images = ProductImageSerializer(many=True, source="product_images", read_only=True)
 
     class Meta:
         model = Product
@@ -39,7 +38,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "description",
             "tags",
             "main_image",
-            "images"
+            "images",
         ]
 
     def get_main_image(self, obj):
@@ -53,8 +52,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ["id", "name", "price", "availability",
-                  "ingredients", "stock", "tags"]
+        fields = ["id", "name", "price", "availability", "ingredients", "stock", "tags"]
 
 
 class ProductDetailPostSerializer(serializers.Serializer):
@@ -72,15 +70,17 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class OrderSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Order
-        fields = "__all__"
-
-
 class OrderDetailSerializer(serializers.ModelSerializer):
     product = ProductSerializer(read_only=True)
 
     class Meta:
         model = OrderItem
         fields = ["id", "order", "product", "quantity", "price_at_purchase"]
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    order_items = OrderDetailSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Order
+        fields = "__all__"

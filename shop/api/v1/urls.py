@@ -5,7 +5,7 @@ from .views import (
     ProductImageEditApi,
     ProductOrder,
     OrderList,
-    OrderDetail
+    OrderDetail,
 )
 
 
@@ -16,8 +16,7 @@ urlpatterns = [
         ProductListApi.as_view(),
         name="product_list_by_category_api",
     ),
-    path("product/<int:pk>/", ProductDetailApi.as_view(),
-         name="product_detail_api"),
+    path("product/<int:pk>/", ProductDetailApi.as_view(), name="product_detail_api"),
     path(
         "product/<int:pk>/edit-image/",
         ProductImageEditApi.as_view(),
@@ -25,5 +24,5 @@ urlpatterns = [
     ),
     path("order/", ProductOrder.as_view(), name="product_order_api"),
     path("orders-list/", OrderList.as_view(), name="orders_list_api"),
-    path("order/<int:pk>/", OrderDetail.as_view(), name="order_detail_api"),
+    path("order-detail/", OrderDetail.as_view(), name="order_detail_api"),
 ]

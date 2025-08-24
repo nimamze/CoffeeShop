@@ -26,7 +26,6 @@ from .serializers import (
     ProductImageSerializer,
     CommentSerializer,
     OrderSerializer,
-    OrderDetailSerializer
 )
 from django.shortcuts import get_object_or_404
 
@@ -244,16 +243,15 @@ class OrderList(APIView):
 
 
 class OrderDetail(APIView):
-    # permission_classes = [IsAdminUser]
+    permission_classes = [IsAuthenticated]
 
-    def get(self, request, pk):
+    def get(self, request):
         try:
-            order = OrderItem.objects.get(pk=pk)
-        except OrderItem.DoesNotExist:
+            orders = Order.objects.filter(customer=request.user)
+        except Order.DoesNotExist:
             return Response(
-                {"message": "Order not found"},
-                status=status.HTTP_404_NOT_FOUND
+                {"message": "Order not found"}, status=status.HTTP_404_NOT_FOUND
             )
 
-        serializer = OrderDetailSerializer(order)
+        serializer = OrderSerializer(orders, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

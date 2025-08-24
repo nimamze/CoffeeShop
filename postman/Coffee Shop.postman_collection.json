@@ -2130,10 +2130,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": "",
-							"header": [],
+							"_postman_previewlanguage": null,
+							"header": null,
 							"cookie": [],
-							"body": ""
+							"body": null
 						}
 					]
 				},
@@ -2604,10 +2604,10 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": "",
-							"header": [],
+							"_postman_previewlanguage": null,
+							"header": null,
 							"cookie": [],
-							"body": ""
+							"body": null
 						}
 					]
 				},
@@ -2671,6 +2671,50 @@
 										""
 									]
 								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Order Detail",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2NTc4NzM2LCJpYXQiOjE3NTU5NzM5MzYsImp0aSI6ImQ3MDdhNzcwODNkNDRmODNhNmRkZTkyNGMyY2I0MzY4IiwidXNlcl9pZCI6IjE1In0.ey_WE1YNFdLBt7wn3WFDrTcY4HKKMWx0QIqjfhk89bA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/shop/api/v1/order-detail/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"shop",
+								"api",
+								"v1",
+								"order-detail",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Order Detail",
+							"originalRequest": {
+								"method": "GET",
+								"header": []
 							},
 							"_postman_previewlanguage": "",
 							"header": [],

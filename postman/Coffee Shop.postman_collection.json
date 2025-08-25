@@ -648,6 +648,94 @@
 					]
 				},
 				{
+					"name": "Log out",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2MTM5NDg5LCJpYXQiOjE3NTYxMzkxOTAsImp0aSI6ImQzMzA5YmVmZWM0NzQwY2Q4YTgzNzRhOWFiNjUwY2Q3IiwidXNlcl9pZCI6IjE1In0.U1-xqiNs3yf9EA1j20nUh5DrfRysrRMT6hu-Td4OmAg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "refresh",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NjIyNTU4OSwiaWF0IjoxNzU2MTM5MTg5LCJqdGkiOiI1YWQyNzBjZTg5MzM0M2IzYmY4Yjk2ZWYxNDQwYzc0ZiIsInVzZXJfaWQiOiIxNSJ9.I6AuHjTS-MCem58m-NLSYtyLwPMevjue7SM4eAdcqTo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/accounts/api/v1/log-out/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"accounts",
+								"api",
+								"v1",
+								"log-out",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Log out",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2MTM5NDg5LCJpYXQiOjE3NTYxMzkxOTAsImp0aSI6ImQzMzA5YmVmZWM0NzQwY2Q4YTgzNzRhOWFiNjUwY2Q3IiwidXNlcl9pZCI6IjE1In0.U1-xqiNs3yf9EA1j20nUh5DrfRysrRMT6hu-Td4OmAg",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "refresh",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc1NjIyNTU4OSwiaWF0IjoxNzU2MTM5MTg5LCJqdGkiOiI1YWQyNzBjZTg5MzM0M2IzYmY4Yjk2ZWYxNDQwYzc0ZiIsInVzZXJfaWQiOiIxNSJ9.I6AuHjTS-MCem58m-NLSYtyLwPMevjue7SM4eAdcqTo",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8000/accounts/api/v1/log-out/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"accounts",
+										"api",
+										"v1",
+										"log-out",
+										""
+									]
+								}
+							},
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
 					"name": "See Profile",
 					"request": {
 						"method": "GET",
@@ -1121,12 +1209,12 @@
 					]
 				},
 				{
-					"name": "Product By Name",
+					"name": "Product By Category",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/shop/api/v1/products/?name=چای",
+							"raw": "http://127.0.0.1:8000/shop/api/v1/products/?category=چای",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -1144,7 +1232,7 @@
 							],
 							"query": [
 								{
-									"key": "name",
+									"key": "category",
 									"value": "چای"
 								}
 							]
@@ -1152,12 +1240,12 @@
 					},
 					"response": [
 						{
-							"name": "Product By Name",
+							"name": "Product By Category",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://127.0.0.1:8000/shop/api/v1/products/?name=%D9%82%D9%87%D9%88%D9%87",
+									"raw": "http://127.0.0.1:8000/shop/api/v1/products/?name=چای",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -1176,58 +1264,15 @@
 									"query": [
 										{
 											"key": "name",
-											"value": "%D9%82%D9%87%D9%88%D9%87"
+											"value": "چای"
 										}
 									]
 								}
 							},
-							"status": "OK",
-							"code": 200,
 							"_postman_previewlanguage": null,
-							"header": [
-								{
-									"key": "Date",
-									"value": "Thu, 21 Aug 2025 14:09:43 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "WSGIServer/0.2 CPython/3.10.12"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Allow",
-									"value": "GET, HEAD, OPTIONS"
-								},
-								{
-									"key": "X-Frame-Options",
-									"value": "DENY"
-								},
-								{
-									"key": "Content-Length",
-									"value": "408"
-								},
-								{
-									"key": "X-Content-Type-Options",
-									"value": "nosniff"
-								},
-								{
-									"key": "Referrer-Policy",
-									"value": "same-origin"
-								},
-								{
-									"key": "Cross-Origin-Opener-Policy",
-									"value": "same-origin"
-								}
-							],
+							"header": null,
 							"cookie": [],
-							"body": "{\n    \"count\": 1,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": {\n        \"categories\": [\n            {\n                \"id\": 1,\n                \"name\": \"قهوه\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"چای\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"دمنوش\"\n            },\n            {\n                \"id\": 4,\n                \"name\": \"سردنوش\"\n            },\n            {\n                \"id\": 5,\n                \"name\": \"شربت\"\n            },\n            {\n                \"id\": 6,\n                \"name\": \"کیک\"\n            }\n        ],\n        \"products\": [\n            {\n                \"id\": 14,\n                \"name\": \"قهوه سرد دم\",\n                \"price\": \"80.00\",\n                \"categories\": [\n                    {\n                        \"id\": 1,\n                        \"name\": \"قهوه\"\n                    }\n                ],\n                \"availability\": true,\n                \"description\": \"قهوه سرد دم\",\n                \"tags\": []\n            }\n        ]\n    }\n}"
+							"body": null
 						}
 					]
 				},
@@ -1237,7 +1282,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/shop/api/v1/products/?tags=خنک",
+							"raw": "http://127.0.0.1:8000/shop/api/v1/products/?tag=گرم",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -1255,8 +1300,8 @@
 							],
 							"query": [
 								{
-									"key": "tags",
-									"value": "خنک"
+									"key": "tag",
+									"value": "گرم"
 								}
 							]
 						}
@@ -1292,53 +1337,10 @@
 									]
 								}
 							},
-							"status": "OK",
-							"code": 200,
 							"_postman_previewlanguage": null,
-							"header": [
-								{
-									"key": "Date",
-									"value": "Thu, 21 Aug 2025 14:09:52 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "WSGIServer/0.2 CPython/3.10.12"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Vary",
-									"value": "Accept"
-								},
-								{
-									"key": "Allow",
-									"value": "GET, HEAD, OPTIONS"
-								},
-								{
-									"key": "X-Frame-Options",
-									"value": "DENY"
-								},
-								{
-									"key": "Content-Length",
-									"value": "667"
-								},
-								{
-									"key": "X-Content-Type-Options",
-									"value": "nosniff"
-								},
-								{
-									"key": "Referrer-Policy",
-									"value": "same-origin"
-								},
-								{
-									"key": "Cross-Origin-Opener-Policy",
-									"value": "same-origin"
-								}
-							],
+							"header": null,
 							"cookie": [],
-							"body": "{\n    \"count\": 2,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": {\n        \"categories\": [\n            {\n                \"id\": 1,\n                \"name\": \"قهوه\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"چای\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"دمنوش\"\n            },\n            {\n                \"id\": 4,\n                \"name\": \"سردنوش\"\n            },\n            {\n                \"id\": 5,\n                \"name\": \"شربت\"\n            },\n            {\n                \"id\": 6,\n                \"name\": \"کیک\"\n            }\n        ],\n        \"products\": [\n            {\n                \"id\": 21,\n                \"name\": \"خیار و سکنجبین\",\n                \"price\": \"120.00\",\n                \"categories\": [\n                    {\n                        \"id\": 4,\n                        \"name\": \"سردنوش\"\n                    }\n                ],\n                \"availability\": true,\n                \"description\": \"خیار و سکنجبین\",\n                \"tags\": [\n                    {\n                        \"id\": 1,\n                        \"name\": \"خنک\"\n                    },\n                    {\n                        \"id\": 2,\n                        \"name\": \"گرم\"\n                    }\n                ]\n            },\n            {\n                \"id\": 19,\n                \"name\": \"نعنا و لیمو\",\n                \"price\": \"70.00\",\n                \"categories\": [\n                    {\n                        \"id\": 4,\n                        \"name\": \"سردنوش\"\n                    }\n                ],\n                \"availability\": true,\n                \"description\": \"نعنا و لیمو\",\n                \"tags\": [\n                    {\n                        \"id\": 1,\n                        \"name\": \"خنک\"\n                    }\n                ]\n            }\n        ]\n    }\n}"
+							"body": null
 						}
 					]
 				},
@@ -1348,7 +1350,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/shop/api/v1/products/?tags=خنک&tags=گرم",
+							"raw": "http://127.0.0.1:8000/shop/api/v1/products/?tag=خنک&tag=گرم",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -1366,11 +1368,11 @@
 							],
 							"query": [
 								{
-									"key": "tags",
+									"key": "tag",
 									"value": "خنک"
 								},
 								{
-									"key": "tags",
+									"key": "tag",
 									"value": "گرم"
 								}
 							]
@@ -1578,7 +1580,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8000/shop/api/v1/products/?search=%D8%B3%D8%B1%D8%B7%D8%A7%D9%86",
+							"raw": "http://127.0.0.1:8000/shop/api/v1/products/?search=سرطان",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -1597,7 +1599,122 @@
 							"query": [
 								{
 									"key": "search",
-									"value": "%D8%B3%D8%B1%D8%B7%D8%A7%D9%86"
+									"value": "سرطان"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Products By Search In Description",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:8000/shop/api/v1/products/?search=%D8%B3%D8%B1%D8%B7%D8%A7%D9%86",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"shop",
+										"api",
+										"v1",
+										"products",
+										""
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "%D8%B3%D8%B1%D8%B7%D8%A7%D9%86"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 21 Aug 2025 14:10:24 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "WSGIServer/0.2 CPython/3.10.12"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept"
+								},
+								{
+									"key": "Allow",
+									"value": "GET, HEAD, OPTIONS"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Length",
+									"value": "394"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"count\": 1,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": {\n        \"categories\": [\n            {\n                \"id\": 1,\n                \"name\": \"قهوه\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"چای\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"دمنوش\"\n            },\n            {\n                \"id\": 4,\n                \"name\": \"سردنوش\"\n            },\n            {\n                \"id\": 5,\n                \"name\": \"شربت\"\n            },\n            {\n                \"id\": 6,\n                \"name\": \"کیک\"\n            }\n        ],\n        \"products\": [\n            {\n                \"id\": 22,\n                \"name\": \"خاکشیر\",\n                \"price\": \"80.00\",\n                \"categories\": [\n                    {\n                        \"id\": 5,\n                        \"name\": \"شربت\"\n                    }\n                ],\n                \"availability\": true,\n                \"description\": \"ضدسرطان\",\n                \"tags\": []\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Products By Hyybrid Parameter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/shop/api/v1/products/?category=شربت&search=سرطان",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"shop",
+								"api",
+								"v1",
+								"products",
+								""
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "شربت"
+								},
+								{
+									"key": "search",
+									"value": "سرطان"
 								}
 							]
 						}
@@ -2716,10 +2833,10 @@
 								"method": "GET",
 								"header": []
 							},
-							"_postman_previewlanguage": "",
-							"header": [],
+							"_postman_previewlanguage": null,
+							"header": null,
 							"cookie": [],
-							"body": ""
+							"body": null
 						}
 					]
 				}

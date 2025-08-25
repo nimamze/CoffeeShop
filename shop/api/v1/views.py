@@ -8,7 +8,6 @@ from django.db.models import Q
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import permission_classes
 from shop.models import (
-    Category,
     Product,
     Favorite,
     Cart,
@@ -19,7 +18,6 @@ from shop.models import (
     Comment,
 )
 from .serializers import (
-    CategorySerializer,
     ProductSerializer,
     ProductDetailSerializer,
     ProductDetailPostSerializer,
@@ -31,40 +29,31 @@ from django.shortcuts import get_object_or_404
 
 
 class ProductListApi(APIView):
-    def get(self, request, name=None):
-        categories = Category.objects.all()
-        category_data = CategorySerializer(categories, many=True).data
-
+    def get(self, request):
+        category = request.query_params.getlist("category")
+        search = request.query_params.getlist("search")
+        tag = request.query_params.getlist("tag")
         products = Product.objects.all()
-        q = Q()
-
-        if name:
-            q |= Q(categories__name__icontains=name)
-
-        tags = request.query_params.getlist("tags")
-        if tags:
-            for tag in tags:
-                q |= Q(tags__name__icontains=tag)
-
-        search_terms = request.query_params.getlist("search")
-        if search_terms:
-            for term in search_terms:
-                q |= Q(name__icontains=term) | Q(description__icontains=term)
-
-        if q:
-            products = products.filter(q).distinct()
+        if category:
+            products = products.filter(categories__name__in=category)
+        if search:
+            for search_item in search:
+                products = products.filter(
+                    Q(name__icontains=search_item)
+                    | Q(description__icontains=search_item)
+                )
+        # if tag: -> json field query set which can be use only in postgreSql
+        #     for t in tag:
+        #         products = products.filter(tags__contains=[t])
+        if tag:
+            products = [p for p in products if any(t in p.tags for t in tag)]
 
         paginator = PageNumberPagination()
         paginator.page_size = int(request.query_params.get("page_size", 5))
         result_page = paginator.paginate_queryset(products, request)
 
         product_data = ProductSerializer(result_page, many=True).data
-        return paginator.get_paginated_response(
-            {
-                "categories": category_data,
-                "products": product_data,
-            }
-        )
+        return paginator.get_paginated_response({"products": product_data})
 
 
 class ProductDetailApi(APIView):

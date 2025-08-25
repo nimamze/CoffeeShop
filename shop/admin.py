@@ -11,7 +11,6 @@ from .models import (
     CartItem,
     Notification,
     Comment,
-    Tag,
 )
 
 
@@ -39,8 +38,11 @@ class CategoryAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     list_display = ("id", "name", "price", "date_added")
     search_fields = ("name",)
-    list_filter = ("categories", "date_added", "tags")
-    filter_horizontal = ("categories", "ingredients", "tags")
+    list_filter = ("categories", "date_added")
+    filter_horizontal = (
+        "categories",
+        "ingredients",
+    )
 
 
 @admin.register(ProductImage)
@@ -116,9 +118,3 @@ class NotificationAdmin(admin.ModelAdmin):
         self.message_user(
             request, f"{updated} نوتیفیکیشن به‌عنوان خوانده‌شده علامت‌گذاری شد."
         )
-
-
-@admin.register(Tag)
-class TagAdmin(admin.ModelAdmin):
-    list_display = ("id", "name")
-    search_fields = ("name",)

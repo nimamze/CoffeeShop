@@ -152,9 +152,9 @@ EMAIL_HOST_PASSWORD = "ulcp wiay pcuh parc"
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
-STATIC_URL = "/static/"
+# STATIC_URL = "/static/"
 
-STATICFILES_DIRS = [BASE_DIR / "static"]
+# STATICFILES_DIRS = [BASE_DIR / "static"]
 
 
 REST_FRAMEWORK = {
@@ -191,17 +191,34 @@ SWAGGER_SETTINGS = {
 # DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
 
-AWS_ACCESS_KEY_ID = "302c792f-61eb-439d-961a-546d728a5f19"
-AWS_SECRET_ACCESS_KEY = "fee3076833e45c6c2590867e71f7074412e8070cdcd964c1af90cd491b02585b"
-AWS_STORAGE_BUCKET_NAME = "amir-nima-1234"
-AWS_S3_ENDPOINT_URL = "https://s3.ir-thr-at1.arvanstorage.ir"
-AWS_QUERYSTRING_AUTH = False
-AWS_S3_FILE_OVERWRITE = False
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+# AWS_ACCESS_KEY_ID = "302c792f-61eb-439d-961a-546d728a5f19"
+# AWS_SECRET_ACCESS_KEY = "fee3076833e45c6c2590867e71f7074412e8070cdcd964c1af90cd491b02585b"
+# AWS_STORAGE_BUCKET_NAME = "am455ir-django-maktab"
+# AWS_S3_ENDPOINT_URL = "https://s3.ir-thr-at1.arvanstorage.ir"
+# AWS_QUERYSTRING_AUTH = False
+# AWS_S3_FILE_OVERWRITE = False
+# DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+# # MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.ir-thr-at1.arvanstorage.ir/"
+
+
+# # MEDIA_URL = f"{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/"
 
 # MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.ir-thr-at1.arvanstorage.ir/"
+# # MEDIA_ROOT = BASE_DIR / "media"
+# AWS_DEFAULT_ACL = "public-read"
 
 
-MEDIA_URL = f"{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/"
+# --- Arvan S3 Storage ---
+AWS_ACCESS_KEY_ID = "302c792f-61eb-439d-961a-546d728a5f19"
+AWS_SECRET_ACCESS_KEY = "fee3076833e45c6c2590867e71f7074412e8070cdcd964c1af90cd491b02585b"
+AWS_STORAGE_BUCKET_NAME = "am455ir-django-maktab"
+AWS_S3_ENDPOINT_URL = "https://s3.ir-thr-at1.arvanstorage.ir"
 
-MEDIA_ROOT = BASE_DIR / "media"
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = "public-read"
+
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.ir-thr-at1.arvanstorage.ir/"

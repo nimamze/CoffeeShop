@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-=r32r)q7p99j#w9d1fktkvuc@obcy+vm=lb2ojpkt5te4z2-^4"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -40,9 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "accounts.apps.AccountsConfig",
-
     "storages",
-
     "shop.apps.ShopConfig",
     "rest_framework",
     "rest_framework_simplejwt",
@@ -211,7 +209,9 @@ SWAGGER_SETTINGS = {
 
 # --- Arvan S3 Storage ---
 AWS_ACCESS_KEY_ID = "302c792f-61eb-439d-961a-546d728a5f19"
-AWS_SECRET_ACCESS_KEY = "fee3076833e45c6c2590867e71f7074412e8070cdcd964c1af90cd491b02585b"
+AWS_SECRET_ACCESS_KEY = (
+    "fee3076833e45c6c2590867e71f7074412e8070cdcd964c1af90cd491b02585b"
+)
 AWS_STORAGE_BUCKET_NAME = "am455ir-django-maktab"
 AWS_S3_ENDPOINT_URL = "https://s3.ir-thr-at1.arvanstorage.ir"
 

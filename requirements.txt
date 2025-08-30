@@ -13,4 +13,5 @@ pytz==2025.2
 PyYAML==6.0.2
 sqlparse==0.5.3
 tzdata==2025.2
-uritemplate==4.2.0
+uritemplate==4.2.0django-storages==1.14.6
+boto3==1.40.21

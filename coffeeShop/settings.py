@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+from datetime import timedelta
 import os
 from pathlib import Path
 
@@ -24,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-=r32r)q7p99j#w9d1fktkvuc@obcy+vm=lb2ojpkt5te4z2-^4"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,12 +40,15 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "accounts.apps.AccountsConfig",
+
+    "storages",
+
     "shop.apps.ShopConfig",
     "rest_framework",
     "rest_framework_simplejwt",
     "django_filters",
     "drf_yasg",
-    "rest_framework_simplejwt.token_blacklist"
+    "rest_framework_simplejwt.token_blacklist",
 ]
 
 MIDDLEWARE = [
@@ -131,8 +135,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "accounts.CustomUser"
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+# MEDIA_URL = "/media/"
 
 
 # accounts
@@ -149,9 +152,9 @@ EMAIL_HOST_PASSWORD = "ulcp wiay pcuh parc"
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
-STATIC_URL = "/static/"
+# STATIC_URL = "/static/"
 
-STATICFILES_DIRS = [BASE_DIR / "static"]
+# STATICFILES_DIRS = [BASE_DIR / "static"]
 
 
 REST_FRAMEWORK = {
@@ -160,8 +163,6 @@ REST_FRAMEWORK = {
     ),
 }
 
-
-from datetime import timedelta
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
@@ -175,3 +176,49 @@ SWAGGER_SETTINGS = {
         "Token": {"type": "apiKey", "name": "Authorization", "in": "header"},
     }
 }
+
+
+# ARVAN CLOUD
+
+# AWS_ACCESS_KEY_ID = "302c792f-61eb-439d-961a-546d728a5f19"
+# AWS_SECRET_ACCESS_KEY = "fee3076833e45c6c2590867e71f7074412e8070cdcd964c1af90cd491b02585b"
+# AWS_STORAGE_BUCKET_NAME = "amir-nima-1234"
+# AWS_S3_ENDPOINT_URL = 'https://s3.ir-thr-at1.arvanstorage.ir'
+# AWS_QUERYSTRING_AUTH = False
+# # AWS_S3_REGION_NAME = "ir-thr-at1"
+
+# AWS_S3_FILE_OVERWRITE = False
+# DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+
+# AWS_ACCESS_KEY_ID = "302c792f-61eb-439d-961a-546d728a5f19"
+# AWS_SECRET_ACCESS_KEY = "fee3076833e45c6c2590867e71f7074412e8070cdcd964c1af90cd491b02585b"
+# AWS_STORAGE_BUCKET_NAME = "am455ir-django-maktab"
+# AWS_S3_ENDPOINT_URL = "https://s3.ir-thr-at1.arvanstorage.ir"
+# AWS_QUERYSTRING_AUTH = False
+# AWS_S3_FILE_OVERWRITE = False
+# DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+# # MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.ir-thr-at1.arvanstorage.ir/"
+
+
+# # MEDIA_URL = f"{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/"
+
+# MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.ir-thr-at1.arvanstorage.ir/"
+# # MEDIA_ROOT = BASE_DIR / "media"
+# AWS_DEFAULT_ACL = "public-read"
+
+
+# --- Arvan S3 Storage ---
+AWS_ACCESS_KEY_ID = "302c792f-61eb-439d-961a-546d728a5f19"
+AWS_SECRET_ACCESS_KEY = "fee3076833e45c6c2590867e71f7074412e8070cdcd964c1af90cd491b02585b"
+AWS_STORAGE_BUCKET_NAME = "am455ir-django-maktab"
+AWS_S3_ENDPOINT_URL = "https://s3.ir-thr-at1.arvanstorage.ir"
+
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = "public-read"
+
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.ir-thr-at1.arvanstorage.ir/"

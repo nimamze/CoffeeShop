@@ -1,6 +1,15 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
+
+# //////////////////////////////////////////////////////
+from django.db import models
+from storages.backends.s3boto3 import S3Boto3Storage
+
+s3_storage = S3Boto3Storage()
+# //////////////////////////////////////////////////////
+
+
 CustomUser = get_user_model()
 
 
@@ -25,10 +34,12 @@ class Product(models.Model):
     name = models.CharField(max_length=50, verbose_name="نام محصول")
     tags = models.JSONField(default=list, blank=True)
     description = models.TextField(blank=True, verbose_name="توضیحات")
-    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="قیمت")
+    price = models.DecimalField(
+        max_digits=10, decimal_places=2, verbose_name="قیمت")
     availability = models.BooleanField(default=True, verbose_name="موجود است؟")
     date_added = models.DateTimeField(auto_now_add=True)
-    stock = models.PositiveIntegerField(default=10, verbose_name="تعداد موجودی")
+    stock = models.PositiveIntegerField(
+        default=10, verbose_name="تعداد موجودی")
     categories = models.ManyToManyField(
         Category, related_name="category_products", verbose_name="دسته‌ها"
     )
@@ -40,7 +51,8 @@ class Product(models.Model):
         return self.name
 
     def get_main_image(self):
-        main_img = self.product_images.filter(is_main=True).first()  # type: ignore
+        main_img = self.product_images.filter(
+            is_main=True).first()  # type: ignore
         return main_img.image.url if main_img else None
 
 
@@ -48,7 +60,7 @@ class ProductImage(models.Model):
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name="product_images"
     )
-    image = models.ImageField(upload_to="product_images/")
+    image = models.ImageField(upload_to="product_images/", storage=s3_storage)
     uploaded_at = models.DateTimeField(auto_now_add=True)
     is_main = models.BooleanField(default=False, verbose_name="تصویر اصلی؟")
 
@@ -98,14 +110,17 @@ class Cart(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"سبد خرید {self.customer.get_full_name()} - #{self.id}"  # type: ignore
+        # type: ignore
+        return f"سبد خرید {self.customer.get_full_name()} - #{self.id}"
 
     def get_total_price(self):
-        return sum(item.get_total_price() for item in self.cart_items.all())  # type: ignore
+        # type: ignore
+        return sum(item.get_total_price() for item in self.cart_items.all())
 
 
 class CartItem(models.Model):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="cart_items")
+    cart = models.ForeignKey(
+        Cart, on_delete=models.CASCADE, related_name="cart_items")
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name="product_cart_item"
     )
@@ -146,7 +161,8 @@ class Order(models.Model):
         ordering = ["-created_at"]
 
     def __str__(self):
-        return f"سفارش #{self.id} توسط {self.customer.get_full_name()}"  # type: ignore
+        # type: ignore
+        return f"سفارش #{self.id} توسط {self.customer.get_full_name()}"
 
 
 class OrderItem(models.Model):

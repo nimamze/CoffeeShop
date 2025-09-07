@@ -13,7 +13,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
+      /* به جای height */
+      padding: 20px;
+      /* فاصله برای scroll */
     }
 
     .card {
@@ -21,11 +24,14 @@
       padding: 40px;
       border-radius: 20px;
       box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
-      width: 360px;
+      width: 100%;
+      max-width: 360px;
       color: white;
       text-align: center;
       backdrop-filter: blur(20px);
+      overflow: hidden;
     }
+
 
     .card h2 {
       margin-bottom: 10px;

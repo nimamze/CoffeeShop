@@ -17,8 +17,6 @@ INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
     "storages",
     "shop.apps.ShopConfig",
-    "drf_yasg",
-    "rest_framework_simplejwt.token_blacklist",
     "rest_framework",
     "rest_framework_simplejwt",
     "django_filters",
